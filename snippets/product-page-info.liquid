@@ -109,7 +109,7 @@
         {%- comment -%}
         {% include "product-info-links" %}
         {%- endcomment -%}
-
+        
         <div class="cart">
           <div class="add_to_cart clearfix ">
             <div class="variations_button {%- unless current_variant -%}{{" hide"}}{%- endunless -%}{%- if instructions.external_link != blank and instructions.external_btn != blank -%}{{- " hide" -}}{%- endif -%}">
@@ -124,13 +124,6 @@
                   </div>
                 </div>
                 {{ form | payment_terms }}
-
-                {% for t in product.tags %}
-                  {% if t contains 'USCGLWI' %}
-                    <div class="uscglwi-notice"><strong>This is a preorder item. Order cutoff date is August 4th.</strong></div>
-                  {% endif %}
-                {% endfor %}
-                
                 <div id="jm-price-container">
                   <input type="submit" value="{%- unless current_variant.available -%}{{- 'products.product.sold_out' | t | escape -}}{%- else -%}{{- 'products.product.add_to_cart' | t | escape-}}{%- endunless -%}"
                          id="AddToCart-{{ section.id }}"
@@ -243,7 +236,7 @@
             <div class="rt-tab__content w-100">
               <div>
                 <h2>OUT OF STOCK</h2>
-                <p style="margin-bottom:10px">Click the Email When Available and fill in your details. We'll let you know when it's available.</p>
+                <p style="margin-bottom:10px">CLICK THE 'EMAIL WHEN AVAILABLE' BUTTON ABOVE AND FILL IN YOUR DETAILS. WE'LL LET YOU KNOW WHEN THIS ITEM BECOMES AVAILABLE.</p>
               </div>
             </div>
           </div>

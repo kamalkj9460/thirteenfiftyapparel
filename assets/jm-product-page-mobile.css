@@ -366,7 +366,7 @@ label.swatch-label.swatch-label-button, #AddToCart-product-template.cc-dynamic-a
   height: auto !important;
   font-family: Apercu !important;
   font-size: 14px;
-  color: #000;
+  color: #000 !important;
   font-weight: 300 !important;
   background-color: transparent !important;
   text-transform: uppercase;
@@ -1027,21 +1027,4 @@ table.jm-size-guide td {
 .product-viewed-item .money {
   font-family: 'Protract';
   font-size: 16px !important;
-}
-
-#jm-product-description ul {
-  list-style-type: square;
-}
-
-.uscglwi-notice {
-  width: 100%;
-  margin-top: 5px;
-  font-family: Apercu;
-  color: #ff2a00;
-}
-@media (max-width: 767px) {
-  .uscglwi-notice {
-    font-size: 14px;
-    margin-top: 20px;
-  }
 }

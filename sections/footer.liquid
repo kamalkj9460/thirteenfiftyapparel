@@ -115,12 +115,12 @@
                         {%-if block.settings.image_pos != blank-%}
                         {%-if block.settings.image == blank-%}
                         <div class="cb-item--image">
-                        <img class="lazyload w-100" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="https://via.placeholder.com/640x360/ECB39F/ffffff?text=Put%20your%20Image%20here."/>
+                        <img class="lazyloaded w-100" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-class="LazyLoad" data-src="https://via.placeholder.com/640x360/ECB39F/ffffff?text=Put%20your%20Image%20here."/>
                         </div>
                         {%-else-%}
                         {%- assign img_url = block.settings.image | img_url: 'master' -%}
                         <div class="{% if block.settings.fadeoff %} fade-off-bg{% endif %}">
-                        <img class="lazyload w-100" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{img_url}}" alt="{{block.settings.text | strip_html}}"/>
+                        <img class="lazyloaded w-100" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-class="LazyLoad" data-src="{{block.settings.image | img_url: 'master'}}" alt="{{block.settings.text | strip_html}}"/>
                         </div>
                         {%-endif-%}
                         {%-endif-%}

@@ -734,3 +734,22 @@ img.shappify-sales-icon-product {
 .templateCollection .product.product-item-advanced-wrapper:hover #jm-collection-button.jm-button-disable button span {
   color: #000 !important;
 }
+
+/* QUICK VIEW START */
+
+@media (max-width: 768px) {
+  #jm-button-block {
+    display: none !important;
+  }
+  .product-item-content {
+    padding-bottom: 0 !important;
+  }
+  .money {
+    color: #000 !important;
+    font-size: 17px !important;
+    font-weight: bolder;
+  }
+  #jm-collection-button>#price-btn {
+    margin-left: 0 !important; display: flex !important; justify-content: flex-end; border: none !important; background: transparent !important;
+  }
+}

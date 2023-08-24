@@ -80,6 +80,12 @@
   .jm-p-b {
     padding-bottom: 0.5rem !important;
   }
+  .jm-p-l:first-child {
+    padding-left: 0.5rem !important;
+  }
+  .jm-p-r:last-child {
+    padding-right: 0.5rem !important;
+  }
 }
 
 /* Custom CSS for video middle banner */
@@ -288,8 +294,8 @@
 
 .common-home .banner-texting > a:not(.btn-modern):hover {
   background-color: transparent !important;
-  border-color: #fff !important;
-  color: #fff !important;
+/*   border-color: #fff !important; */
+/*   color: #fff !important; */
   opacity: 1 !important;
 }
 
@@ -539,6 +545,9 @@
   .creative-builder .cb-item.banner .banner-content-wrapper.jm-bg-right {
     background-position: 82% center !important;
   }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
   .common-home .banner-texting a {
     font-size: 18px !important;
   }
@@ -575,5 +584,23 @@
 @media (max-width: 767px) {
   #creative-builder-165944600433ee71f0 .banner-content-wrapper {
     margin-bottom: 5px;
+  }
+}
+
+/* off duty and on-duty banners */
+#cb-item-617a69db-a899-43c7-bdf6-996943d5eb4e > div > div,
+#cb-item-76746b5e-9d6a-4bd2-87f3-b58ddaa21dff > div > div {
+  width: 100%;
+  padding-top: 0 !important;
+}
+
+@media (max-width: 991px) {
+  #cb-item-617a69db-a899-43c7-bdf6-996943d5eb4e > div > div > a,
+  #cb-item-76746b5e-9d6a-4bd2-87f3-b58ddaa21dff > div > div > a {
+    font-size: 30px!important;
+  }
+  #cb-item-617a69db-a899-43c7-bdf6-996943d5eb4e > div > div > div,
+  #cb-item-76746b5e-9d6a-4bd2-87f3-b58ddaa21dff > div > div > div {
+    font-size: 60px !important;
   }
 }

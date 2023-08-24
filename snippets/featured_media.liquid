@@ -28,9 +28,10 @@
         {% endif %}
           {%- assign img_url = featured_media | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
           <img id="{{ media_id }}"
-               class="feature-row__image {{ media_class }} lazyload"
-               src="{{ featured_media | img_url: '300x300' }}"
-               data-src="{{  img_url }}"
+               class="feature-row__image {{ media_class }} lazyloaded"
+               src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-class="LazyLoad"
+               data-src="{{ featured_media | img_url: '1080x' }}"
+               data-mob-src="{{ featured_media | img_url: '540x' }}"
                data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
                data-sizes="auto"
                alt="{{ featured_media.alt | escape }}" />

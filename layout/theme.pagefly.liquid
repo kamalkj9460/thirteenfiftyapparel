@@ -6,203 +6,194 @@ If you plan to remove PageFly, please see the guide in our help center first: ht
 <!--[if IE 7]><html lang="en" class="ie7 {% if settings.page_direction == 'RTL' %} rtl{% endif %}"{% if settings.page_direction == 'RTL' %} dir="rtl"{% endif %}><![endif]-->
 <!--[if IE 8]><html lang="en" class="ie8 {% if settings.page_direction == 'RTL' %} rtl{% endif %}"{% if settings.page_direction == 'RTL' %} dir="rtl"{% endif %}><![endif]-->
 <!--[if IE 9]><html lang="en" class="ie9 {% if settings.page_direction == 'RTL' %} rtl{% endif %}"{% if settings.page_direction == 'RTL' %} dir="rtl"{% endif %}><![endif]-->
-<!--[if !IE]><!--><html lang="en" class="{% if settings.page_direction == 'RTL' %} rtl{% endif %}"{% if settings.page_direction == 'RTL' %} dir="rtl"{% endif %}><!--<![endif]-->
-<head>
-{% include "starapps-core" %}
-
-	<!-- Added by AVADA SEO Suite -->
-	{% include 'avada-seo' %}
-	<!-- /Added by AVADA SEO Suite -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link rel='preconnect dns-prefetch' href='https://triplewhale-pixel.web.app/' crossorigin />
-<link rel='preconnect dns-prefetch' href='https://api.config-security.com/' crossorigin />
-<script>
-/* >> TriplePixel :: start*/
-~function(W,H,A,L,E,_,B,N){function O(U,T,H,R){void 0===R&&(R=!1),H=new XMLHttpRequest,H.open("GET",U,!0),H.send(null),H.onreadystatechange=function(){4===H.readyState&&200===H.status?(R=H.responseText,U.includes(".txt")?eval(R):N[B]=R):(299<H.status||H.status<200)&&T&&!R&&(R=!0,O(U,T-1))}}if(N=window,!N[H+"sn"]){N[H+"sn"]=1;try{A.setItem(H,1+(0|A.getItem(H)||0)),(E=JSON.parse(A.getItem(H+"U")||"[]")).push(location.href),A.setItem(H+"U",JSON.stringify(E))}catch(e){}A.getItem('"!nC`')||(A=N,A[H]||(L=function(){return Date.now().toString(36)+"_"+Math.random().toString(36)},E=A[H]=function(t,e){return W=L(),(E._q=E._q||[]).push([W,t,e]),W},E.ch=W,B="configSecurityConfModel",N[B]=1,O("//conf.config-security.com/model",0),O("//triplewhale-pixel.web.app/triplefw.txt?",5)))}}("","TriplePixel",localStorage);
-/* << TriplePixel :: end*/
-</script>
-  
-  {% include 'limespot' %}{% render 'pagefly-head' %}
-  
-  <!-- Uploadery by ShopPad - Decrease Uploadery's load time -->
-  <script src='//d1liekpayvooaz.cloudfront.net/apps/uploadery/uploadery.js?shop={{shop.permanent_domain}}'></script>
-  {% include 'kiwiSizing' %}
-  <meta charset="utf-8" />
-  <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' /><![endif]-->
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-  {%- if canonical_url != '' -%}<link rel="canonical" href="{{ canonical_url }}" />{%- endif -%}
-  {%- if settings.favicon -%}<link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/x-icon" />{%- endif -%}
-  {%- if settings.iphone_icon -%}<link rel="apple-touch-icon-precomposed" href="{{ 'iphone_icon.png' | asset_url }}" />{%- endif -%}
-  {%- if settings.iphone_icon_retina -%}<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ 'iphone_icon_retina.png' | asset_url }}" />{%- endif -%}
-  {%- if settings.ipad_icon -%}<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ 'ipad_icon.png' | asset_url }}" />{%- endif -%}
-  {%- if settings.ipad_icon_retina -%}<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ 'ipad_icon_retina.png' | asset_url }}" />{%- endif -%}
-  {%- if page_description or page_description != '' -%}<meta name="description" content="{{ page_description }}" />{%- endif -%}
-  {%- if template contains 'index' -%}{%- if page_title != blank and page_title != 'Welcome' -%}<title>{{ page_title }}</title>{%- else -%}<title>{{ shop.name }}</title>{%- endif -%}{%- elsif template == '404' -%}<title>Page Not Found | {{ shop.name }}</title>{%- else -%}<title>{{ page_title }} | {{ shop.name }}</title>{%- endif -%}
-  {%- include 'social-meta-tags' -%}
-  {%- include 'css-variables' -%}
-
-  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.shopify.com" crossorigin>
-
-  {%- assign header_font = settings.type_header_font -%}
-  {%- assign body_font = settings.type_body_font -%}
-  {%- assign body_font_bolder = body_font | font_modify: 'weight', 'bolder' -%}
-  {%- assign body_font_bold = body_font | font_modify: 'weight', 'bold' -%}
-  {%- assign body_font_italic = body_font | font_modify: 'style', 'italic' -%}
-  {%- assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic' -%}
-
-  <!-- JM temp css -->
-  {%- if template == 'index' -%}
-  {{ 'jm-banner.css' | asset_url | stylesheet_tag }}
-  {{ 'jm-video-hover.css' | asset_url | stylesheet_tag }}
-  {% endif %}
-  {{ 'jm-collection.css' | asset_url | stylesheet_tag }}
-  {{ 'jm-swatch-size-abbrv.css' | asset_url | stylesheet_tag }}
-  {{ 'jm-badges.css' | asset_url | stylesheet_tag }}
-  {{ 'jm-bolide.css' | asset_url | stylesheet_tag }}
-
-  <link rel="preload" as="font" href="{{ header_font | font_url }}" type="font/woff2" crossorigin>
-  <link rel="preload" as="font" href="{{ body_font | font_url }}" type="font/woff2" crossorigin>
-  <link rel="preload" as="font" href="{{ body_font_bold | font_url }}" type="font/woff2" crossorigin>
-  
-  <style>
-    {{ header_font | font_face: font_display: 'swap' }}
-    {{ body_font | font_face: font_display: 'swap' }}
-    {{ body_font_bold | font_face: font_display: 'swap' }}
-    {{ body_font_bolder | font_face: font_display: 'swap' }}
-    {{ body_font_italic | font_face: font_display: 'swap' }}
-    {{ body_font_bold_italic | font_face: font_display: 'swap' }}
-
-    @font-face {
-      font-family: "Druk"; 
-      font-weight: 400;
-      src: url("https://cdn.shopify.com/s/files/1/1489/5902/files/drukcyr-medium.ttf") format("truetype");
-    }
-    
-    @font-face {
-      font-family: "Apercu"; 
-      font-weight: 400;
-      src: url("https://cdn.shopify.com/s/files/1/1489/5902/files/Apercu_Regular.otf") format("opentype");
-    }
-    
-    @font-face {
-      font-family: "Apercu"; 
-      font-weight: 300;
-      src: url("https://cdn.shopify.com/s/files/1/1489/5902/files/Apercu_Light.otf") format("opentype");
-    }
-    
-    @font-face {
-      font-family: "Protract"; 
-      font-weight: 500;
-      src: url("https://cdn.shopify.com/s/files/1/1489/5902/files/protrakt-bold.woff2") format("woff2");
-    }
-  </style>
-
-  <style id="essential_css">#shopify-section-mobile-nav {display: none}html{padding:0!important}.templateSearch .product-filter{display:none!important;}
-  #nprogress{pointer-events:none;position:fixed;top:0;left:0;bottom:0;right:0;z-index:10001;background-color:var(--gl-color-bg)}#nprogress .bar{background-color:var(--gl-color-link-text-focus);position:fixed;z-index:1031;top:0;left:0;width:100%;height:2px}#nprogress .peg{display:block;position:absolute;right:0;width:100px;height:100%;box-shadow:0 0 10px var(--gl-color-link-text-focus),0 0 5px var(--gl-color-link-text-focus);opacity:1;-webkit-transform:rotate(3deg) translate(0px,-4px);-ms-transform:rotate(3deg) translate(0px,-4px);transform:rotate(3deg) translate(0px,-4px)}#nprogress .spinner{display:block;position:fixed;z-index:1031;top:50%;left:50%;transform:translate(-50%,-50%)}#nprogress .spinner-icon{width:30px;height:30px;box-sizing:border-box;border:solid 2px transparent;border-radius:50%!important;-webkit-animation:nprogress-spinner 400ms linear infinite;animation:nprogress-spinner 400ms linear infinite}.nprogress-custom-parent{overflow:hidden;position:relative}.nprogress-custom-parent #nprogress .spinner,.nprogress-custom-parent #nprogress .bar{position:absolute}@-webkit-keyframes nprogress-spinner{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}}@keyframes nprogress-spinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}html::before{content:'';background:#fff;position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999}html.nprogress-done::before{display:none}#nprogress .spinner-icon{border-top-color:var(--gl-color-link-text-focus);border-left-color:var(--gl-color-link-text-focus)}
-  .col-p-0{display:none}.col-p-100{-webkit-box-flex:0;-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.col-p{-webkit-box-flex:0;-ms-flex:0 0 var(--pcol);flex:0 0 var(--pcol);max-width:var(--pcol)}@media (max-width:767px){.col-pm-0{display:none!important}.col-pm-100{-webkit-box-flex:0;-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.col-p{-webkit-box-flex:0;-ms-flex:0 0 var(--pmcol,var(--pcol));flex:0 0 var(--pmcol,var(--pcol));max-width:var(--pmcol,var(--pcol))}}</style>
-  {%- include 'shopify-head' -%}
-  <!-- starapps_scripts_start -->
-  <!-- This code is automatically managed by StarApps Studio -->
-  <!-- Please contact support@starapps.studio for any help -->
-  
-  {% render "starapps-product-json", product: product, starapps_app: "VIA", starapps_attribute: "sa-product-json" %}
-  {%- comment -%}<script type="text/javascript" src="https://bcdn.starapps.studio/apps/via/thirteen-fifty-apparel/script-1623937481.js?shop={{shop.permanent_domain}}" async></script> {%- endcomment -%}
-  <!-- starapps_scripts_end -->
-
-  {{ content_for_header }}
-  {%- render 'bold-pr' -%}
-  {% if template == 'product' and product.metafields.inventory.ShappifyHidden or product.type contains '_HIDDEN_' %}<meta name='robots' content='noindex'>{% endif %}
-  {%- render 'bold-common' -%}
-  {% include 'pagefly-header' %}
-  <!-- Snap Pixel Code -->
-  <script type='text/javascript'>
-  (function(e,t,n){if(e.snaptr)return;var a=e.snaptr=function()
-  {a.handleRequest?a.handleRequest.apply(a,arguments):a.queue.push(arguments)};
-  a.queue=[];var s='script';r=t.createElement(s);r.async=!0;
-  r.src=n;var u=t.getElementsByTagName(s)[0];
-  u.parentNode.insertBefore(r,u);})(window,document,
-  'https://sc-static.net/scevent.min.js');
-
-  snaptr('init', '301a352d-30c8-41bf-9d08-b1b183bc7076', {
-  'user_email': '__INSERT_USER_EMAIL__'
-  });
-
-  snaptr('track', 'PAGE_VIEW');
-
-  </script>
-  <!-- End Snap Pixel Code -->
-
-  {%- comment -%}{{ 'customized-styles.css' | asset_url | stylesheet_tag }} {%- endcomment -%}
-  {% include 'qikify-navigator' %}
-  {% include 'qikify-smartmenu-data' %}
-  <script type="text/javascript" src="https://sdk.qikify.com/tmenu/app-v5.js?token=s6ZZulsasMSSzDK5NyZSZ479knPtyNSd&shop=thirteen-fifty-apparel.myshopify.com" defer="defer"></script>
-   <!-- Hotjar Tracking Code for www.thirteenfiftyapparel.com -->
-  <script>
-      (function(h,o,t,j,a,r){
-          h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-          h._hjSettings={hjid:2249083,hjsv:6};
-          a=o.getElementsByTagName('head')[0];
-          r=o.createElement('script');r.async=1;
-          r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-          a.appendChild(r);
-      })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-  </script>
-  {% render 'gsf-conversion-pixels' %}
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DNBZC3Y0CG"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-DNBZC3Y0CG');
-  </script>
-  <script src="//searchserverapi.com/widgets/shopify/init.js?a=5E4t1f6K3t"></script>
-
-</head>
-
-
-{% capture body_class %}
-
-{% if template == 'index' %} common-home {% endif %}
-{%if settings.seasonal_frame != '' or settings.body_effect != ''%}with-deco deco-frame-{{setting.seasonal_frame}} deco-effect-{{settings.body_effect}}{%endif%}
-{% if settings.color_body_bg == '#ffffff' or settings.color_content_bg == settings.color_body_bg or settings.color_content_bg == 'rgba(0,0,0,0)' %} body-white{% else %} body-other{% endif %}
-{% if settings.color_content_bg == 'rgba(0,0,0,0)' %} body-white-type-2{% endif %}
-{% if settings.color_content_bg == 'rgba(0,0,0,0)' and settings.box_product_bg == '#ffffff' %} body-white-type-3{% endif %}
-{% if settings.header_always_show_vermenu_cat %} show-vertical-megamenu-category-page{% endif %}
-{% if settings.header_always_show_vermenu %} show-vertical-megamenu{% endif %}
-{% if template == "page.collection" %} templatePageCollection{% endif %}
-{% if template == 'page.faq' %} module-faq{% endif %}
-{% if template == 'collection' or template contains 'collection.' %}{% if settings.collection_grid_list == 'list' %} cat-list{% endif %}{% endif %}
-{%- if template contains 'product' or template contains 'cart' -%}{{" has-variant-mobile"}}{%- endif -%}
-{%- if template contains 'cart' and cart.item_count <= 0 -%}{{" no-cart-item-body"}}{%- endif-%}
-{%- if settings.product_design == "scroll" -%}{{- " fastor-product-design-sticky" -}}{%- endif -%}
-{%- assign s_grid_view = settings.grid_view -%}{%- if settings.collection_list_grid == '0' -%}{%- assign s_grid_view = "1" -%}{%- endif -%}
-{% if handle == 'law-enforcement-shirts' %}{%- assign s_grid_view = '4' -%}{% endif %}
-{% if template == 'collection' or template contains 'collection.' or template == 'search' %}{{- " flex-view-" | append: s_grid_view | append: " collection-template-promo" -}}{% endif %}
-{% endcapture %}
-
-<body class="{{ handle }} template{{ template | split: '.' | first | camelize }}{{body_class}}"><div class="pagefly-container">{{ content_for_layout }}</div></body>
+<!--[if !IE]><!-->
+<html lang="en" class="{% if settings.page_direction == 'RTL' %} rtl{% endif %}"{% if settings.page_direction == 'RTL' %} dir="rtl"{% endif %}>
+<!--<![endif]-->
+    <head>
+        {% include "starapps-core" %}
+        {% render 'wnw_header' %}
+	    <!-- Added by AVADA SEO Suite -->
+	    {% include 'avada-seo' %}
+	    <!-- /Added by AVADA SEO Suite -->
+        <link rel='preconnect dns-prefetch' href='https://triplewhale-pixel.web.app/' crossorigin>
+        <link rel='preconnect dns-prefetch' href='https://api.config-security.com/' crossorigin>
+        <script type="lazyload_int">
+            /* >> TriplePixel :: start*/
+            ~function(W,H,A,L,E,_,B,N){function O(U,T,H,R){void 0===R&&(R=!1),H=new XMLHttpRequest,H.open("GET",U,!0),H.send(null),H.onreadystatechange=function(){4===H.readyState&&200===H.status?(R=H.responseText,U.includes(".txt")?eval(R):N[B]=R):(299<H.status||H.status<200)&&T&&!R&&(R=!0,O(U,T-1))}}if(N=window,!N[H+"sn"]){N[H+"sn"]=1;try{A.setItem(H,1+(0|A.getItem(H)||0)),(E=JSON.parse(A.getItem(H+"U")||"[]")).push(location.href),A.setItem(H+"U",JSON.stringify(E))}catch(e){}A.getItem('"!nC`')||(A=N,A[H]||(L=function(){return Date.now().toString(36)+"_"+Math.random().toString(36)},E=A[H]=function(t,e){return W=L(),(E._q=E._q||[]).push([W,t,e]),W},E.ch=W,B="configSecurityConfModel",N[B]=1,O("//conf.config-security.com/model",0),O("//triplewhale-pixel.web.app/triplefw.txt?",5)))}}("","TriplePixel",localStorage);
+            /* << TriplePixel :: end*/
+        </script>
+        {% include 'limespot' %}
+        {% render 'pagefly-head' %}
+        <!-- Uploadery by ShopPad - Decrease Uploadery's load time -->
+        <script type="lazyload_int" data-src='//d1liekpayvooaz.cloudfront.net/apps/uploadery/uploadery.js?shop={{shop.permanent_domain}}'></script>
+        {% include 'kiwiSizing' %}
+        <meta charset="utf-8">
+        <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+        {%- if canonical_url != '' -%}<link rel="canonical" href="{{ canonical_url }}">{%- endif -%}
+        {%- if settings.favicon -%}<link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/x-icon">{%- endif -%}
+        {%- if settings.iphone_icon -%}<link rel="apple-touch-icon-precomposed" href="{{ 'iphone_icon.png' | asset_url }}">{%- endif -%}
+        {%- if settings.iphone_icon_retina -%}<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ 'iphone_icon_retina.png' | asset_url }}">{%- endif -%}
+        {%- if settings.ipad_icon -%}<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ 'ipad_icon.png' | asset_url }}">{%- endif -%}
+        {%- if settings.ipad_icon_retina -%}<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ 'ipad_icon_retina.png' | asset_url }}">{%- endif -%}
+        {%- if page_description or page_description != '' -%}<meta name="description" content="{{ page_description }}">{%- endif -%}
+        {%- if template contains 'index' -%}{%- if page_title != blank and page_title != 'Welcome' -%}<title>{{ page_title }}</title>{%- else -%}<title>{{ shop.name }}</title>{%- endif -%}{%- elsif template == '404' -%}<title>Page Not Found | {{ shop.name }}</title>{%- else -%}<title>{{ page_title }} | {{ shop.name }}</title>{%- endif -%}
+        {%- include 'social-meta-tags' -%}
+        {%- include 'css-variables' -%}
+        <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.shopify.com" crossorigin>
+        {%- assign header_font = settings.type_header_font -%}
+        {%- assign body_font = settings.type_body_font -%}
+        {%- assign body_font_bolder = body_font | font_modify: 'weight', 'bolder' -%}
+        {%- assign body_font_bold = body_font | font_modify: 'weight', 'bold' -%}
+        {%- assign body_font_italic = body_font | font_modify: 'style', 'italic' -%}
+        {%- assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic' -%}
+        <!-- JM temp css -->
+        {% if template contains 'index' %}
+            {% render 'homepage-critical-css' %}
+        {% elsif template contains 'collection' %}
+            {% render 'collection-critical-css' %}
+        {% elsif template contains 'product' %}
+            {% render 'product-critical-css' %}
+        {% else %}
+            {% render 'all-css' %}
+            {% render 'all-css-2' %}
+            {% render 'all-css-3' %}
+        {% endif %}        
+        <link rel="stylesheet" data-href="{{ 'all-font.css' | asset_url }}">
+        {%- if template == 'index' -%}
+            <link rel="stylesheet" data-href="{{ 'jm-banner.css' | asset_url }}">
+            <link rel="stylesheet" data-href="{{ 'jm-video-hover.css' | asset_url }}">
+        {% endif %}
+        <link rel="stylesheet" data-href="{{ 'jm-collection.css' | asset_url }}">
+        <link rel="stylesheet" data-href="{{ 'jm-swatch-size-abbrv.css' | asset_url }}">
+        <link rel="stylesheet" data-href="{{ 'jm-badges.css' | asset_url }}">
+        <link rel="stylesheet" data-href="{{ 'jm-bolide.css' | asset_url }}">
+        <link rel="preload" as="font" href="{{ body_font | font_url }}" type="font/woff2" crossorigin>
+        <link rel="preload" as="font" href="{{ body_font_bold | font_url }}" type="font/woff2" crossorigin>
+        <link rel="preload" as="font" href="https://cdn.shopify.com/s/files/1/1489/5902/files/protrakt-bold.woff2" type="font/woff2" crossorigin>
+        <link rel="preload" as="font" href="https://cdn.shopify.com/s/files/1/1489/5902/files/Apercu_Regular.woff2" type="font/woff2" crossorigin>
+        <link rel="preload" as="font" href="https://cdn.shopify.com/s/files/1/1489/5902/files/Apercu_Light.woff2" type="font/woff2" crossorigin>
+        <link rel="preload" as="font" href="https://cdn.shopify.com/s/files/1/1489/5902/files/drukcyr-medium.ttf" type="font/woff2" crossorigin>
+        <style>
+            {{ header_font | font_face: font_display: 'swap' }}
+            {{ body_font | font_face: font_display: 'swap' }}
+            {{ body_font_bold | font_face: font_display: 'swap' }}
+            {{ body_font_bolder | font_face: font_display: 'swap' }}
+            {{ body_font_italic | font_face: font_display: 'swap' }}
+            {{ body_font_bold_italic | font_face: font_display: 'swap' }}
+            @font-face {
+                font-family: "Protract"; 
+                font-weight: 500;
+                font-display:swap;
+                src: url("https://cdn.shopify.com/s/files/1/1489/5902/files/protrakt-bold.woff2") format("woff2");
+            }
+            @font-face {
+                font-family: "Apercu"; 
+                font-weight: 400;
+                font-display:swap;
+                src: url("https://cdn.shopify.com/s/files/1/1489/5902/files/Apercu_Regular.woff2") format("woff2");
+            }            
+            @font-face {
+                font-family: "Apercu"; 
+                font-weight: 300;
+                font-display:swap;
+                src: url("https://cdn.shopify.com/s/files/1/1489/5902/files/Apercu_Light.woff2") format("woff2");
+            }
+            @font-face {
+                font-family: FontAwesome;
+                font-display:swap;
+                src: url(data:application/octet-stream;base64,d09GMgABAAAAAATAAA0AAAAACyAAAARoAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP0ZGVE0cGh4GVgCEAhEICoUkhRILXAABNgIkA4EgBCAFhAoHgnwbywkjEXaDUfoA8R+St0J1P6jVUTbURUVlFELGhMLyz/0JiL0xlJsQp+XyncGvkLTqQWAN08li4/fx8M/+/tvn4sMDOhGoE18esZqrT4IrubqEMrhBnHlCltmndO6Du87cTidMPu2WYG5jXRFdCxtOAW7sDwYT1akhNmMQVbjUbWZHfXITgFtuSlAKYSD3D9vRFb+mVC045CSChOWC7ZQFpx5w1vyAbdCABGhd1m6rWP+fezW6bvakMUUTjVhEXtZ+mPMtLY21uKU1SLa1QMMmYLVUsAWy2UvSR3R2/YTAiZdCwNNqVAnw+j/6qw8dqEB9JEKqq5AhQWSPo0euJNs+r/gF/1a6oLnBIpGnQCFpjZYDmLJq5ApDlH6Fhv+gIwdU+AkBSJGiqQB/qAo0lXkNumspU4VSLR3uTBe73k286Dj1aLm4VevWzVsvafdHmXJUNrxXf1zN/79KFKdjAekgO/xe/v/uKfZ2ttRl17v7fHd6Kz+cS2vUmOpTu0N5V4HUFdRlPpSWWmmtjbbaaa+DjjrprAtRRAAiQwL+gCAFh1dS3KhUo0mZbuOxETn6JYv/2UA3MA9leATRB1ACekIu5nFxGESLbiLKyt7czQj5RoUYHwrwNyK/Q0gSdT5BNsZFefgjJuRDhxuZHzSisgDuCTusdwXZi8giHAk7PGmi0HFkIYqEHTZ7wpwlbL4Tyypo4o4KiwaTKjNocGd51cDyT8ynbugqp4hUNHVxAXH8dThtDASwrKa5ZiVj4hrqW7mOe9fWyzPKV2EzgGwdPRWI0sG4iKpeFILydPVVI3RxDlDRz6TVTIIlU/9IkCQt+IODPOg4n/Xy0l4cnlc+u85JuwGm3WhbsrJFrZM7vtd5g7LR0GhbFwiRRR7+B0e4zt0MykoFVqyCczfuoabyYr17YmlXDupsNY0s8pB3yfUV3UNnvHnuIdfcRf2Xd9+R6p4AfQhjJg/u00eQSiYnvHZfRPH8TKi0tvfjl2eXsNayFd76xIJRqk10SJtnhZuTOt3wqu94eEYu85DPnC8a6CUHgj5XZ9Pi6rivWrrFnjY/CP/hBHkBJRIQ5IVgRyaAYgJ52nSjLZkZMy8SKDY2RVFQxYkvCoQXbvj6YGY2PL+FSXyZ5+qcl0NE0mJ4uoFu1shBghAYAqDCwQKE2toLkCg2VoBUd5cKkKmdmgC58ughQJHaVZWKrFRoixlMVOkbTC0wNZhp62UwVz/LuyzStlirbLbJEq/aDz0OG7rR4GNVu+H9gVD/+MKce93eBhiz6mOoNvRMqYTvsAEJZoBSqNPMJQ8kjhaEiUGwxB+VRc9wDxQ2UEWdt5S/k5wO+r3tKokLKF67bo+px0xBDBDfTBwUGfRfg4zq+jPHI7bZ6woPq7Oeeg2H03RzuXt4elnePn311e1LodLoDCaLzeHy+AIhEc3PPsVAVtUV9hQAgWHh4BEQkZBlVcuDzJv90HrKJHTWGE4bky5EabKljUdAREJGRYMWnbQXCgAAAA==) format("woff2");
+                font-weight: 400;
+                font-style: normal
+            }
+            @font-face {
+                font-family: "Druk"; 
+                font-weight: 400;
+                font-display:swap;
+                src: url("https://cdn.shopify.com/s/files/1/1489/5902/files/drukcyr-medium.ttf") format("truetype");
+            }
+        </style>
+        <style id="essential_css">#shopify-section-mobile-nav {display: none}html{padding:0!important}.templateSearch .product-filter{display:none!important;}#nprogress{pointer-events:none;position:fixed;top:0;left:0;bottom:0;right:0;z-index:10001;background-color:var(--gl-color-bg)}#nprogress .bar{background-color:var(--gl-color-link-text-focus);position:fixed;z-index:1031;top:0;left:0;width:100%;height:2px}#nprogress .peg{display:block;position:absolute;right:0;width:100px;height:100%;box-shadow:0 0 10px var(--gl-color-link-text-focus),0 0 5px var(--gl-color-link-text-focus);opacity:1;-webkit-transform:rotate(3deg) translate(0px,-4px);-ms-transform:rotate(3deg) translate(0px,-4px);transform:rotate(3deg) translate(0px,-4px)}#nprogress .spinner{display:block;position:fixed;z-index:1031;top:50%;left:50%;transform:translate(-50%,-50%)}#nprogress .spinner-icon{width:30px;height:30px;box-sizing:border-box;border:solid 2px transparent;border-radius:50%!important;-webkit-animation:nprogress-spinner 400ms linear infinite;animation:nprogress-spinner 400ms linear infinite}.nprogress-custom-parent{overflow:hidden;position:relative}.nprogress-custom-parent #nprogress .spinner,.nprogress-custom-parent #nprogress .bar{position:absolute}@-webkit-keyframes nprogress-spinner{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}}@keyframes nprogress-spinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}html::before{content:'';background:#fff;position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999}html.nprogress-done::before{display:none}#nprogress .spinner-icon{border-top-color:var(--gl-color-link-text-focus);border-left-color:var(--gl-color-link-text-focus)}.col-p-0{display:none}.col-p-100{-webkit-box-flex:0;-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.col-p{-webkit-box-flex:0;-ms-flex:0 0 var(--pcol);flex:0 0 var(--pcol);max-width:var(--pcol)}@media (max-width:767px){.col-pm-0{display:none!important}.col-pm-100{-webkit-box-flex:0;-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.col-p{-webkit-box-flex:0;-ms-flex:0 0 var(--pmcol,var(--pcol));flex:0 0 var(--pmcol,var(--pcol));max-width:var(--pmcol,var(--pcol))}}</style>
+        {%- include 'shopify-head' -%}
+        <script type="application/json" sa-language-info="true" data-no-instant="true">{"current_language":"en", "default_language":"en", "money_format":"${{amount_no_decimals}}"}</script>	
+        <!-- starapps_scripts_start -->
+        <!-- This code is automatically managed by StarApps Studio -->
+        <!-- Please contact support@starapps.studio for any help -->  
+        {% render "starapps-product-json", product: product, starapps_app: "VIA", starapps_attribute: "sa-product-json" %}
+        {%- comment -%}<script type="text/javascript" src="https://bcdn.starapps.studio/apps/via/thirteen-fifty-apparel/script-1623937481.js?shop={{shop.permanent_domain}}" async></script> {%- endcomment -%}
+        <!-- starapps_scripts_end -->
+        {%- if request.design_mode or template contains 'cart' or template contains 'checkout' -%}
+            {{ content_for_header }}
+        {%- else -%}
+            {% capture content_for_header2 %}{{ content_for_header }}{% endcapture %}
+            {{ content_for_header2 | replace: ' defer="defer" ', ' type="lazyload_int" ' | replace: " src=", " data-src="| replace: "DOMContentLoaded", "w3-DOMContentLoaded" | replace: "window.addEventListener('load', asyncLoad, false);", "window.addEventListener('w3-DOMContentLoaded', asyncLoad, false);" | replace: "addEventListener('load', prefetchAssets);", "addEventListener('w3-DOMContentLoaded', prefetchAssets);" }}
+            <script>var trekkie=[];trekkie.integrations=!0;window.BOOMR={},window.BOOMR.version=true;</script>
+        {%- endif -%}
+        {%- render 'bold-pr' -%}
+        {% if template == 'product' and product.metafields.inventory.ShappifyHidden or product.type contains '_HIDDEN_' %}<meta name='robots' content='noindex'>{% endif %}
+        {%- render 'bold-common' -%}
+        {% include 'pagefly-header' %}
+        <!-- Snap Pixel Code -->
+        <script type="lazyload_int">
+            (function(e,t,n){if(e.snaptr)return;var a=e.snaptr=function()
+            {a.handleRequest?a.handleRequest.apply(a,arguments):a.queue.push(arguments)};
+            a.queue=[];var s='script';r=t.createElement(s);r.async=!0;
+            r.src=n;var u=t.getElementsByTagName(s)[0];
+            u.parentNode.insertBefore(r,u);})(window,document,
+            'https://sc-static.net/scevent.min.js');
+            snaptr('init', '301a352d-30c8-41bf-9d08-b1b183bc7076', {
+                'user_email': '__INSERT_USER_EMAIL__'
+            });
+            snaptr('track', 'PAGE_VIEW');
+        </script>
+        <!-- End Snap Pixel Code -->
+        {%- comment -%}{{ 'customized-styles.css' | asset_url | stylesheet_tag }} {%- endcomment -%}
+        {% include 'qikify-navigator' %}
+        {% include 'qikify-smartmenu-data' %}
+        <script type="lazyload_int" data-src="https://sdk.qikify.com/tmenu/app-v5.js?token=s6ZZulsasMSSzDK5NyZSZ479knPtyNSd&shop=thirteen-fifty-apparel.myshopify.com"></script>
+        <!-- Hotjar Tracking Code for www.thirteenfiftyapparel.com -->
+        <script type="lazyload_int">
+            (function(h,o,t,j,a,r) {
+                h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+                h._hjSettings={hjid:2249083,hjsv:6};
+                a=o.getElementsByTagName('head')[0];
+                r=o.createElement('script');r.async=1;
+                r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+                a.appendChild(r);
+            })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+        </script>
+        {% render 'gsf-conversion-pixels' %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script type="lazyload_int" data-src="https://www.googletagmanager.com/gtag/js?id=G-DNBZC3Y0CG"></script>
+        <script type="lazyload_int">
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-DNBZC3Y0CG');
+        </script>
+        <script type="lazyload_int" data-src="//searchserverapi.com/widgets/shopify/init.js?a=5E4t1f6K3t"></script>
+        {% render 'custom-css' %}
+        {% render 'app-block' %}
+    </head>
+    {% capture body_class %}
+        {% if template == 'index' %} common-home {% endif %}
+        {%if settings.seasonal_frame != '' or settings.body_effect != ''%}with-deco deco-frame-{{setting.seasonal_frame}} deco-effect-{{settings.body_effect}}{%endif%}
+        {% if settings.color_body_bg == '#ffffff' or settings.color_content_bg == settings.color_body_bg or settings.color_content_bg == 'rgba(0,0,0,0)' %} body-white{% else %} body-other{% endif %}
+        {% if settings.color_content_bg == 'rgba(0,0,0,0)' %} body-white-type-2{% endif %}
+        {% if settings.color_content_bg == 'rgba(0,0,0,0)' and settings.box_product_bg == '#ffffff' %} body-white-type-3{% endif %}
+        {% if settings.header_always_show_vermenu_cat %} show-vertical-megamenu-category-page{% endif %}
+        {% if settings.header_always_show_vermenu %} show-vertical-megamenu{% endif %}
+        {% if template == "page.collection" %} templatePageCollection{% endif %}
+        {% if template == 'page.faq' %} module-faq{% endif %}
+        {% if template == 'collection' or template contains 'collection.' %}{% if settings.collection_grid_list == 'list' %} cat-list{% endif %}{% endif %}
+        {%- if template contains 'product' or template contains 'cart' -%}{{" has-variant-mobile"}}{%- endif -%}
+        {%- if template contains 'cart' and cart.item_count <= 0 -%}{{" no-cart-item-body"}}{%- endif-%}
+        {%- if settings.product_design == "scroll" -%}{{- " fastor-product-design-sticky" -}}{%- endif -%}
+        {%- assign s_grid_view = settings.grid_view -%}{%- if settings.collection_list_grid == '0' -%}{%- assign s_grid_view = "1" -%}{%- endif -%}
+        {% if handle == 'law-enforcement-shirts' %}{%- assign s_grid_view = '4' -%}{% endif %}
+        {% if template == 'collection' or template contains 'collection.' or template == 'search' %}{{- " flex-view-" | append: s_grid_view | append: " collection-template-promo" -}}{% endif %}
+    {% endcapture %}
+    <body class="{{ handle }} template{{ template | split: '.' | first | camelize }}{{body_class}}"><div class="pagefly-container">{{ content_for_layout }}</div></body>
 </html>

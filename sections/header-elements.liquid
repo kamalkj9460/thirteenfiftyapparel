@@ -127,7 +127,9 @@
                 </div>
 
             {%- when 'main_menu' -%}
-                <div style="{{master_css}}" id="main-menu-placement" class="rt-destination {{master_class}} {{default_align_class}} {{borders_class}} mega-menu-modules{% if block.settings.has_padding %} {{default_padding_class}}{% endif %}" {{ block.shopify_attributes }}><span>m-menu</span></div>
+                <div style="{{master_css}}" id="main-menu-placement" class="rt-destination {{master_class}} {{default_align_class}} {{borders_class}} mega-menu-modules{% if block.settings.has_padding %} {{default_padding_class}}{% endif %}" {{ block.shopify_attributes }}>
+                      <span>m-menu</span>
+                </div>
 
             {%- when 'search' -%}
                 <div style="{{master_css}}" class="{{master_class}} {{borders_class}} {{default_align_class}}{% if block.settings.has_padding %} {{default_padding_class}}{% endif %}" {{ block.shopify_attributes }}>

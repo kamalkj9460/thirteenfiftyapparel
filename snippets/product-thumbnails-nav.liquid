@@ -17,7 +17,7 @@
         {%- endif -%}
         {%- endcapture -%}
 
-        <img class="product-single__thumbnail-image lazyload" src='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==' data-src="{{ featured_media.preview_image | img_url: "180x240", crop:"top" }}" alt="{{ thumbnailAlt }}">
+        <img class="product-single__thumbnail-image lazyloaded" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-class="LazyLoad" data-src="{{ featured_media.preview_image | img_url: "180x240", crop:"top" }}" alt="{{ thumbnailAlt }}">
         {%- if featured_media.media_type == 'video' or featured_media.media_type =='external_video' -%}
         <div class="product-single__thumbnail-badge">
           {% include 'icon-video-badge-full-color' %}
@@ -46,7 +46,7 @@
         {%- endif -%}
         {%- endcapture -%}
 
-        <img class="product-single__thumbnail-image lazyload" src='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==' data-src="{{ media.preview_image | img_url: "180x240", crop:"top" }}" alt="{{ thumbnailAlt }}">
+        <img class="product-single__thumbnail-image lazyloaded" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-class="LazyLoad" data-src="{{ media.preview_image | img_url: "180x240", crop:"top" }}" alt="{{ thumbnailAlt }}">
         {%- if media.media_type == 'video' or media.media_type =='external_video' -%}
         <div class="product-single__thumbnail-badge">
           {% include 'icon-video-badge-full-color' %}

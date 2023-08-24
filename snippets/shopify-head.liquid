@@ -24,30 +24,30 @@
   }
 </script>
 {%- if template == 'index' -%}
-<link rel="stylesheet" href="{{ 'bootstrap-purged.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="{{ 'rt.style-purged.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="{{ 'rt.application-purged.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" data-href="{{ 'bootstrap-purged.css' | asset_url }}" type="text/css">
+    <link rel="stylesheet" data-href="{{ 'rt.style-purged.css' | asset_url }}" type="text/css">
+    <link rel="stylesheet" data-href="{{ 'rt.application-purged.css' | asset_url }}" type="text/css">
 {%- else -%}
-<link rel="stylesheet" href="{{ 'bootstrap.min.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="{{ 'rt.style.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="{{ 'rt.application.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" data-href="{{ 'bootstrap.min.css' | asset_url }}" type="text/css">
+    <link rel="stylesheet" data-href="{{ 'rt.style.css' | asset_url }}" type="text/css">
+    <link rel="stylesheet" data-href="{{ 'rt.application.css' | asset_url }}" type="text/css">
 {%- endif -%}
-<link rel="stylesheet" href="{{ 'rt.vendors.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="{{ 'rt.vendor.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+<link rel="stylesheet" data-href="{{ 'rt.vendors.css' | asset_url }}" type="text/css">
+<link rel="stylesheet" data-href="{{ 'rt.vendor.css' | asset_url }}" type="text/css">
 {%- if settings.page_direction == 'RTL' -%}
-<link rel="stylesheet" href="{{ 'rt.vendor-rtl.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'rt.vendor-rtl.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
 {%- endif -%}
-<link rel="stylesheet" href="{{ 'rt.menu.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="{{ 'rt.custom.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="{{ 'custom_styles.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+<link rel="stylesheet" data-href="{{ 'rt.menu.css' | asset_url }}" type="text/css">
+<link rel="stylesheet" data-href="{{ 'rt.custom.css' | asset_url }}" type="text/css">
+<link rel="stylesheet" data-href="{{ 'custom_styles.css' | asset_url }}" type="text/css">
 {%- if template == 'page.gallery' -%}
-<link rel="stylesheet" href="{{ 'gallery.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'gallery.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
 {%- endif -%}
-<link rel="stylesheet" href="{{ 'rt.pages.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="{{ 'rt.cbuilder.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="{{ 'rt.helper.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+<link rel="stylesheet" data-href="{{ 'rt.pages.css' | asset_url }}" type="text/css">
+<link rel="stylesheet" data-href="{{ 'rt.cbuilder.css' | asset_url }}" type="text/css">
+<link rel="stylesheet" data-href="{{ 'rt.helper.css' | asset_url }}" type="text/css">
 
-<script type="text/javascript" async>
+<script type="lazyload_int">
 window.sidebar={% if settings.content_sidebar %}1{% else %}!1{% endif %},
 window.template="{{template}}",
 window.rtl={% if settings.page_direction == 'LTR' %}!1{% else %}1{% endif %},
@@ -143,4 +143,4 @@ var roar_api = {
   }
 };
 </script>
-<script src="{{ 'jquery-3.5.0.min.js' | asset_url }}" defer="defer"></script>
+<script data-src="{{ 'jquery-3.5.0.min.js' | asset_url }}" type="lazyload_int"></script>

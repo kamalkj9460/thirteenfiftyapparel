@@ -4,6 +4,6 @@
     {%- if settings.main_logo != blank -%}
     {%- assign _logo = settings.main_logo | img_url: 'master' -%}
     {%- endif -%}
-    <img class="lazyload" src='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==' data-src="{{ _logo }}" style="max-width:{{settings.logo_max_width}}px;" title="{{ shop.name | escape }}" alt="{{ shop.name | escape }}" />
+    <img class="lazyloaded" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-class="LazyLoad" data-src="{{ _logo }}" style="max-width:{{settings.logo_max_width}}px;" title="{{ shop.name | escape }}" alt="{{ shop.name | escape }}" />
  </a>
 </div>

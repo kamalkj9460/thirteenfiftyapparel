@@ -1,0 +1,22 @@
+@font-face {
+    font-family: "Druk"; 
+    font-weight: 400;
+    src: url("https://cdn.shopify.com/s/files/1/1489/5902/files/drukcyr-medium.ttf") format("truetype");
+}            
+/* @font-face {
+    font-family: "Apercu"; 
+    font-weight: 400;
+    src: url("https://cdn.shopify.com/s/files/1/1489/5902/files/Apercu_Regular.otf") format("opentype");
+}            
+@font-face {
+    font-family: "Apercu"; 
+    font-weight: 300;
+    src: url("https://cdn.shopify.com/s/files/1/1489/5902/files/Apercu_Light.otf") format("opentype");
+}            
+@font-face {
+    font-family: "Protract"; 
+    font-weight: 500;
+    src: url("https://cdn.shopify.com/s/files/1/1489/5902/files/protrakt-bold.woff2") format("woff2");
+} */
+@font-face{font-family:'FontAwesome';src:url(//cdn.shopify.com/s/files/1/1489/5902/t/240/assets/fontawesome-webfont.eot?v=4.6.3&v=27653591633895088991686590381);src:url(//cdn.shopify.com/s/files/1/1489/5902/t/240/assets/fontawesome-webfont.eot?%23iefix&v=4.6.3&v=27653591633895088991686590381) format('embedded-opentype'),url(//cdn.shopify.com/s/files/1/1489/5902/t/240/assets/fontawesome-webfont.woff2?v=4.6.3&v=92687554370256573971686590383) format('woff2'),url(//cdn.shopify.com/s/files/1/1489/5902/t/240/assets/fontawesome-webfont.woff?v=4.6.3&v=135656766985270248011686590382) format('woff'),url(//cdn.shopify.com/s/files/1/1489/5902/t/240/assets/fontawesome-webfont.ttf?v=4.6.3&v=38559600735332494681686590382) format('truetype'),url(//cdn.shopify.com/s/files/1/1489/5902/t/240/assets/fontawesome-webfont.svg?v=4.6.3%23fontawesomeregular&v=165101685860473394641686590381) format('svg');font-weight:normal;font-style:normal}
+@font-face {font-family: revicons;src:url(//cdn.shopify.com/s/files/1/1489/5902/t/240/assets/revicons.eot?v=41099164764038834561686590449);src:url(//cdn.shopify.com/s/files/1/1489/5902/t/240/assets/revicons.eot%23iefix?138402) format('embedded-opentype'), url(//cdn.shopify.com/s/files/1/1489/5902/t/240/assets/revicons.woff?v=75075768985131144671686590450) format('woff'), url(//cdn.shopify.com/s/files/1/1489/5902/t/240/assets/revicons.ttf?v=122609643915160486271686590450) format('truetype'), url(//cdn.shopify.com/s/files/1/1489/5902/t/240/assets/revicons.svgt%23revicons?138402) format('svg');font-weight: 400;font-style: normal}

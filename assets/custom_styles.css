@@ -96,7 +96,7 @@
 .common-home .page-width .shopify-section:first-child {
   margin-top: 10px;
 }
-}
+
 body.is_loading {
   pointer-events: auto !important;
 }
@@ -128,13 +128,10 @@ body.common-home .instagram-feed {
   padding: 7px 0;
   text-align: center;
 }
-body.common-home .instagram-feed label.h3 {
+body.common-home .instagram-feed label .h3 {
   margin-bottom: 10px;
 }
 @media screen and (max-width: 768px) {
-  .common-home .is-slider .banner-texting {
-    --left-side: 5% !important;
-  }
   .common-home .is-slider .banner-texting img {
     width: 50%;
   }
@@ -1353,7 +1350,6 @@ body.prevent-scrolling {
   width: 100vw;
   padding: 25px 0;
   text-align: center;
-  margin-top: 25px;
 }
 
 .megamenu .sub-menu .container > div {
@@ -1760,7 +1756,7 @@ ul.megamenu>li>a span.red, .custom-mobilemenu-content .mobile-menu-block-heading
 
 /* side cart font size adjustment */
 .icart .icart-main .icart-range-title-trird .icart-slider-3, .icart .icart-range-slider-block .icart-range-slider .icart-range-slider-box .icart-range-label .icart-range-title .icart-fix-text {
-  font-size: 8px !imporatant;
+  font-size: 8px !important;
 }
 
 .templateProduct button.GiftWizard-gift-button.button.button-cart.not-empty.add-to-cart.gwbutton {
@@ -1939,6 +1935,93 @@ variant-swatch-king .swatch-view-item:not(.swatch-item-unavailable) > div.star-s
   font-weight: 300;
 }
 
+/* NEW NAV STYLE*/
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.container.d-flex.flex-wrap.pt-4 {
+  max-width: 95%;
+}
+
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.container.d-flex.flex-wrap.pt-4 > div:nth-child(10), 
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.container.d-flex.flex-wrap.pt-4 > div:nth-child(11) {
+  padding-top: 0px !important;
+}
+
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(1),
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(2),
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(3),
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(4){
+  font-size: 25px;
+  font-weight: 800;
+}
+
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(1) p,
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(6) > div > div > div > span,
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(7) > div > div > div > span,
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(6) > div > div > div > ul > li:last-child > a,
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(7) > div > div > div > ul > li:nth-child(11) > a
+ {
+  color: #fff !important;
+}
+
+
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(1),
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(2),
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(3),
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(4) {
+  padding-top: 25px !important;
+}
+
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(5),
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(6),
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(7),
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(8),
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(9),
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(10),
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(11),
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(13) {
+  padding-bottom: 25px !important;
+}
+
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(1),
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(2),  
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(3),
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(5),
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(4),
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(6),
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(8),
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(10),
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(11),
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(12) {
+  padding-left: 50px !important;
+}
+
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.row > div:nth-child(13) {
+  padding-right: 50px !important;
+}
+
+
+#megamenu-main-menu > div.megamenu-wrapper > div > ul > li:nth-child(3) > div > div.content > div.menu-notice {
+  margin-top: 0px;
+}
+
+/* NEW NAV STYLE END */
+
+@media (min-width: 767px) {
+  #shopify-section-0f555897-b820-43d8-9525-57462aa980dc .b-heading {
+    min-width: 500px;
+  }
+}
+
+
+#cb-item-617a69db-a899-43c7-bdf6-996943d5eb4e > div > div > div,
+#cb-item-76746b5e-9d6a-4bd2-87f3-b58ddaa21dff > div > div > div {
+  margin-bottom: 2rem !important;
+}
+
+
+#creative-builder-165944600433ee71f0 .cb-item:hover a.jm-banner-image-cta {
+  border-bottom: none !important;
+}
+
 .snize-ac-results .snize-view-all-link:hover span {
   color: #fff;
 } body .snize-ac-results .snize-view-all-link:hover {
@@ -1946,45 +2029,27 @@ variant-swatch-king .swatch-view-item:not(.swatch-item-unavailable) > div.star-s
   border-color: #1349b2 !important;
 }
 
-div#BsscommercePasswordForm * {
-  font-family: Apercu;
-  text-align: center;
-}
-input#bsscommerce-password {
-  margin-bottom: 20px;
-  margin-top: 15px;
-  width: 200px;
-  text-align: center;
-}
-input#bsscommerce-password-submit {
-  background-color: #000;
-  border-radius: 4px;
-  padding: 10px 35px;
-  font-family: "Protract";
-  font-size: 16px;
+.creative-builder .cb-item .banner-content-wrapper .banner-text-right .b-caption {
+  margin-left: auto;
 }
 
-#announcement-bar-with-slider > div > div > div {
-  overflow-y: hidden;
+.cb-item-bbd4e368-0a80-419a-9690-cc848926e463 .banner-content-wrapper .banner-text-right .b-caption {
+  font-size: 45px;
+  padding-top: 0 !important;
 }
 
-#announcement-bar-with-slider > div > div > div > h4 > p {
-  color: #212b36;
+.cb-item-bbd4e368-0a80-419a-9690-cc848926e463 .banner-content-wrapper .b-heading {
+  margin-bottom: 0 !important;
 }
 
-#pink-p {
-  color: #000 !important;
+@media screen and (max-width: 768px) {
+  #pink-p\ mobile-only {
+    color: #000 !important;
+  }
 }
 
 .pink {
   color: #ff44b9 !important;
-}
-
-@media screen and (min-width: 768px) {
-  #cb-item-3e76130a-a36f-4411-9482-6ab8a761a905,
-  #cb-item-77d75b36-4ccf-467f-954a-b3cd0d45c0e2 {
-    display: none;
-  }
 }
 
 #pink-nav::before, #PINK-NAV::before {
@@ -2001,3 +2066,9 @@ input#bsscommerce-password-submit {
     transform: rotate(-45deg);
 }
 
+
+@media  (min-width: 768px) {
+  #product > form#product-form {
+    display: inline-flex;
+  }
+}

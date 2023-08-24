@@ -404,9 +404,47 @@
     padding-bottom: 7px !important;
   }
   /* MOBILE NAV NEW STYLE START */
-  .menu-item-has-children > .mobile-nav__link {
-    border-top: 1px solid #c4c4c4;
-    width: 75%;
-  }
+
+#primary-mobile-nav > nav > ul > li.mobile-nav__item.mobile-nav__item_custom > div > div.custom-mobilemenu-content > div.custom-mobilemenu.mobile-menu-1 > div:nth-child(6),
+#primary-mobile-nav > nav > ul > li.mobile-nav__item.mobile-nav__item_custom > div > div.custom-mobilemenu-content > div.custom-mobilemenu.mobile-menu-2 > div:nth-child(6) {
+  background-color: #000;
+}
+
+.mobile-menu-block-heading {
+  margin: 0;
+}
+
+#primary-mobile-nav > nav > ul > li.mobile-nav__item.mobile-nav__item_custom > div > div.custom-mobilemenu-content > div.custom-mobilemenu.mobile-menu-1 > div:nth-child(6),
+#primary-mobile-nav > nav > ul > li.mobile-nav__item.mobile-nav__item_custom > div > div.custom-mobilemenu-content > div.custom-mobilemenu.mobile-menu-1 > div:nth-child(6),
+#primary-mobile-nav > nav > ul > li.mobile-nav__item.mobile-nav__item_custom > div > div.custom-mobilemenu-content > div.custom-mobilemenu.mobile-menu-2 > div:nth-child(6),
+#primary-mobile-nav > nav > ul > li.mobile-nav__item.mobile-nav__item_custom > div > div.custom-mobilemenu-content > div.custom-mobilemenu.mobile-menu-2 > div:nth-child(6)
+ {
+  margin: 0;
+  padding: 15px 0 25px 0!important;
+}
+
+#primary-mobile-nav > nav > ul > li.mobile-nav__item.mobile-nav__item_custom > div > div.custom-mobilemenu-content.w3_bg > div.custom-mobilemenu.mobile-menu-1.w3_bg > div:nth-child(6) > a {
+  border: none; 
+}
+
+#primary-mobile-nav > nav > ul > li.mobile-nav__item.mobile-nav__item_custom > div > div.custom-mobilemenu-content > div.custom-mobilemenu.mobile-menu-1 > div:nth-child(6) a,
+#primary-mobile-nav > nav > ul > li.mobile-nav__item.mobile-nav__item_custom > div > div.custom-mobilemenu-content > div.custom-mobilemenu.mobile-menu-1 > div:nth-child(6) > a > span,
+#primary-mobile-nav > nav > ul > li.mobile-nav__item.mobile-nav__item_custom > div > div.custom-mobilemenu-content > div.custom-mobilemenu.mobile-menu-2 > div:nth-child(6) a,
+#primary-mobile-nav > nav > ul > li.mobile-nav__item.mobile-nav__item_custom > div > div.custom-mobilemenu-content > div.custom-mobilemenu.mobile-menu-2 > div:nth-child(6) > a > span {
+  color: #fff !important;
+}
+
+#primary-mobile-nav > nav > ul > li.mobile-nav__item.mobile-nav__item_custom > div > div.custom-mobilemenu-content > div.custom-mobilemenu.mobile-menu-1 > div:nth-child(6),
+#primary-mobile-nav > nav > ul > li.mobile-nav__item.mobile-nav__item_custom > div > div.custom-mobilemenu-content > div.custom-mobilemenu.mobile-menu-2 > div:nth-child(6) {
+  margin-top: 10px;
+}
+
+#primary-mobile-nav > nav > ul > li.mobile-nav__item.mobile-nav__item_custom > div > div.custom-mobilemenu-content > div.custom-mobilemenu.mobile-menu-1 > div.custom-mobile-images-wrapper,
+#primary-mobile-nav > nav > ul > li.mobile-nav__item.mobile-nav__item_custom > div > div.custom-mobilemenu-content > div.custom-mobilemenu.mobile-menu-2 > div.custom-mobile-images-wrapper,
+#primary-mobile-nav > nav > ul > li.mobile-nav__item.custommenu-special-link-wrapper {
+  display: none;
+}
+
   /* MOBILE NAV NEW STYLE END */
 }
+

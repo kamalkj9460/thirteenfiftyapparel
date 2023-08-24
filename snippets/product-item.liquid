@@ -102,14 +102,13 @@
         </span>
       {% endif %}
     </form>
-    <div class="price d-flex flex-row-reverse{% if current_variant.compare_at_price > current_variant.price %} red{% endif %}" 
-      {% if has_badge %} style="display:inline-block !important;" {% endif %} data-price="{{-current_variant.price-}}"
+    <div id="price-btn" class="price d-flex flex-row-reverse{% if current_variant.compare_at_price > current_variant.price %} red{% endif %}" 
+      {% if has_badge %} style="margin: unset; display:inline-block !important;" {% endif %} data-price="{{-current_variant.price-}}"
        style="cursor: pointer;" onclick="document.getElementById('btn-cart-{{ product.id }}').click();">
       {%- if product.available -%}
-      
       <span class="price-new money mr-2"><span class="money" data-product-id="{{ product.id }}">{{current_variant.price | money}}</span></span>
       {%- else -%}
-      <span class="price-new money"><span class="money" data-product-id="{{ product.id }}">{{current_variant.price | money}}</span></span>
+        <span class="price-new money"><span class="money" data-product-id="{{ product.id }}">{{current_variant.price | money}}</span></span>
       {%- endif -%}
     </div>
   </div>
