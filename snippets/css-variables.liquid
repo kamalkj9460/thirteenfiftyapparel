@@ -1,0 +1,152 @@
+{% style %}
+    {%- assign header_font = settings.type_header_font -%}
+
+    {%- assign body_font = settings.type_body_font -%}
+    {%- assign body_font_bolder = body_font | font_modify: 'weight', 'bolder' -%}
+    {%- assign body_font_bold = body_font | font_modify: 'weight', 'bold' -%}
+    {%- assign body_font_italic = body_font | font_modify: 'style', 'italic' -%}
+    {%- assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic' -%}
+
+    {%- assign special_font = settings.type_special_font -%}
+
+    :root {
+        --gl-color-link-text: {{ settings.color_link_text }};
+        --gl-color-link-text-rgb: {{ settings.color_link_text | color_to_rgb | remove: 'rgb(' | remove: 'rgba(' | remove: ')' | remove: ', 0.0' }};
+        --gl-color-body-text: {{ settings.color_body_text }};
+        --gl-color-price-text: {{ settings.color_price_text }};
+        --gl-color-price-sale-text: {{ settings.color_price_sale_text }};
+        --gl-color-small-button-text-border: {{ settings.color_small_button_text_border }};
+        --gl-color-text-field: {{ settings.color_text_field }};
+        --gl-color-text-field-text: {{ settings.color_text_field_text }};
+
+        --gl-color-btn-primary: {{ settings.color_button }};
+        --gl-color-btn-primary-text: {{ settings.color_button_text }};
+
+        --gl-color-link-text-focus: {%- include 'adaptive-color' with settings.color_link_text as color -%};
+        --gl-color-btn-primary-focus: {%- include 'adaptive-color' with settings.color_button as color -%};
+        --gl-color-small-button-text-border-focus: {%- include 'adaptive-color' with settings.color_small_button_text_border as color -%};
+
+        --gl-color-body: {{ settings.color_body_bg }};
+        --gl-color-bg: {{ settings.color_content_bg }};
+        --gl-color-bg-rgb: {{ settings.color_body_bg | color_to_rgb | remove: 'rgb(' | remove: 'rgba(' | remove: ')' | remove: ', 0.0' }};
+        --gl-color-bg-alt: {{ settings.color_body_text | color_modify: 'alpha', 0.05 }};
+       
+        --gl-color-border: {{ settings.color_borders }};
+        --gl-color-border-form: {{ settings.color_text_field_border }};
+        --gl-color-border-form-darker: {{ settings.color_text_field_border | color_darken: 10}};
+        {%- assign color_border_rgba = settings.color_borders | color_to_rgb -%}
+        --gl-background-image-from-border-color: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1' height='1' style='fill:{{color_border_rgba}}' /%3E%3C/svg%3E");
+
+        --gl-color-general-label: {{ settings.color_label_general }};
+        --gl-color-general-label-bg: {{ settings.color_label_general_bg }};
+        --gl-color-sale-label: {{ settings.color_label_sale }};
+        --gl-color-sale-label-bg: {{ settings.color_label_sale_bg }};
+        --gl-color-new-label: {{ settings.color_label_new }};
+        --gl-color-new-label-bg: {{ settings.color_label_new_bg }};
+      
+        --gl-color-ratingstar-checked: {{ settings.color_ratingstar_checked }};
+        --gl-color-ratingstar-unchecked: {{ settings.color_ratingstar_unchecked }};
+        
+        --gl-color-disabled: #f4f4f4;
+        --gl-color-disabled-border: #f4f4f4;
+        
+        --gl-input-padding-top-bottom-small: 8px;
+        --gl-input-padding-left-right-small: 15px;
+      
+        --gl-color-breadcrumb-bg: {{ settings.breadcrumb_background_color }};
+        --gl-color-breadcrumb-link: {{ settings.breadcrumb_links_color }};
+        --gl-color-breadcrumb-border: {{ settings.breadcrumb_border_color }};
+      
+        --gl-color-mbmenu-icon: {{ settings.mb_toolbar_color }};
+        --gl-color-mbmenu-bg: {{ settings.mb_toolbar_bg }};
+        --gl-color-mbmenu-cartcount: {{ settings.mb_toolbar_cart_color }};
+        --gl-color-mbmenu-cartcountbg: {{ settings.mb_toolbar_cart_bg}};
+
+
+
+        --gl-font-weight-body--gl-bold: {{ body_font_bold.weight | default: 700 }};
+        --gl-font-weight-body--gl-bolder: {{ body_font_bolder.weight | default: 700 }};
+
+        --gl-font-stack-header: {{ header_font.family }}, {{ header_font.fallback_families }};
+        --gl-font-style-header: {{ header_font.style }};
+        --gl-font-weight-header: {{ header_font.weight }};
+
+        --gl-font-stack-body: {{ body_font.family }}, {{ body_font.fallback_families }};
+        --gl-font-style-body: {{ body_font.style }};
+        --gl-font-weight-body: {{ body_font.weight }};
+
+        --gl-font-stack-special: {{ special_font.family }}, {{ special_font.fallback_families }};
+        --gl-font-style-special: {{ special_font.style }};
+        --gl-font-weight-special: {{ special_font.weight }};
+
+        --gl-font-size-header: {{ settings.type_header_base_size }};
+        --gl-font-size-body: {{ settings.type_body_base_size }};
+        --gl-font-size-special: {{ settings.type_body_special_size }};
+
+        --gl-font-h1-desktop: {{ settings.type_header_base_size | times: 1.35 | floor }};
+        --gl-font-h1-mobile: {{ settings.type_header_base_size | times: 1.25 | floor }};
+
+        --gl-font-h2-desktop: {{ settings.type_header_base_size | times: 0.78 | floor }};
+        --gl-font-h2-mobile: {{ settings.type_header_base_size | times: 0.78 | times: 0.9 | floor }};
+
+        --gl-font-h3-mobile: {{ settings.type_header_base_size | times: 0.78 | floor }};
+
+        --gl-font-h4-desktop: {{ settings.type_header_base_size | times: 0.68 | floor }};
+        --gl-font-h4-mobile: {{ settings.type_header_base_size | times: 0.68 | times: 0.9 | floor }};
+
+        --gl-font-h5-desktop: {{ settings.type_header_base_size | times: 0.58 | floor }};
+        --gl-font-h5-mobile: {{ settings.type_header_base_size | times: 0.58 | times: 0.9 | floor }};
+
+        --gl-font-h6-desktop: {{ settings.type_header_base_size | times: 0.54 | floor }};
+        --gl-font-h6-mobile: {{ settings.type_header_base_size | times: 0.54 | times: 0.9 | floor }};
+
+        --gl-font-mega-title-large-desktop: {{ settings.type_header_base_size | times: 2.5 | floor }};
+
+        --gl-font-rich-text-large: {{ settings.type_body_base_size | times: 1.15 | floor }};
+        --gl-font-rich-text-small: {{ settings.type_body_base_size | times: 0.88 | floor }};
+
+        --gl-font-size-badge: 11;
+
+        --gl-font-weight-price: {{ settings.fontweight_price}};
+        --gl-font-size-price: 1em;
+        --gl-font-size-price--gl-large: 1.25em;
+        --gl-font-size-price--gl-small: 0.9em;
+
+        --gl-line-height-button: 1.2;
+        --gl-line-height-vertMenuItem: 1.0;
+        --gl-line-height-menuItem: 1.0;
+        --gl-line-height-menuSubHead: 1.0;
+        --gl-line-height-badge: 1.0;
+
+        --gl-font-weight-generalHead: {{ settings.fontweight_general_header}};
+        --gl-font-weight-vertMenuItem: {{ settings.fontweight_vertical_menuitem}};
+        --gl-font-weight-menuItem: {{ settings.fontweight_menuitem}};
+        --gl-font-weight-menuSubHead: {{ settings.fontweight_menusubhead}};
+        --gl-font-weight-badge: {{ settings.fontweight_badge}};
+
+        --gl-mfp-loader: url({{ 'loader.gif' | asset_url }});
+        --gl-contact-map-height: {{ settings.contact_map_height }}px;
+        --gl-popup-mc-width: {{ settings.popup_mailchimp_width }}px;
+
+        --gl-border-radius: 0;
+        --gl-border-radius-for-rounded-input: 50%;
+        --gl-header-icon-width: 45px;
+        --gl-header-icon-height: 45px;
+        --gl-border-radius-for-header-icon: 22.5px;
+        --gl-cart-count-dim: 23px;
+
+        --pswp__button--arrow--right_bg_before_png: url("{{'pswp-default-skin.png' | asset_url}}");
+        --pswp__button--arrow--right_bg_before_svg: url("{{'pswp-default-skin.svg' | asset_url}}");
+        --pswp__preloader__icn_bg: url("{{'pswp-preloader.gif' | asset_url}}");
+        --easyzoom-isready_cursor: url("{{'plus-in.svg' | asset_url}}");
+
+        --homefilter-input-height: 40px;
+
+        --product_item_wrap_padding: 0.75rem;
+        --product_item_countdown_height: 52px;
+        --product_item_box_shadow: 0px 9px 7px 1px #0000002e;
+        --soldout-img: url({{- "sold_out.png" | asset_url -}});
+    }
+    @font-face{font-family:'FontAwesome';src:url({{'fontawesome-webfont.eot?v=4.6.3' | asset_url}});src:url({{'fontawesome-webfont.eot?#iefix&v=4.6.3' | asset_url}}) format('embedded-opentype'),url({{'fontawesome-webfont.woff2?v=4.6.3' | asset_url}}) format('woff2'),url({{'fontawesome-webfont.woff?v=4.6.3' | asset_url}}) format('woff'),url({{'fontawesome-webfont.ttf?v=4.6.3' | asset_url}}) format('truetype'),url({{'fontawesome-webfont.svg?v=4.6.3#fontawesomeregular' | asset_url}}) format('svg');font-weight:normal;font-style:normal}
+    @font-face {font-family: revicons;src:url({{'revicons.eot' | asset_url}});src:url({{'revicons.eot#iefix' | asset_url}}) format('embedded-opentype'), url({{'revicons.woff' | asset_url}}) format('woff'), url({{'revicons.ttf' | asset_url}}) format('truetype'), url({{'revicons.svgt#revicons' | asset_url}}) format('svg');font-weight: 400;font-style: normal}
+{% endstyle %}

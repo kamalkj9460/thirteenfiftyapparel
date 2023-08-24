@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400|Oswald:400|Roboto:400|Roboto+Condensed:400|Palanquin+Dark:400|Barlow+Condensed:400&display=swap"><link rel="stylesheet" href="https://cdn.pagefly.io/pagefly/2.17.0/css/main-style.css?t=20210223200253"><link rel="stylesheet" href="{{ 'pagefly.1ba47b1b.css' | asset_url }}">
+		  <div class="__pf" id="__pf"><div data-pf-type="Body" class="sc-pRgDJ fzXWJx pf-1cd7a062"><div data-pf-type="Layout" class="pf-e51f1cd7"><div data-container="false" class="sc-pZopv bjKdkd pf-5abe38ae" data-pf-type="Section"><div class="sc-pQQXS iWCqut"><div class="sc-qPjXN eYzxUD pf-6248ca15 pf-r pf-r-eh" data-pf-type="Row" style="--pf-s-lg:15px; --pf-s-md:15px; --pf-s-sm:15px; --pf-s-xs:15px;"><div class="sc-pbYdQ jklmHY pf-c pf-c-xs--12 pf-c-sm--12 pf-c-md--12 pf-c-lg--12"><div class="sc-pkUyL fTyjzF pf-0ca86248" data-pf-type="Column"><img sizes="(min-width: 992px) 1200px, (min-width: 768px) and (max-width: 991px) 800px, 400px" srcset="https://cdn.shopify.com/s/files/1/1489/5902/t/19/assets/pf-be38ae3d--activve-threadslogo.png?v=1614080287 1200w, https://cdn.shopify.com/s/files/1/1489/5902/t/19/assets/pf-be38ae3d--activve-threadslogo.png?v=1614080287 800w, https://cdn.shopify.com/s/files/1/1489/5902/t/19/assets/pf-be38ae3d--activve-threadslogo_400x58.png?v=1614080287&resized 400w" class="sc-qZtVr dLIPjF pf-ae3d0ca8" data-pf-type="Image2"></div></div></div></div></div><div data-pf-type="ProductPreview" class="sc-pJVLq dIjrXL pf-48269020">{%- if product.metafields.inventory.ShappifyHidden == 'true' -%}{%- break -%}{%- endif -%}
+{% include 'bold-product' with product, hide_action: 'break' %}{% if bold_hidden_product %}{% break %}{%endif %}
+<div class="container px-2 py-4">
+  {%- section "act1v3-threads-template" -%}
+</div>
+{% assign current_variant = product.selected_or_first_available_variant %}
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/", 
+ {{ product.metafields.alireviews.seo_rating_review_key_script }}
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "url": {{ shop.url | append: product.url | json }},
+  {%- if product.featured_media -%}
+    {%- assign media_size = product.featured_media.preview_image.width | append: 'x' -%}
+    "image": [
+      {{ product.featured_media | img_url: media_size | prepend: "https:" | json }}
+    ],
+  {%- endif -%}
+  "description": {{ product.description | strip_html | json }},
+  {%- if current_variant.sku != blank -%}
+    "sku": {{ current_variant.sku | json }},
+  {%- endif -%}
+  "brand": {
+    "@type": "Thing",
+    "name": {{ product.vendor | json }}
+  },
+  "offers": [
+    {%- for variant in product.variants -%}
+      {
+        "@type" : "Offer",
+        {%- if variant.sku != blank -%}
+          "sku": {{ variant.sku | json }},
+        {%- endif -%}
+        "availability" : "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+        "price" : {{ variant.price | divided_by: 100.00 | json }},
+        "priceCurrency" : {{ cart.currency.iso_code | json }},
+        "url" : {{ shop.url | append: variant.url | json }}
+      }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
+</script><div class="yotpo yotpo-main-widget" data-product-id="{{ product.id }}" data-name="{{ product.title | escape }}" data-url="{{ shop.url }}{{ product.url }}" data-image-url="{{ product.featured_image | product_img_url: 'large' |replace: '?', '%3F' | replace: '&amp;','%26'}}" data-description="{{ product.description | escape }}" data-price="{{ variant.price | money_without_currency }}" data-currency="{{ shop.currency }}"></div></div></div></div></div><script>
+					window.__pagefly_setting__={"baseURL":"https://apps.pagefly.io","analyticsURL":"https://analytics.pagefly.io","isBackend":false,"cdnURL":"https://cdn.pagefly.io","pageflyVersion":"2.17.0","shopDomain":"thirteen-fifty-apparel.myshopify.com","elementData":{},"pageTitle":"ACT1V3 THREADS","pageType":"product","pageId":"1ba47b1b-26c2-417e-8344-736a01e4fc7c","lazyLoad":false,"imageLazyLoad":false,"nativeImageLazyLoad":true,"trackingIDs":[],"shopifyProxyPath":"/a/pf_preview","updatedTime":"2021-02-23T13:03:54.107Z"};
+					window.__pagefly_setting__.moneyFormat = {{shop.money_format | json}}
+				</script><script src="https://cdn.pagefly.io/pagefly/2.17.0/core/helper.js?t=20210223200253" defer></script>

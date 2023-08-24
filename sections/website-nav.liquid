@@ -1,0 +1,24 @@
+<div id="website-nagivation" style="background-color:{{ section.settings.color_bg }}">
+  <div class="website-navigation--wrapper">
+    {%- include 'website-navigation' -%}
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Website Nagivation",
+	"class": "header-website-nav",
+    "settings": [
+        {
+          "type": "link_list",
+          "id": "special_linklist",
+          "label": "Choose menu"
+        },
+        {
+          "type": "color",
+          "id": "color_bg",
+          "label": "Background color",
+          "default": "#000000"
+        }
+	]
+  }
+{% endschema %}

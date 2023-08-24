@@ -1,0 +1,7 @@
+{%- if settings.wishlist_enable or settings.compare_enable or settings.product_size_chart -%}
+<div class="product-actions d-flex justify-content-start align-items-center flex-wrap">
+  {%- assign my_product = product -%}
+  {%- if settings.wishlist_enable -%}{%- include 'wishlist' -%}{%- endif -%}
+  {%- if settings.compare_enable -%}{%- include 'compare' with true -%}{%- endif -%}
+</div>
+{%- endif -%}

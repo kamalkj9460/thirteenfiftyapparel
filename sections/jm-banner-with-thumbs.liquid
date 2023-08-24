@@ -1,0 +1,88 @@
+{{ 'jm-banner-with-thumbs.css' | asset_url | stylesheet_tag }}
+
+<div id="cb-item-{{section.id}}" class="jm-banner-with-thumbs">
+  <div class="jm--macro-shots">
+
+    {% if section.settings.linked_url != "" %}
+      <a href="{{ section.settings.linked_url }}" class="jm-main-banner" style="background-image: url('{{ section.settings.image_2 | img_url: 'master' }}');"></a>
+    {% else %}
+   		<main class="jm-main-banner" style="background-image: url('{{ section.settings.image_2 | img_url: 'master' }}');"></main>
+    {% endif %}
+    
+    <aside class="jm-thumbnails">
+      <div class="thumbnail" data-macro="{{ section.settings.image_1 | img_url: 'master' }}">
+        <div class="jm-thumb" style="background-image: url({{ section.settings.image_1 | img_url: 'master' }})"></div>
+      </div>
+      <div class="selected thumbnail" data-macro="{{ section.settings.image_2 | img_url: 'master' }}">
+        <div class="jm-thumb" style="background-image: url({{ section.settings.image_2 | img_url: 'master' }})"></div>
+      </div>
+      <div class="thumbnail" data-macro="{{ section.settings.image_3 | img_url: 'master' }}">
+        <div class="jm-thumb" style="background-image: url({{ section.settings.image_3 | img_url: 'master' }})"></div>
+      </div>
+    </aside>
+  </div>
+  {% if section.settings.linked_url != "" %}
+  <div class="jm-btn-macro">
+    <a href="{{ section.settings.linked_url }}" class="macro-cta">{{ section.settings.cta_text }}</a>
+  </div>
+  {% endif %}
+</div>
+
+<script>
+  $('.thumbnail').on('click', function() {
+    var clicked = $(this);
+    var selectedMacro = clicked.data('macro');
+    var $img = $('.jm-main-banner').css("background-image","url(" + selectedMacro + ")");
+    clicked.parent().find('.thumbnail').removeClass('selected');
+    clicked.addClass('selected');
+    $('.jm-main-banner').empty().append($img.hide().fadeIn('slow'));
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Macro Shot Banner",
+  "settings": [
+		{
+                    "type": "header",
+                    "content": "General"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image_1",
+                    "label": "Your image"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image_2",
+                    "label": "Your image"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image_3",
+                    "label": "Your image"
+                },
+				{
+                    "type": "header",
+                    "content": "Button"
+                },
+                {
+                    "type": "text",
+                    "id": "cta_text",
+                    "label": "Text",
+                    "default": "BUTTON TEXT"
+                },
+                {
+                    "type": "url",
+                    "id": "linked_url",
+                    "label": "URL",
+                    "default": "/collections/all"
+                }
+  		],
+  "presets": [
+    {
+      "name": "Macro Shot Banner"
+    }
+  ]
+}
+{% endschema %}

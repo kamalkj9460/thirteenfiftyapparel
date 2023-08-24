@@ -1,0 +1,29 @@
+    <div class="product-upsells">
+      <div style="--snapscroll-itemsize:70%;" id="productUpsells" class="col-p-100">
+        <div style="--splide-arrow-size:2em;--splide-arrow-size-md:3em;--splide-arrow-bgc:#c6c6c66e;--splide-arrow-br:0;" class="is-slider no-pagination splide splide--arrowpos--cent-side has-container" data-splide='{"type":"slide","perMove":"1","breakpoints":{"767":{"destroy":"true"}},"perPage":"4"}'>
+          <span class="position-absolute h-100 zi-lv1 ml-n-container custom-bgcolor w-container" style="--bg-color:{{settings.color_body_bg}};"></span>
+          <span class="absolute-right h-100 zi-lv1 mr-n-container custom-bgcolor w-container" style="--bg-color:{{settings.color_body_bg}};"></span>
+          {%- render 'slider-nav-buttons', custom_class: 'd-none d-md-block' -%}
+
+          <div class="splide__track w-100">
+            <div class="splide__list w-100 rt-mobile-snapscroll">
+              {% assign collection = collections[settings.product_bottom_upsell_collection] %}
+              {%- assign my_limit = settings.product_bottom_upsell_limit | plus:1 -%}
+              {%- assign my_product = product -%}
+              {%- assign my_product_found = false -%}
+              {%- for product in collection.products limit: my_limit -%}
+              {%- if product.handle == my_product.handle -%}
+              {%- assign my_product_found = true -%}
+              {%- else -%}
+              {%- unless my_product_found == false and forloop.last -%}
+              <div class="splide__slide p-sm-1 product product-upsell-item">
+                {%- include 'product-item' -%}
+              </div>
+              {%- endunless -%}
+              {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

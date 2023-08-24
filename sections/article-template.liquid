@@ -1,0 +1,539 @@
+<div id="col-main" class="center-column content-with-background blog-article article-template-page container" data-section-id="{{section.id}}" data-section-type="article-template">
+  <div class="article-wrapper">
+    <div class="article-information row"> 
+      <img alt="{{article.title | escape}}" class="col-12 w-100 lazyload" src='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==' data-src="{{article.image.src | img_url: 'master'}}" />
+      <div class="col-12 col-md-2"></div>
+      <div class="col-12 col-md-8 article-info">
+        <div class="blog-title text-left text-uppercase">
+          <a href="{{article.url}}">{{article.title}}</a>
+        </div>
+        <div class="blog-date text-left text-uppercase">
+          <span class="author">{{article.author}}</span>, {{article.published_at | date: "%b %d, %Y"}}
+        </div>
+        <div class="blog-comment text-uppercase">
+          {{ "blogs.comments.comments_with_count" | t: count: article.comments_count  }}
+        </div>
+      </div> 
+      <div class="col-12 col-md-2"></div>
+    </div>
+    <div class="article-content"> 
+      {{article.content}}
+    </div>
+    {% for block in section.blocks %}
+	{% case block.type %}
+    {% when "image_text" %}
+    <div class="about-default-image-text">
+      <div class="row align-items-center">
+        <div class="image col-12 col-md-6">
+          {% if block.settings.image != blank %}
+          <img class="w-100 lazyload" data-src="{{block.settings.image | img_url: "master"}}" />
+          {% endif %}
+        </div>
+        <div class="text col-12 col-md-6">
+          <div class="text-left text-uppercase heading py-3">
+            {{block.settings.heading}}
+          </div>
+          <div class="text-left caption">
+            {{block.settings.caption}}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% when "texts" %}
+    <div class="row">
+      <div class="col-12 col-md-2"></div>
+      <div class="col-12 col-md-8 article-block-texts pb-5 ">
+        <div class="text-left text-uppercase heading py-4">
+          {{block.settings.heading}}
+        </div>
+        <div class="text-left caption">
+          {{block.settings.caption}}
+        </div>
+      </div>
+      <div class="col-12 col-md-2"></div>
+    </div>
+    {% when "review" %}
+    <div class="row">
+      <div class="col-12 col-md-2"></div>
+      <div class="ol-12 col-md-8 article-block-review py-5 px-5 my-5">
+        <div class="review-content pb-3">{{block.settings.content}}</div>
+        <div class="review-date text-uppercase">{{block.settings.date}}</div>
+      </div>
+      <div class="col-12 col-md-2"></div>
+    </div>
+    {% when "images" %}
+    <div class="article-block-images">
+      {% for i in (1..6) %}
+      {% assign s_image = "image" | append: i %}
+      {% if block.settings[s_image] != blank %}
+      <img class="lazyload" data-src="{{ block.settings[s_image] | img_url: "master" }}" />
+      {% endif %}
+      {% endfor %}
+    </div>
+    {% when "collection" %}
+    {% if block.settings.collection != blank %}
+    <div class="article-block-products product-grid products my-3">
+      {% if block.settings.heading != blank %}
+      <div class="row">
+        <div class="col-12 col-md-2"></div>
+        <div class="col-12 col-md-8 heading text-left text-uppercase pb-3">{{block.settings.heading}}</div>
+        <div class="col-12 col-md-2"></div>
+      </div>
+      {% endif %}
+      <div class="row">
+        {% for product in collections[block.settings.collection].products limit: block.settings.limit %}
+        <div class="col-sm-3 col-xs-6 product-item">
+          {%- include 'product-item' -%}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+    {% when "blog" %}
+    <div class="about-blog-wrapper py-5">
+      <div class="row">
+        <div class="col-12 col-md-2"></div>
+        <div class="col-12 col-md-8">
+          {% if block.settings.heading != blank %}
+          <div class="heading text-left text-uppercase pb-3">{{block.settings.heading}}</div>
+          {% endif %}
+          {% if block.settings.blog != blank %}
+          {% assign posts = blogs[block.settings.blog] %}
+          {% if posts.articles.size > 0 %}
+          <div class="row">
+            {% for article in posts.articles limit: block.settings.limit  %}
+            <div class="col-12 col-md-6">
+              <div class="article-block">
+                {% if article.image != blank %}
+                <a href="{{article.url}}"><img class="w-100 lazyload" data-src="{{article.image | img_url: "master"}}" /></a>
+                {% endif %}
+                <div class="blog-title text-left">
+                  <a href="{{article.url}}">{{article.title}}</a>
+                </div>
+                <div class="blog-date">
+                  <span class="author">{{article.author}}</span>, {{article.published_at | date: "%b %d, %Y"}}
+                </div>
+                <div class="blog-comment">
+                  {{ "blogs.comments.comments_with_count" | t: count: article.comments_count  }}
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+          {% if block.settings.button != blank %}
+          <a class="article-more d-flex align-items-center justify-content-center pt-3" href="{{block.settings.url}}">
+
+            {{block.settings.button}}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path fill="currentColor" d="M187.8 264.5L41 412.5c-4.7 4.7-12.3 4.7-17 0L4.2 392.7c-4.7-4.7-4.7-12.3 0-17L122.7 256 4.2 136.3c-4.7-4.7-4.7-12.3 0-17L24 99.5c4.7-4.7 12.3-4.7 17 0l146.8 148c4.7 4.7 4.7 12.3 0 17z" ></path></svg>
+          </a>
+          {% endif %}
+          {% endif %}
+        </div>
+        <div class="col-12 col-md-2"></div>
+      </div>
+    </div>
+    {% when "article_info" %}
+    <div class="article-block-info row py-3">
+      <div class="col-12 col-md-2"></div>
+      <div class="col-12 col-md-4">
+        <div class="blog-date text-left text-uppercase">
+          <span class="author">{{article.author}}</span>, {{article.published_at | date: "%b %d, %Y"}}
+        </div>
+        <div class="blog-comment text-uppercase py-2">
+          {{ "blogs.comments.comments_with_count" | t: count: article.comments_count  }}
+        </div>
+        <div class="blog-share">
+          {% include "add-this" %}
+        </div>
+      </div>
+      {%- if article.tags.size > 0 -%}
+      <div class="col-12 col-md-4 sidebar-content-tags">
+        <div class="tags d-flex justify-content-start align-items-start flex-wrap  text-uppercase">
+          {%- for tag in article.tags -%}
+          {%- if current_tags contains tag -%}
+          {{tag | link_to_remove_tag: tag | replace: 'title=', 'class="active" title='}}
+          {%- else -%}
+          {{tag | link_to_add_tag: tag}}
+          {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+      {%- endif -%}
+      <div class="col-12 col-md-2"></div>
+    </div>
+    {% when "comment" %}
+    <div class="article-block-comment row py-3">
+      <div class="col-12 col-md-2"></div>
+      <div class="col-12 col-md-8 article-block-texts pb-5 ">
+        <div class="heading text-left text-uppercase pb-3">{{'blogs.general.comments' | t }}</div>
+        {%- if blog.comments_enabled? -%}
+          {%- if article.comments != blank -%}
+          {%- paginate article.comments by 4 -%}
+          <div class="comments-list">
+            {%- comment -%}Loop through approved comments:{%- endcomment -%}
+            {%- for comment in article.comments reversed -%}
+            <div class="comment-list-item py-3">
+              <div class="author">
+                <span class="name">{{comment.author | escape}}</span>
+                <span class="date">{{comment.created_at | date: "%B %d, %Y"}}</span>
+              </div>
+              <div class="text">{{comment.content}}</div>
+            </div>
+            {%- endfor -%}
+            {%- include 'pagination' -%}
+          </div>
+          {%- endpaginate -%}
+          {%- endif -%}
+          <div class="leave-reply" id="reply-block">
+          <div class="heading text-left text-uppercase pb-3">{{'blogs.comments.title' | t }}</div>
+          {%- form article -%}
+          {%- if blog.moderated? -%}
+          <p>
+            {{'blogs.comments.moderated' | t}}
+          </p>
+          {%- endif -%}
+          {%- if form.posted_successfully? -%}
+          {%- if blog.moderated? -%}
+          <div class="success">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{'blogs.comments.success_moderated' | t}}
+          </div>
+          {%- endif -%}
+          {%- endif -%}
+          {%- if form.errors -%}
+          <div class="warning">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{ form.errors | default_errors }}
+          </div>
+            {%- endif -%}
+            <div class="input-wrapper">
+              <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                  <label class="control-label" for="input-name">{{'blogs.comments.name' | t}}</label>
+                  <input required="required" type="text" id="input-name" class="form-control" name="comment[author]" value="{%- if form.author -%}{{form.author}}{%- elsif customer -%}{{customer.first_name}} {{customer.last_name}}{%- endif -%}" />
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                  <label class="control-label" for="input-email">{{'blogs.comments.email' | t}}</label>
+                  <input required="required" type="email" id="input-email" class="form-control" name="comment[email]" value="{%- if form.email -%}{{form.email}}{%- elsif customer -%}{{customer.email}}{%- endif -%}" />
+                </div>
+              </div>
+            </div>
+            <div class="input-wrapper">
+              <div class="row">
+                <div class="col-12">
+                  <label class="control-label" for="input-content">{{'blogs.comments.message' | t}}</label>
+                  <textarea required="required" id="input-content" name="comment[body]" rows="10" class="form-control">{{form.body}}</textarea>
+                </div>
+              </div>
+            </div>
+            <div class="input-wrapper text-center">
+              <button class="button button-large button-comment" id="button-comment" type="submit">{{'blogs.comments.post' | t}}</button>
+            </div>
+            {%- endform -%}
+        </div>
+        {%- endif -%}
+      </div>
+      <div class="col-12 col-md-2"></div>
+    </div>
+    {% when "instagram" %}
+    <div class="about-instagram-default about-instagram-wrapper">
+    <div class="heading">{{block.settings.heading}}</div>
+    <div class="row">
+      {% for i in (1..10) %}
+      {% assign s_image = "image" | append: i %}
+      {% assign s_url = "url" | append: i %}
+      {% if block.settings[s_image] != blank %}
+      <div class="about-insta">
+        <a href="{{block.settings[s_url]}}"><img class="lazyload" data-src="{{block.settings[s_image] | img_url: "master"}}" /></a>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+    {% endcase %}
+    {% endfor %}
+    
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Blog Post",
+    "settings": [],
+	"blocks": [
+		{
+			"type": "image_text",
+			"name": "Image with text",
+			"settings": [
+				{
+					"type" :"image_picker",
+					"id": "image",
+					"label": "Image"
+				},
+				{
+					"type" :"html",
+					"id": "heading",
+					"label": "Heading"
+				},
+				{
+					"type" :"html",
+					"id": "caption",
+					"label": "Caption"
+				}
+			]
+		},
+		{
+			"type": "texts",
+			"name": "Texts",
+			"settings": [
+				{
+					"type": "html",
+					"id": "heading",
+					"label": "Heading"
+				},
+				{
+					"type": "html",
+					"id": "caption",
+					"label": "Caption"
+				}
+			]
+		},
+		{
+			"type": "review",
+			"name": "Review",
+			"settings": [
+				{
+					"type": "html",
+					"id": "content",
+					"label": "Content"
+				},
+				{
+					"type": "text",
+					"id": "date",
+					"label": "Date"
+				}
+			]
+		},
+		{
+			"type": "images",
+			"name": "Images",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "image1",
+					"label": "Image #1"
+				},
+				{
+					"type": "image_picker",
+					"id": "image2",
+					"label": "Image #2"
+				},
+				{
+					"type": "image_picker",
+					"id": "image3",
+					"label": "Image #3"
+				},
+				{
+					"type": "image_picker",
+					"id": "image4",
+					"label": "Image #4"
+				},
+				{
+					"type": "image_picker",
+					"id": "image5",
+					"label": "Image #5"
+				},
+				{
+					"type": "image_picker",
+					"id": "image6",
+					"label": "Image #6"
+				}
+			]
+		},
+		{
+			"type": "collection",
+			"name": "Collection",
+			"settings": [
+				{
+					"type": "text",
+					"id": "heading",
+					"label": "Heading"
+				},
+				{
+					"type": "collection",
+					"id": "collection",
+					"label": "Collection"
+				},
+				{
+					"type": "range",
+					"id": "limit",
+					"label": "Limit",			
+					"min": 1,			
+					"max": 12,			
+					"step": 1,			
+					"default": 4
+				}
+			]
+		},
+		{
+			"type": "blog",
+			"name": "Blog",
+			"settings": [
+				{
+					"type" :"blog",
+					"id": "blog",
+					"label": "Choose a blog"
+				},
+				{
+					"type" :"text",
+					"id": "heading",
+					"label": "Heading"
+				},
+				{
+					"type" :"range",
+					"id": "limit",
+					"label": "Limit",
+					"min": 1,
+					"max": 6,
+					"step": 1,
+					"default": 2
+				},
+				{
+					"type" :"text",
+					"id": "button",
+					"label": "Button"
+				},
+				{
+					"type" :"url",
+					"id": "url",
+					"label": "Url"
+				}
+			]
+		},
+		
+		{
+			"type": "article_info",
+			"name": "Article Info",
+			"settings": [
+			]
+		},
+		{
+			"type": "comment",
+			"name": "Comment Form",
+			"settings": [
+			]
+		},
+		{
+			"type": "instagram",
+			"name": "Insragram Image",
+			"settings": [
+				{
+					"type" :"html",
+					"id": "heading",
+					"label": "Heading"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image1",
+					"label": "Image #1"
+				},
+				{
+					"type" :"url",
+					"id": "url1",
+					"label": "Url #1"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image2",
+					"label": "Image #2"
+				},
+				{
+					"type" :"url",
+					"id": "url2",
+					"label": "Url #2"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image3",
+					"label": "Image #3"
+				},
+				{
+					"type" :"url",
+					"id": "url3",
+					"label": "Url #3"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image4",
+					"label": "Image #4"
+				},
+				{
+					"type" :"url",
+					"id": "url4",
+					"label": "Url #4"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image5",
+					"label": "Image #5"
+				},
+				{
+					"type" :"url",
+					"id": "url5",
+					"label": "Url #5"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image6",
+					"label": "Image #6"
+				},
+				{
+					"type" :"url",
+					"id": "url6",
+					"label": "Url #6"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image7",
+					"label": "Image #7"
+				},
+				{
+					"type" :"url",
+					"id": "url7",
+					"label": "Url #7"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image8",
+					"label": "Image #8"
+				},
+				{
+					"type" :"url",
+					"id": "url8",
+					"label": "Url #8"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image9",
+					"label": "Image #9"
+				},
+				{
+					"type" :"url",
+					"id": "url9",
+					"label": "Url #9"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image10",
+					"label": "Image #10"
+				},
+				{
+					"type" :"url",
+					"id": "url10",
+					"label": "Url #10"
+				}
+			]
+		}
+	]
+  }
+{% endschema %}

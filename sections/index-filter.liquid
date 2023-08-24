@@ -1,0 +1,286 @@
+{%- if section.blocks.size > 0 -%}
+<div id="home-filter-{{section.id}}" class="{% if section.settings.visible_on_mobile == false %} d-none d-sm-block{% endif %}{% if section.settings.has_container %} container{% endif %}" data-section-id="{{ section.id }}" data-section-type="home-filter">
+  <div class="home-filter-wrapper d-flex flex-column align-items-center justify-content-center custom-min-height lazyload" style="--min-height-md:{{section.settings.height}}px;background-color:{{section.settings.bg_color}};{% if section.settings.bg_image == blank %}background-size:auto;background-repeat:repeat;{% render 'ssh-pattern', _pattern: 2, _opacity: '0.25' %}{% endif %}" {% if section.settings.bg_image != blank %}data-bg="{{ section.settings.bg_image | img_url: "master" }})"{% endif %}>	
+    <div class="text-center">
+      <div class="home-filter--heading pb-1 px-2 custom-font-size" style="--font-size-lg:{{section.settings.heading_fontsize}}px;--font-size-md:{{section.settings.heading_fontsize | times: 0.7 }}px;--font-size:22px;color:{{-section.settings.heading_color}};font-weight:{{-section.settings.heading_fontweight}}">{{- section.settings.title -}}</div>
+      <div class="home-filter--caption pb-4 px-2 custom-font-size" style="--font-size-lg:{{section.settings.caption_fontsize}}px;--font-size-md:{{section.settings.caption_fontsize | times: 0.7 }}px;--font-size:18px;color:{{-section.settings.caption_color}};font-weight:{{-section.settings.caption_fontweight}}">{{- section.settings.caption -}}</div>
+    </div>
+    <div class="d-flex flex-wrap custom-width flex-column flex-md-row" style="--width:90%;--width-md:{{section.settings.content_width}}%">
+		<div class="flex-with-equal-children flex-column flex-md-row" style="flex:1 1 auto">
+			<div class="home-filter--collections pr-md-2">
+				<span class="home-filter--dropdown-form">
+				<span class="home-filter--dropdown-wrapper collection__selection text-left">
+					<span class="home-filter--dropdown-backdrop enabled">
+					<select class="hidden"> 
+						<option class="first" value="">{{- section.settings.placeholder_text -}}</option>
+						{%- for block in section.blocks -%}
+						{%- if block.type == "collection" and block.settings.collection != blank-%}
+						{%- assign _collection = collections[block.settings.collection] -%}
+						<option  value="{{- _collection.url -}}" data-id="{{- _collection.id -}}" {{ block.shopify_attributes }}>{{-  _collection.title -}}</option>
+						{%- endif -%}
+						{%- endfor -%}
+					</select>              
+					<a href="javascript:void(0)" class="mimic-selected">{{- section.settings.placeholder_text -}}</a>
+					<ul class="mimic-options" style="display: none;">
+						<li class="first hidden">{{- section.settings.placeholder_text -}}</li>
+						{%- for block in section.blocks -%}
+						{%- if block.type == "collection"  and block.settings.collection != blank -%}
+						{%- assign _collection = collections[block.settings.collection] -%}
+						<li {{ block.shopify_attributes }}><a href="javascript:void(0)" rel="{{- _collection.url -}}" data-id="{{- _collection.id -}}">{{-  _collection.title -}}</a></li>
+						{%- endif -%}
+						{%- endfor -%}
+					</ul>
+					<label class="error" style="display:none">{{ "search.general.require" | t}}</label>
+					</span>
+				</span>
+				</span>
+			</div>
+			{%- for block in section.blocks -%}
+			{%- if block.type == "tags" -%}
+			{%- assign _heading = block.settings.heading -%}
+			{%- assign _tags = block.settings.tags | split: "," -%}
+			<div class="home-filter--tags pr-md-2" {{ block.shopify_attributes }}>
+				<span class="home-filter--dropdown-form">
+				<span class="home-filter--dropdown-wrapper tag__selection text-left">
+					<span class="home-filter--dropdown-backdrop disabled">
+					<select class="hidden"> 
+						<option class="first" value="">{{- _heading -}}</option>
+						{%- for tag in _tags -%}
+						<option  value="{{- tag | handleize -}}" rel="{{- tag | handleize -}}" {{ block.shopify_attributes }}>{{-  tag -}}</option>
+						{%- endfor -%}
+					</select>              
+					<a href="javascript:void(0)" class="mimic-selected">{{- _heading -}}</a>
+					<ul class="mimic-options" style="display: none;">
+						<li class="first hidden">{{- _heading -}}</li>
+						{%- for tag in _tags -%}
+						<li {{ block.shopify_attributes }}>
+						<a href="javascript:void(0)" rel="{{- tag | handleize -}}" >
+							{{-  tag -}}
+						</a>
+						</li>
+						{%- endfor -%}
+					</ul>
+					</span>
+				</span>
+				</span>
+			</div>
+			{%- endif -%}
+			{%- endfor -%}
+		</div>
+		<div class="filter-block filter-btn m-auto m-md-0" style="flex: 0 0 auto">
+			<input type="button" value="{{- section.settings.btn -}}" class="button search-button">
+		</div>
+    </div>
+  </div>
+</div>
+{%- endif -%}
+{% schema %}
+{
+	"name":"Home Filter",
+	"class":"index-section section-wrapper home-filter",
+	"max_blocks":50,
+  "settings":[
+    {
+      "type": "header",
+      "content": "General"
+    },
+		{
+			"type":"checkbox",
+			"id":"visible_on_mobile",
+			"label":"Display on Mobile"
+    },
+    {
+        "type": "checkbox",
+        "id": "has_container",
+        "label": "Within Container",
+        "default": true
+	},
+	{
+		"type": "range",
+		"id": "content_width",
+		"label": "Content width",
+		"unit": "%",
+		"min": 50,
+		"max": 100,
+		"step": 5,
+		"default": 70
+	},
+	{
+		"type": "range",
+		"id": "height",
+		"label": "Height on desktop",
+		"unit": "px",
+		"min": 200,
+		"max": 500,
+		"step": 10,
+		"default": 220
+	},
+    {
+      "type": "header",
+      "content": "Content"
+    },
+		{
+			"type":"text",
+			"id":"title",
+			"label":"Heading",
+			"default": "ADVANCED FILTER"
+		},
+		{
+			"type":"textarea",
+			"id":"caption",
+			"label":"Caption",
+			"default": "SEARCH FOR A PRODUCTS, YOU ARE REALLY LOOKING FOR"
+		},
+		{
+			"type":"text",
+			"id":"placeholder_text",
+			"label":"Placeholder text",
+			"default": "Choose a collection..."
+		},
+		{
+			"type":"text",
+			"id":"btn",
+			"label":"Button text"
+		},
+		{
+			"type":"header",
+			"content":"Styling"
+		},
+		{
+			"type":"color",
+			"id":"bg_color",
+			"label":"Background color"
+		},
+		{
+			"type":"image_picker",
+			"id":"bg_image",
+			"label":"Background image"
+		},
+		{
+			"type":"color",
+			"id":"heading_color",
+			"label":"Heading color",
+			"default": "#000"
+		},
+		{
+			"type":"range",
+			"id":"heading_fontsize",
+			"min":0,
+			"max":100,
+			"step":1,
+			"unit":"px",
+			"label":"Heading fontsize",
+			"default":25
+		},
+		{
+			"type":"range",
+			"id":"heading_fontweight",
+			"min":100,
+			"max":900,
+			"step":100,
+			"label":"Heading fontWeight",
+			"default":400
+		},
+		{
+			"type":"color",
+			"id":"caption_color",
+			"label":"Caption Color",
+			"default": "#000"
+		},
+		{
+			"type":"range",
+			"id":"caption_fontsize",
+			"min":0,
+			"max":100,
+			"step":1,
+			"unit":"px",
+			"label":"Caption fontsize",
+			"default":16
+		},
+		{
+			"type":"range",
+			"id":"caption_fontweight",
+			"min":100,
+			"max":900,
+			"step":100,
+			"label":"Caption fontWeight",
+			"default":300
+		}
+	],
+	"blocks":[
+		{
+			"type":"collection",
+			"name":"Collection",
+			"settings":[
+				{
+					"type":"collection",
+					"id":"collection",
+					"label":"Your collection"
+				}
+			]
+		},
+		{
+			"type":"tags",
+			"name":"Product tags",
+			"settings":[
+				{
+					"type":"text",
+					"id":"heading",
+					"label":"Heading"
+				},
+				{
+					"type":"html",
+					"id":"tags",
+					"label":"Tags",
+					"info":"Separated the tags by comma. For example: Blue,Red,Yellow"
+				}
+			]
+		}
+	],
+	"presets":[
+		{
+			"name": "Product Filtering",
+			"category": "5. Others",
+			"settings": {
+				"visible_on_mobile": true,
+				"has_container": true,
+				"content_width": 80,
+				"height": 220,
+				"title": "ADVANCED FILTER",
+				"caption": "SEARCH FOR A PRODUCTS, <span class=\"border-bottom\">YOU ARE REALLY LOOKING FOR<\/span>",
+				"placeholder_text": "Choose a collection...",
+				"btn": "SEARCH",
+				"bg_color": "#DD4E50",
+				"heading_color": "#fff",
+				"heading_fontsize": 25,
+				"heading_fontweight": 400,
+				"caption_color": "#fff",
+				"caption_fontsize": 16,
+				"caption_fontweight": 300
+			},
+			"blocks":[
+				{
+					"type": "collection"
+				},
+				{
+					"type": "collection"
+				},
+				{
+					"type": "tags",
+					"settings": {
+						"heading": "Color",
+						"tags": "Black,Red"
+					}
+				},
+				{
+					"type": "tags",
+					"settings": {
+						"heading": "Size",
+						"tags": "S,M,L,XL"
+					}
+				}
+			]
+		}
+	]
+}
+{% endschema %}

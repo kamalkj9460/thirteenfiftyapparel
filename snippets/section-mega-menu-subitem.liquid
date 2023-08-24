@@ -1,0 +1,163 @@
+{%- assign next_block = section.blocks[k] -%}
+{%- assign _sub_item_content_w 				= next_block.settings.mi_ct_w | plus: 0 -%}
+{%- assign _sub_item_content_has_padding 		= next_block.settings.mi_submenu_has_padding -%}
+{%- assign _sub_item_content_background 	= next_block.settings.mi_submenu_bg_c -%}
+{%- assign _sub_item_content_height		 	= next_block.settings.mi_ct_height -%}
+{%- assign _sub_item_ct_type 				= next_block.type -%}
+
+{% capture borders_class%}{% if next_block.settings.border_top %} border-top{% endif %}{% if next_block.settings.border_bottom %} border-bottom{% endif %}{% if next_block.settings.border_left %} border-left{% endif %}{% if next_block.settings.border_right %} border-right{% endif %}{% endcapture %}
+
+<div class="col-p{% if _sub_item_ct_type == 'submenu_banner' or _sub_item_ct_type == 'submenu_product' %} creative-builder{%-endif-%}{% if _sub_item_content_has_padding %} p-2{% endif %} position-relative {{borders_class}}" style="background-color:{{_sub_item_content_background}};--pcol:{{_sub_item_content_w}}%" {{ next_block.shopify_attributes }}>
+{%- if _sub_item_ct_type == 'submenu_html' -%}
+<div class="no-margin--p d-flex {{next_block.settings.mi_text_align}}">
+{{next_block.settings.mi_ct_html}}
+</div>
+{%- elsif _sub_item_ct_type == 'submenu_product' -%}
+<div id="cb-item-{{next_block.id}}" class="cb-item product-grid col-p-100">
+{%-if next_block.settings.mi_ct_prod != blank -%}
+{%-assign product = all_products [next_block.settings.mi_ct_prod]-%}
+{%-include 'product-item'-%}
+{%-else-%}
+{%- include 'product-item-onboarding' -%}
+{%-endif-%}
+</div>
+{%- elsif _sub_item_ct_type == 'submenu_linklist' -%}
+{%- include 'section-mega-menu-content-links' -%}
+{%- elsif _sub_item_ct_type == 'submenu_image' -%}
+<div id="cb-item-{{next_block.id}}" class="cb-item col-p-100{% if next_block.settings.mi_ct_image_fadeoff %} p-4{% endif %}" style="--height:{{_sub_item_content_height}}px">
+{%- assign _class = 'd-flex flex-' | append: next_block.settings.mi_ct_image_pos | append: ' ' | append: next_block.settings.mi_text_align -%}
+{%- if next_block.settings.mi_ct_image_fadeoff -%}
+{%- assign _class = _class | append: ' custom-height align-items-center of-hidden position-relative' -%}
+{%- endif -%}
+{%-if next_block.settings.mi_url != blank-%}
+<a href="{{next_block.settings.mi_url}}" class="{{_class}}" {%if next_block.settings.mi_text == blank%} style="line-height:0;" {%endif%}>
+  {%-else-%}
+  <div class="{{_class}}">
+    {%-endif-%}
+    {%-if next_block.settings.mi_ct_image_pos != blank-%}
+    {%-if next_block.settings.mi_ct_image == blank-%}
+    <div class="cb-item--image">
+      <img class="lazyload w-100" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="https://via.placeholder.com/640x360/ECB39F/ffffff?text=Put%20your%20Image%20here."/>
+    </div>
+    {%-else-%}
+    {%- assign img_url = next_block.settings.mi_ct_image | img_url: 'master' -%}
+    <div class="cb-item--image{% if next_block.settings.mi_ct_image_fadeoff %} fade-off-bg{% endif %}">
+      <img class="lazyload w-100" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{img_url}}" alt="{{next_block.settings.mi_text | strip_html}}"/>
+    </div>
+    {%-endif-%}
+    {%-endif-%}
+    {%- if next_block.settings.mi_text != empty -%}
+    <div class="cb-item--head{% if next_block.settings.mi_ct_image_pos == 'row' or next_block.settings.mi_ct_image_pos == 'row-reverse' %} px-2{% endif %}{% if next_block.settings.mi_ct_image_fadeoff %} absolute-bottom pb-2{% endif %}" style="font-weight:{{next_block.settings.mi_text_weight}};font-size:{{next_block.settings.mi_text_size}}px;color:{{next_block.settings.mi_text_color}};">
+      {{next_block.settings.mi_text}}
+    </div>
+    {%-endif-%}
+    {%-if next_block.settings.mi_url == blank-%}
+  </div>
+  {%-else-%}
+</a>
+{%-endif-%}
+</div>
+{%- elsif _sub_item_ct_type == 'submenu_banner' -%}
+
+{%- assign _bg_color = next_block.settings.mi_ct_banner_bg_color -%}
+{%- if _submenu_fullwidth == true and _submenu_content_has_container == true and mmenu_vertical == false -%}
+{%- assign assume_width_counter = width_counter | plus: _sub_item_content_w -%}
+{%- if width_counter == 0 or assume_width_counter == 100 -%}
+{%- assign _bg_color = 'transparent' -%}
+<span class="position-absolute h-100{% if width_counter == 0 and assume_width_counter == 100 %} ml-n-container{%- endif -%}" style="background-color:{{next_block.settings.mi_ct_banner_bg_color}};width:100vw;top:0;{%- if width_counter == 0 and assume_width_counter != 100 -%}right:0;{%- endif -%}{%- if width_counter != 0 and assume_width_counter == 100 -%}left:0;{%- endif -%}"></span>
+{%- endif -%}
+{%- endif -%}
+
+<div id="cb-item-{{next_block.id}}" class="position-relative col-p-100 cb-item text-pos-left{% if next_block.settings.mi_ct_banner_image != blank %} bgimage-center-no-repeat lazyload{% endif %}"
+style="background-color:{{_bg_color}};--min-height:{{_sub_item_content_height}}px"
+     {%- if next_block.settings.mi_ct_banner_image != blank -%}
+     {%- assign img_url = next_block.settings.mi_ct_banner_image | img_url: "master" -%}
+     data-bg="{{img_url}}"
+     {%- endif -%}>
+  {%-if next_block.settings.mi_ct_banner_cta != blank or next_block.settings.mi_ct_banner_linklist != blank-%}
+  <div class="banner-content-wrapper text-vpos-top custom-min-height">
+    {%-else-%}
+    <a href="{{next_block.settings.mi_ct_banner_link}}" class="banner-content-wrapper text-vpos-top custom-min-height">
+      {%-endif-%}
+      <div class="banner-texting p-2 position-absolute custom-absolute-pos {{next_block.settings.mi_ct_banner_text_align}}{{' without--fx '}}{%-if next_block.settings.mi_ct_banner_cta == blank-%}{{' without--cta '}}{%-endif-%}{%-if next_block.settings.mi_ct_banner_linklist == blank-%}{{' without--linklist '}}{%-endif-%}" style="--top-side:{{next_block.settings.mi_ct_banner_side_padding_vert}}%;--left-side:{{next_block.settings.mi_ct_banner_side_padding_hori}}%;{% if next_block.settings.mi_ct_banner_text_align == 'text-align-center' %}transform: translate(-50%, -50%);{% endif %}">
+        {%-if next_block.settings.mi_ct_banner_head != blank-%}
+        <div class="b-heading h3{% if next_block.settings.mi_ct_banner_head_shadow == true %} has--text-shadow{% endif %}{% if next_block.settings.mi_ct_banner_head_bgcolor_use %} p-2 custom-bgcolor{% endif %}" style="--bg-color:{{next_block.settings.mi_ct_banner_head_bgcolor}};font-weight:{{next_block.settings.mi_ct_banner_head_weight}};font-size:{{next_block.settings.mi_ct_banner_head_size}}px;color:{{next_block.settings.mi_ct_banner_head_color}};">
+          {{next_block.settings.mi_ct_banner_head}}
+        </div>
+        {%-endif-%}
+
+        {%-if next_block.settings.mi_ct_banner_cap != blank-%}
+        <div class="b-caption mb-4 {%-if next_block.settings.mi_ct_banner_cap_shadow == true -%}{{' has--text-shadow '}}{%-endif-%}" style="font-weight:{{next_block.settings.mi_ct_banner_cap_weight}};font-size:{{next_block.settings.mi_ct_banner_cap_size}}px;color:{{next_block.settings.mi_ct_banner_cap_color}};">
+          {{next_block.settings.mi_ct_banner_cap}}
+        </div>	
+        {%-endif-%}
+        
+        {%-if next_block.settings.mi_ct_banner_linklist != blank-%}
+        {%-assign _linklist = linklists[next_block.settings.mi_ct_banner_linklist]-%}
+        <ul class="pl-0 custom-color" style="column-count:{{next_block.settings.mi_ct_banner_linklist_col}};--color:{{next_block.settings.mi_ct_banner_linklist_color}};--font-size:{{next_block.settings.mi_ct_banner_linklist_size}}px;--font-weight:{{next_block.settings.mi_ct_banner_linklist_weight}}">
+          {%-for _link in _linklist.links-%}
+          <li class="d-table pr-2 pr-md-5 pb-1">
+            <a href="{{_link.url}}" class="custom-font-size custom-font-weight">{{_link.title}}</a>
+          </li>
+          {%-endfor-%}
+        </ul>
+        {%-endif-%}
+
+        {%-if next_block.settings.mi_ct_banner_cta != blank-%}
+      <a class="{% if next_block.settings.mi_ct_banner_modern %}btn-modern{% else %}btn custom-bgcolor{% endif %} cta custom-font-size custom-font-weight custom-color" href="{{next_block.settings.mi_ct_banner_link}}" style="--font-weight:{{next_block.settings.mi_ct_banner_cta_weight}};--font-size:{{next_block.settings.mi_ct_banner_cta_size}}px;--color:{{next_block.settings.mi_ct_banner_cta_color}};{% if next_block.settings.mi_ct_banner_modern == false %}--bg-color:{{next_block.settings.mi_ct_banner_cta_bgcolor}}{% endif %}">{{next_block.settings.mi_ct_banner_cta}}</a>
+        {%-endif-%}
+      </div>
+      {%-if next_block.settings.mi_ct_banner_cta == blank and next_block.settings.mi_ct_banner_linklist == blank-%}
+    </a>
+    {%-else-%}
+  </div>
+  {%-endif-%}
+</div>
+{%- elsif _sub_item_ct_type == 'submenu_spacing' -%}
+<div id="cb-item-{{next_block.id}}" class="col-p-100 cb-item custom-min-height" style="--min-height:{{_sub_item_content_height}}px"></div>
+{%- endif -%}
+{%- assign width_counter = width_counter | plus: _sub_item_content_w -%}
+{%- if width_counter == 100 -%}
+{%- assign width_counter = 0 -%}
+{%- elsif _sub_item_ct_type == 'submenu_featured' -%}
+<div id="cb-item-{{next_block.id}}" class="submenu_featured cb-item col-p-100{% if next_block.settings.mi_ct_image_fadeoff %} p-4{% endif %}" style="--height:{{_sub_item_content_height}}px">
+{%- assign _class = 'd-flex flex-' | append: next_block.settings.mi_ct_image_pos | append: ' ' | append: next_block.settings.mi_text_align -%}
+{%- if next_block.settings.mi_ct_image_fadeoff -%}
+{%- assign _class = _class | append: ' custom-height align-items-center of-hidden position-relative' -%}
+{%- endif -%}
+{%-if next_block.settings.mi_url != blank-%}
+<a href="{{next_block.settings.mi_url}}" class="{{_class}}" style="width:100%">
+  {%-else-%}
+  <div class="{{_class}}">
+    {%-endif-%}
+    {%-if next_block.settings.mi_ct_image_pos != blank-%}
+    {%-if next_block.settings.mi_ct_image == blank-%}
+    <div class="cb-item--image">
+      <img class="lazyload w-100" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="https://via.placeholder.com/640x360/ECB39F/ffffff?text=Put%20your%20Image%20here."/>
+    </div>
+    {%-else-%}
+    {%- assign img_url = next_block.settings.mi_ct_image | img_url: 'master' -%}
+    <div class="cb-item--image{% if next_block.settings.mi_ct_image_fadeoff %} fade-off-bg{% endif %}">
+      <img class="lazyload w-100" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{img_url}}" alt="{{next_block.settings.mi_text | strip_html}}"/>
+    </div>
+    {%-endif-%}
+    {%-endif-%}
+    {%- if next_block.settings.mi_text != empty -%}
+    <div class="cb-item--head{% if next_block.settings.mi_ct_image_pos == 'row' or next_block.settings.mi_ct_image_pos == 'row-reverse' %} px-2{% endif %}{% if next_block.settings.mi_ct_image_fadeoff %} absolute-bottom pb-2{% endif %}" style="font-weight:{{next_block.settings.mi_text_weight}};">
+      <span style="font-size:{{next_block.settings.mi_heading_size}}px;color:{{next_block.settings.mi_heading_color}};">{{next_block.settings.mi_heading}}</span>
+      <span style="font-size:{{next_block.settings.mi_text_size}}px;color:{{next_block.settings.mi_text_color}};">{{next_block.settings.mi_text}}</span>
+      <span 
+        style="color:{{next_block.settings.mi_text_color_button}};background-color:{{next_block.settings.mi_bg_button}};
+        border-bottom:2px solid {{next_block.settings.mi_border_color_button}};font-size:{{next_block.settings.mi_text_size_button}}px;
+        {% if next_block.settings.add_padding %}padding:5px 15px{% endif %}">
+      {{next_block.settings.mi_text_button}}</span>
+    </div>
+    {%-endif-%}
+    {%-if next_block.settings.mi_url == blank-%}
+  </div>
+  {%-else-%}
+</a>
+{%-endif-%}
+</div>
+{%- endif -%}
+</div>

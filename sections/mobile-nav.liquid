@@ -1,0 +1,550 @@
+<!-- JM temp css -->
+{{ 'jm-mobile-navigation.css' | asset_url | stylesheet_tag }}
+
+<div id="primary-{{section.id}}"  data-section-id="{{ section.id }}" data-section-type="mobile-nav-section">
+  <nav class="mobile-nav-wrapper">
+    <ul class="mobile-nav">
+      <li class="mobile-nav__item-header mobile-nav__item py-3 border-bottom">
+        <div class="mobile-nav-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.5273 1.41613L16.4667 0.355469L8.99998 7.82214L1.53332 0.355469L0.472656 1.41613L7.93932 8.8828L0.472656 16.3495L1.53332 17.4101L8.99998 9.94346L16.4667 17.4101L17.5273 16.3495L10.0606 8.8828L17.5273 1.41613Z" fill="black"></path></svg>
+        </div>
+      </li>
+      {% include "custom-mobile-menu" %}
+      
+      {% if section.settings.special_linklist != blank %}
+      <li class="mobile-nav__item custommenu-special-link-wrapper">
+        <div class="custommenu-special-link">
+          {%- for link in linklists[section.settings.special_linklist].links -%}
+          <div class="mobile-nav__item">
+            <a href="{{ link.url }}" class="mobile-nav__link">
+              <span>{{ link.title }}</span>
+            </a>
+          </div>
+          {%- endfor -%}
+        </div>
+      </li>
+      {% endif %}
+      
+      {% if section.settings.help_linklist != blank %}
+      <li class="mobile-nav__item custommenu-help-terms-wrapper py-3">
+        <div class="custommenu-help-terms">
+          {%- for link in linklists[section.settings.help_linklist].links -%}
+          <div class="mobile-menu-block-heading mobile-nav__item py-3 {% if link.links.size > 0 %}menu-item-has-children{% endif %}">
+            <a href="{{ link.url }}" class="mobile-nav__link">
+              <span>{{ link.title }}</span>
+            </a>
+            {% if link.links.size > 0 %}
+            <span class="mobile-child-menu"></span>
+            <ul class="mobile-menu-block-content mobile-nav-sub">
+              {% for _link in link.links %} 
+              <li class="mobile-menu-link mobile-nav__item py-3">
+                <a href="{{ _link.url }}" class="mobile-nav__link">{{ _link.title }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+          {%- endfor -%}
+        </div>
+      </li>
+      {% endif %}
+      
+      {% if section.settings.image_link_1 != blank or section.settings.image_link_2 != blank %}
+      <li class="mobile-nav__item custommenu-help-terms-wrapper pb-3">
+        <div class="custommenu-quick-image-links">
+          {% if section.settings.image_link_1 != blank %}
+          <div class="custommenu-quick-image-links-one-half">
+            <a href="{{ section.settings.image_link_1_url }}">
+              <img class="custommenu-quick-image" src="{{ section.settings.image_link_1 | img_url: "300x"}}">
+              <span class="custommenu-quick-image-caption">{{ section.settings.image_link_1_caption }}</span>
+            </a>
+          </div>
+          {% endif %}
+          {% if section.settings.image_link_2 != blank %}
+          <div class="custommenu-quick-image-links-one-half">
+            <a href="{{ section.settings.image_link_2_url }}">
+              <img class="custommenu-quick-image" src="{{ section.settings.image_link_2 | img_url: "300x"}}">
+              <span class="custommenu-quick-image-caption">{{ section.settings.image_link_2_caption }}</span>
+            </a>
+          </div>
+          {% endif %}
+        </div>
+      </li>
+      {% endif %}
+      
+      {% if section.settings.html_form != blank %}
+      <li class="mobile-nav__item custommenu-newsletter-wrapper pt-3">
+        <style>
+          #custommenu-script-form a {
+            color: {{section.settings.link_color}};
+          }
+        </style>
+        <div id="cb-item-{{section.id}}">
+          <div id="custommenu-script-form" class="d-flex flex-column w-100">
+            <div class="pb-3 custom-font-size custom-color custom-font-weight" style="--color:{{section.settings.header_color}};--font-size:{{section.settings.header_size}}px;--font-weight:{{section.settings.header_weight}}">{{ section.settings.title }}</div>
+            {{ section.settings.html_form }}
+            <div class="subscription-legal" style="color:{{section.settings.terms_color}};font-size:{{section.settings.terms_size}}px">{{section.settings.terms_text}}</div>
+          </div>
+        </div>
+      </li>
+      {% endif %}
+      
+      {% comment %} <!-- shop payments icons -->
+      <li class="mobile-nav__item custommenu-payments-wrapper pb-3">
+        {% assign enabled_payment_types = 'visa,master,american_express,discover,jcb,diners_club,elo,apple_pay,google_pay,facebook_pay' | remove: ' ' | split: ',' %}
+        <ul class="custommenu footer-payments">
+          {% for type in enabled_payment_types %}
+          <li>{{ type | payment_type_svg_tag: class: 'icon' }}</li>
+          {% endfor %}
+        </ul>
+        {% if section.settings.shop_pay != blank %}<p style="color:{{ section.settings.shop_pay_color }}">{{section.settings.shop_pay}}</p>{% endif %}
+      </li>
+      {% endcomment %}
+      
+      <li class="mobile-nav__item custommenu-footer-wrapper pb-3">
+        <div class="custommenu-footer">
+          {% if section.settings.footer_img != blank %}
+          <div class="custommenu-footer-logo">
+            <a href="/">
+              <img src="{{ section.settings.footer_img | img_url: '105x' }}">
+            </a>
+          </div>
+          {% endif %}
+          <div class="custommenu-footer-socials d-flex py-2">
+            {%- assign socials = 'instagram,twitter,facebook,linkedin,vimeo,youtube' | split: ',' -%}
+            {%- for social_name in socials -%}
+              {%- if section.settings[social_name] == true -%}
+                {%- assign social_url_setting = 'social_icon_' | append: social_name -%}
+                <a target="_blank" href="{{settings[social_url_setting] | default: '#'}}">
+                  {% if social_name == "instagram" %}
+                  <i class="fa fa-instagram" style="color:{{section.settings.color_social}};"></i>
+                  {% else %}
+
+                  <svg style="fill:{{section.settings.color_social}};">
+                    <use xlink:href="#global__symbols--social-{{social_name}}" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+                  </svg>
+
+                  {% endif %}
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          {% if section.settings.footer_caption != blank %}
+          <div class="custommenu-footer-caption" style="color:{{section.settings.footer_caption_color}};">
+            {{ section.settings.footer_caption }}
+          </div>
+          {% endif %}
+        </div>
+      </li>
+      
+      {% comment %}
+      {%- if shop.customer_accounts_enabled -%}
+      <li class="mobile-nav__item py-3 border-bottom">
+        <a href="/account" class="mobile-nav__link">
+          {%- if customer -%}
+          {{ 'general.top.my_account' | t }}
+          {%- else -%}
+          {{ 'general.top.login' | t }}
+          {%- endif -%}
+        </a>
+      </li>
+      {%- endif -%}
+      
+      {%- if settings.wishlist_enable and settings.wishlist_page -%}
+      <li class="mobile-nav__item py-3 border-bottom">
+        <a href="/pages/{{ settings.wishlist_page }}" class="mobile-nav__link">{{ 'general.top.wishlist' | t }}</a>
+      </li>
+      {%- endif -%}
+      {% endcomment %}
+      
+      <li class="mobile-nav__item mobile-nav-currency py-3 border-bottom">
+        {%- render 'currencies-switcher', no_language_switcher: true -%}
+      </li>
+      <li class="mobile-nav__item mobile-nav-language py-3">
+        {%- render 'currencies-switcher', no_currency_switcher: true -%}
+      </li>
+    </ul>
+  </nav>
+  <ul class="mobile-nav-bar">
+    <li class="mobile-nav-item mobile-nav-icon">
+      <button type="button"><span></span></button>
+    </li>
+    <li class="mobile-nav-item mobile-nav-search {% if settings.predictive_search_enabled %}js-drawer-open-mobile-top{% endif %}" {% if settings.predictive_search_enabled %}data-predictive-search-mobile-open-drawer{% endif %}>
+      <svg style="transform:scaleX(-1);"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#global__symbols--search"></use></svg>
+      <input type="text" style="" placeholder="FIND IT HERE" class="snize-custom-widget-opener mobile-search-box">
+    </li>
+    <li class="mobile-nav-item mobile-nav-profile">
+      <a class="lh--0" href="/account"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#global__symbols--profile"></use></svg></a>
+    </li>
+    <li class="mobile-nav-item mobile-nav-cart">
+      <a class="lh--0" href="/cart">
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#global__symbols--cart-desktop"></use></svg>
+        <span class="total_count_ajax">{{ cart.item_count }}</span>
+      </a>
+    </li>
+  </ul>
+  <form action="/search" method="get" role="search" class="mobile-nav-search-form">
+    <div class="mobile-nav-search-close"><span></span></div>
+    <input type="search" name="q" class="input-block-level search-query" placeholder="{{ 'search.general.placeholder' | t }}" />
+    <input type="hidden" name="type" value="product" />
+  </form>
+  <div class="mobile-nav-logo text-center">
+    <div class="container">
+      <a href="{{shop.url}}" title="{{ shop.name | escape }}">
+        {%- assign _logo = "fastor4logo.png" | asset_img_url: 'master'  -%}
+        {%- if settings.main_logo != blank -%}
+        {%- assign _logo = settings.main_logo | img_url: 'master' -%}
+        {%- endif -%}
+        <img src="{{ _logo }}" style="max-width:{{settings.mobile_logo_max_width}}px;" title="{{ shop.name | escape }}" alt="{{ shop.name | escape }}" />
+      </a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Mobile Nagivation",
+	"class": "header-mobile-section",
+    "settings": [
+        {
+          "type": "link_list",
+          "id": "special_linklist",
+          "label": "Choose a bottom links"
+        },
+        {
+          "type": "link_list",
+          "id": "help_linklist",
+          "label": "Choose a Help and Terms"
+        },
+        {
+          "type": "header",
+          "content": "Image Links"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_link_1",
+          "label": "Image Thumb 1"
+        },
+        {
+          "type": "text",
+          "id": "image_link_1_caption",
+          "label": "Image Thumb 1 Caption"
+        },
+        {
+          "type": "url",
+          "id": "image_link_1_url",
+          "label": "Image Thumb 1 URL"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_link_2",
+          "label": "Image Thumb 2"
+        },
+        {
+          "type": "text",
+          "id": "image_link_2_caption",
+          "label": "Image Thumb 2 Caption"
+        },
+        {
+          "type": "url",
+          "id": "image_link_2_url",
+          "label": "Image Thumb 2 URL"
+        },
+        {
+          "type": "header",
+          "content": "Newsletter"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "STAY CONNECTED"
+        },
+        {
+          "type": "color",
+          "id": "header_color",
+          "label": "Title color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "range",
+          "id": "header_size",
+          "min": 12,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "label": "Header size",
+          "default": 14
+        },
+        {
+          "type": "range",
+          "id": "header_weight",
+          "min": 100,
+          "max": 700,
+          "step": 100,
+          "unit": "px",
+          "label": "Header font weight",
+          "default": 400
+        },
+        {
+          "type": "header",
+          "content": "Form"
+        },
+        {
+          "type": "html",
+          "id": "html_form",
+          "label": "Form Script"
+        },
+        {
+          "type": "richtext",
+          "id": "terms_text",
+          "label": "Terms text"
+        },
+        {
+          "type": "color",
+          "id": "terms_color",
+          "label": "Terms text color",
+          "default": "#999999"
+        },
+        {
+          "type": "color",
+          "id": "link_color",
+          "label": "Link color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "range",
+          "id": "terms_size",
+          "min": 12,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "label": "Terms text size",
+          "default": 12
+        },
+		{
+          "type": "header",
+          "content": "Shop Pay"
+		},
+        {
+          "type": "html",
+          "id": "shop_pay",
+          "label": "Your caption",
+          "default": "Just Give Some Text"
+        },
+        {
+          "type": "color",
+          "id": "shop_pay_color",
+          "label": "Shop Pay text color",
+          "default": "#999999"
+        },
+        {
+          "type": "header",
+          "content": "Menu Footer"
+        },
+        {
+          "type": "image_picker",
+          "id": "footer_img",
+          "label": "Choose logo"
+        },
+        {
+          "type": "richtext",
+          "id": "footer_caption",
+          "label": "Enter text"
+        },
+        {
+          "type": "color",
+          "id": "footer_caption_color",
+          "label": "Footer caption color",
+          "default": "#919191"
+        },
+        {
+          "type": "header",
+          "content": "Social icons"
+        },
+        {
+          "type": "checkbox",
+          "id": "instagram",
+          "label": "Instagram",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "twitter",
+          "label": "Twitter",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "facebook",
+          "label": "Facebook",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "linkedin",
+          "label": "LinkedIn",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "vimeo",
+          "label": "Vimeo",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "youtube",
+          "label": "Youtube",
+          "default": true
+        },
+        {
+          "type": "color",
+          "id": "color_social",
+          "label": "Social color",
+          "default": "#919191"
+        }
+		
+	],
+    "blocks": [
+        {
+            "type": "navigation-group",
+            "name": "Navigation Group",
+            "settings": [
+                {
+                  "type": "header",
+                  "content": "Banner"
+                },
+                {
+                  "type": "image_picker",
+                  "id": "image_banner",
+                  "label": "Image"
+                },
+                {
+                  "type": "text",
+                  "id": "menu_banner_caption",
+                  "label": "Banner Caption"
+                },
+                {
+                  "type": "text",
+                  "id": "menu_banner_button",
+                  "label": "Banner Button Text"
+                },
+                {
+                  "type": "url",
+                  "id": "menu_banner_url",
+                  "label": "Banner URL"
+                },
+                {
+                  "type": "header",
+                  "content": "Menu"
+                },
+                {
+                  "type": "text",
+                  "id": "menu_heading_1",
+                  "label": "Heading"
+                },
+                {
+                  "type": "link_list",
+                  "id": "linklist",
+                  "label": "Choose a Linklist #1"
+                },
+                {
+                  "type": "header",
+                  "content": "Image Slider"
+                },
+                {
+                  "type": "text",
+                  "id": "image_heading1",
+                  "label": "Image heading"
+                },
+                {
+                  "type": "image_picker",
+                  "id": "image_1",
+                  "label": "Image"
+                },
+                {
+                  "type": "text",
+                  "id": "image_text_1",
+                  "label": "Image text"
+                },
+                {
+                  "type": "text",
+                  "id": "image_url_1",
+                  "label": "Image URL"
+                },
+                {
+                  "type": "image_picker",
+                  "id": "image_2",
+                  "label": "Image heading"
+                },
+                {
+                  "type": "text",
+                  "id": "image_text_2",
+                  "label": "Image text"
+                },
+                {
+                  "type": "text",
+                  "id": "image_url_2",
+                  "label": "Image URL"
+                },
+                {
+                  "type": "image_picker",
+                  "id": "image_3",
+                  "label": "Image heading"
+                },
+                {
+                  "type": "text",
+                  "id": "image_text_3",
+                  "label": "Image text"
+                },
+                {
+                  "type": "text",
+                  "id": "image_url_3",
+                  "label": "Image URL"
+                },
+                {
+                  "type": "header",
+                  "content": "Navigation Styling"
+                },
+                {
+                  "type": "checkbox",
+                  "id": "linklist_no_padding",
+                  "label": "No padding on main menu",
+                  "default": false
+                },
+                {
+                  "type": "color",
+                  "id": "linklist_color_bg",
+                  "label": "Background Color",
+                  "default": "#000000"
+                },
+                {
+                  "type": "color",
+                  "id": "linklist_color_text",
+                  "label": "Link Color",
+                  "default": "#ffffff"
+                },
+                {
+                  "type": "color",
+                  "id": "linklist_color_subtext",
+                  "label": "Sub Link Color",
+                  "default": "#9a9a9a"
+                },
+                {
+                  "type": "color",
+                  "id": "linklist_color_mainborder",
+                  "label": "Main Menu Border Color",
+                  "default": "#424242"
+                },
+                {
+                  "type": "color",
+                  "id": "linklist_color_subborder",
+                  "label": "Sub Menu Border Color",
+                  "default": "#9a9a9a"
+                }
+            ]
+        }
+	]
+  }
+{% endschema %}

@@ -1,0 +1,90 @@
+{%- assign img_url = preview_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+{%- if my_layout == 'grid' -%}
+<div class="image{% if settings.product_img_fx == '1' %} image-swap-effect{% endif %} aspect-ratio-{{ settings.image_ratio }} aspect-ratio-crop">
+  <a href="{{product.url | within: collection}}" class="aspect-product__wrapper">
+    <div class="aspect-product__spacer"><div class="aspect-product__spacer-inner"></div></div>
+    <div class="aspect-product__images">
+      <div class="lazyload main-images-wrapper">
+        {%-include 'lazy-preloader'-%}
+        {%- if settings.product_img_fx == '1' and product.images.size > 1 -%}
+        {%- assign second_img_url = product.images[1] | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+        <img class="mpt-image swap-image{{_onepone}}src="{{second_img_url}}" 
+              alt="{{product.title | escape}}" 
+              data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+              data-sizes="auto"
+              data-aspectratio="{{ product.images[1].aspect_ratio }}"
+              data-image/>
+        {%- endif -%}
+        {%- assign main_img_url = featured_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+        <img class="mpt-image {% if settings.product_img_fx == '2' %} zoom-image-effect{% endif %}{{_onepone}}src="{{main_img_url}}"
+             alt="{{product.title | escape}}" 
+             data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+             data-sizes="auto"
+             data-aspectratio="{{ featured_image.aspect_ratio }}"
+             data-image/>
+      </div>
+    </div>
+  </a>
+  <div class="product-item-buttons d-flex flex-row">
+    {%- assign pi_button_class = 'h-100 w-100 d-flex justify-content-center align-items-center btn--secondary' -%} 
+    {%- if settings.compare_enable and settings.product_compare_show -%}
+    <div class="right-compare compare">{%- render 'compare', my_product: product, custom_class: pi_button_class  -%}</div>
+    {%- endif -%}
+    {%- if settings.wishlist_enable and settings.product_wishlist_show -%}
+    <div class="right-wishlist wishlist">{% assign my_product = product %}{%- render 'wishlist', wishlist: true, custom_class: pi_button_class, no_text:true -%}</div>
+    {%- endif -%}
+	  {%- if settings.product_quickview_show -%}
+    <div class="quickview right-quickview">
+      <a class="btn--secondary quick_view btooltip {{pi_button_class}}" href="{{- product.url -}}{% if product.url contains "?"%}&{% else %}?{% endif %}view=quickview" id="quickview-btn-{{- product.id -}}" title="{{'products.product.quick_shop' | t | escape}}"><i class="fa fa-search"></i></a>
+    </div>
+    {%- endif -%}
+  </div>
+  <div class="items-image-buttons">
+    <a class="prev" href="#">
+      <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#global__symbols-prev"></use></svg>
+    </a>
+    <a class="next" href="#">
+      <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#global__symbols-next"></use></svg>
+    </a>
+  </div>
+</div>
+{%- elsif my_layout == 'list' -%}
+<div class="col-sm-3">
+  <div class="image{% if settings.product_img_fx == '1' %} image-swap-effect{% endif %} aspect-ratio-{{ settings.image_ratio }} aspect-ratio-crop">
+    {%- if current_variant.compare_at_price > current_variant.price and settings.product_sale_badge != '' -%}
+    <div class="sale">
+      {%- if settings.product_sale_badge == '0' -%}
+      {{'products.product.sale' | t}}
+      {%- else -%}
+      -{{current_variant.compare_at_price | minus:current_variant.price | times:100.0 | divided_by:current_variant.compare_at_price | ceil }}%
+      {%- endif -%}
+    </div>
+    {%- elsif settings.product_new_badge and product.tags contains 'latest' -%}
+    <div class="new">{{'products.product.new' | t}}</div>
+    {%- endif -%}
+    <a href="{{product.url | within: collection}}">
+      <div class="aspect-product__spacer"><div class="aspect-product__spacer-inner"></div></div>
+      <div class="lazyload main-images-wrapper">
+        {%-include 'lazy-preloader'-%}
+        {%- if settings.product_img_fx == '1' and product.images.size > 1 -%}
+        {%- assign second_img_url = product.images[1] | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+        <img class="mpt-image swap-image{{_onepone}}src="{{second_img_url}}" 
+              alt="{{product.title | escape}}" 
+              data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+              data-sizes="auto"
+              data-aspectratio="{{ product.images[1].aspect_ratio }}"
+              data-image/>
+        {%- endif -%}
+        {%- assign main_img_url = featured_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+        <img class="mpt-image {% if settings.product_img_fx == '2' %} zoom-image-effect{% endif %}{{_onepone}}src="{{main_img_url}}"
+             alt="{{product.title | escape}}" 
+             data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+             data-sizes="auto"
+             data-aspectratio="{{ featured_image.aspect_ratio }}"
+             data-image/>
+      </div>
+    </a>
+    {%- if settings.product_countdown_show -%}{%- include 'limited-offer' -%}{%- endif -%}
+  </div>
+</div>
+{%- endif -%}

@@ -1,0 +1,108 @@
+.jm--macro-shots {
+  width: 100%;
+  margin: 0 auto;
+  display: table;
+  background-color: #000;
+}
+
+.jm-main-banner,
+.jm-thumbnails {
+  display: table-cell;
+}
+
+.jm-thumbnails {
+  width: 20%;
+  cursor: pointer;
+
+}
+
+.jm-main-banner {
+  width: 80%;
+  height: 600px;
+  background-color: #ccc;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.thumbnail:hover .jm-thumb, .selected .jm-thumb {
+  border: 4px solid #fff;
+}
+
+.jm-thumb {
+  width: 100%;
+  height: 275px;
+  margin: 0;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.jm-btn-macro {
+  text-align: center;
+  padding: 20px;
+  color: #fff;
+  position: absolute;
+  bottom: 25px;
+  z-index: 1;
+  width: 100%;
+}
+
+.macro-cta {
+  color: #fff;
+  font-size: 18px;
+  border-bottom: 2px solid #fff;
+}
+
+.macro-cta:hover {
+  color: #fff !important;
+}
+
+.jm-banner-with-thumbs {
+  position: relative;
+}
+
+@media (max-width: 767px) {
+  .jm--macro-shots {
+    display: block;
+  }
+
+  .jm-main-banner {
+    width: 100%;
+  }
+
+  aside.jm-thumbnails {
+    width: 100%;
+    display: flex!important;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .jm-main-banner, .jm-thumbnails {
+    display: block;
+  }
+
+  .thumbnail {
+    width: 33.33%;
+  }
+
+
+  .thumbnail:hover .jm-thumb, .selected .jm-thumb {
+    border: 2px solid #fff;
+  }
+
+  .jm-thumb {
+    height: 80px;
+  }
+  
+  .jm-btn-macro {
+    position: unset !important;
+    bottom: unset !important;
+    background-color: #000;
+    padding: 0px 0 15px;
+  }
+}
+
+.macro-cta {
+  font-family: Protract !important;
+}

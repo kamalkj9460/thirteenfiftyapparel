@@ -1,0 +1,7 @@
+{%- if settings.product_delivery_return and settings.product_delivery_return_page != '' -%}
+{%- assign dr_page = pages[settings.product_delivery_return_page] -%}
+<div id="popup-product-delivery" class="popup mfp-hide">
+  <h4>{{'products.product.delivery_return' | t}}</h4>
+  {{dr_page.content}}
+</div>
+{%- endif -%}

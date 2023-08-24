@@ -1,0 +1,109 @@
+<a href="/cart" id="cart_block" class="block-{{block.id}} dropdown {% if settings.shopping_cart_type == "sidebar" %}cart-sidebar-trigger{% endif %}">
+  {%- if block.settings.icon_only -%}
+  <div class="cart-heading position-relative dropdown-toogle d-flex justify-content-center align-items-center" data-hover="dropdown" data-toggle="dropdown" {% if settings.shopping_cart_type != "sidebar" %}onclick="window.location.href = '/cart'"{% endif %}>
+    {% if block.settings.cart_count %}
+    <span class="cart-count {% if block.settings.icon_type == 'rounded_border' %}on-border{% endif %} d-inline-flex justify-content-center align-items-center"><span class="total_count_ajax">{{ cart.item_count }}</span></span>
+    {% endif %}
+    <div class="cart-icon header-icon mx-1 d-flex justify-content-center align-items-center {% if block.settings.icon_type == 'rounded_border' %}with-border is-rounded{% else %}h-auto flex-column w-auto{% endif %}">
+      {%- include "cart-icon" -%}
+      {%- if block.settings.icon_type == 'with_text' -%}
+      <span class="h6 pt-2 text--inactive">{{ 'general.cart_info.cart' | t | upcase }}</span>
+      {%- endif -%}
+    </div>
+  </div>
+  {%- else -%}
+  <div class="cart-heading-advanced cart-heading {% if block.settings.no_border %}cart-heading-advanced-noborder{%endif%} dropdown-toogle d-flex justify-content-center align-items-center" data-hover="dropdown" data-toggle="dropdown" {% if settings.shopping_cart_type != "sidebar" %}onclick="window.location.href = '/cart'"{% endif %}>
+    {% if block.settings.cart_count %}
+    <span class="cart-count d-inline-flex justify-content-center align-items-center"><span class="total_count_ajax">{{ cart.item_count }}</span></span>
+    {% endif %}
+    <div class="cart-icon header-icon d-inline-flex justify-content-center align-items-center">
+      {%- include "cart-icon" -%}
+    </div>
+    {% if block.settings.cart_total %}
+    <div class="header-cart-price position-relative">
+      <span class="total_price"><span class="money">{{ cart.total_price | money }}</span></span>
+    </div>
+    {% endif %}
+  </div>
+  {%- endif -%}
+  <div class="dropdown-menu p-0 text-left font-size--base" id="cart_content">
+    <div class="cart_content_ajax px-3 py-4">
+      {%- if cart.items == empty -%}
+      <div class="empty">{{ 'general.cart_info.cart_empty_html' | t }}</div>
+      {%- else -%}
+      <div class="mini-cart-info">
+
+        <div class="mb-3">
+          {%- for item in cart.items -%}
+          <div class="cart-block-item d-flex pb-2">
+            <div class="image col-4 p-0">
+              <a href="{{item.url }}">
+                <img class="w-100 lazyload" src='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==' data-src="{{ item | img_url: '150x200',crop: "top" }}" alt="{{ item.title | escape }}" />
+              </a>
+            </div>
+            <div class="info col-8 pr-0">
+              <div class="name">
+                <a href="{{item.url }}">{{ item.product.title }}</a>
+                <div>
+                  {%- if item.product.variants.size > 1 -%}
+                  <small>{{ item.variant.title }}</small>
+                  {%- endif -%}
+                </div>
+                <p><span class="quantity">{{ item.quantity }} × </span><span class="total">
+                  <span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_item_price" data-item-key="{{item.key}}" style="display:none !important;"></span>
+                  <span class="money">{{ item.price | money }}</span>
+                  </span></p>
+              </div>
+              <div class="remove position-absolute"><a href="javascript:void(0)" data-id="{{item.variant_id}}" title="{{'general.cart_info.remove_this_item' | t  | escape}}">×</a></div>
+            </div>
+          </div>
+          {%- endfor -%}
+        </div>
+      </div>
+      <div class="mini-cart-total py-3">
+        <div class="cart-block-total d-flex pb-3">
+          <h4>{{ 'general.cart_info.sub_total' | t }}</h4>
+          <span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_total" style="display:none !important;"></span>
+          <span class="ml-auto money">{{ cart.total_price | money }}</span>
+        </div>
+      </div>
+      <div class="checkout cart__condition__wrapper">
+        <a href="/cart" class="button btn-default">{{ 'general.cart_info.view_shopping_bag' | t }}</a>
+        <a href="/checkout" class="button checkout-button {% if settings.cart_terms_enable %}btn-disabled{% endif %}">{{ 'general.cart_info.checkout' | t }}</a>
+        {%- if settings.cart_terms_enable -%}
+          {%- if settings.cart_terms_page != blank -%}
+          {%- assign terms_conditions_url = '/pages/' | append: settings.cart_terms_page -%}
+          {%- endif -%}
+          <div class="product-cart__condition">
+            <input type="checkbox" class="product-cart__agree" data-message="{{ 'cart.general.terms_conditions_message' | t | escape }}" />
+            <label for="product-cart__agree">{{ 'cart.general.terms_conditions_html' | t : terms_conditions_url: "/policies/terms-of-service" ,  privacy_policy_url: "/policies/privacy-policy" }}</label>
+          </div>
+        {%- endif -%}
+      </div>
+      {%- endif -%}
+    </div>
+    <div class="loading-overlay"><i class="button-loader"></i></div>
+  </div>
+</a>
+
+{%- capture style_sheet_block -%}
+{%- if block.settings.icon_color != blank and block.settings.icon_color != 'rgba(0,0,0,0)' -%}
+.block-{{block.id}} .cart-icon{
+  color:{{block.settings.icon_color}};
+}
+.block-{{block.id}} .cart-icon:hover {
+  color:{{block.settings.icon_color | color_darken: 30 }};
+}
+{%- endif -%}
+{%- if block.settings.count_color != blank and block.settings.count_color != 'rgba(0,0,0,0)' -%}
+.block-{{block.id}} .cart-count{
+  color:{{block.settings.count_color}};
+}
+{%- endif -%}
+{%- if block.settings.count_color_bg != blank and block.settings.count_color_bg != 'rgba(0,0,0,0)' -%}
+.block-{{block.id}} .cart-count{
+  background-color:{{block.settings.count_color_bg}};
+}
+{%- endif -%}
+{%- endcapture -%}
+{% assign style_sheet = style_sheet| append: style_sheet_block %}

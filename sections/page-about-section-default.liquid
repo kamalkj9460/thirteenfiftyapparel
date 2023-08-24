@@ -1,0 +1,572 @@
+<div class="page-about-section-default" data-section-id="{{section.id}}" data-section-type="page-about">
+  {% for block in section.blocks %}
+  {% case block.type %}
+  {% when "banner" %}
+  <div class="container about-default-banner">
+    <img class="w-100 lazyload" {% if block.settings.image != blank %} data-src="{{ block.settings.image | img_url: "master"}}"{% endif %} />
+    <div class="position-absolute alignment-{{block.settings.alignment}}">
+      {% if block.settings.text != blank %}
+      <div class="heading">{{ block.settings.text }}</div>
+      {% endif %}
+    </div>
+  </div>
+  {% when "text" %}
+  <div class="about-default-text">
+    <div class="container text-center">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+          {% if block.settings.heading != blank %}
+          <div class="heading">
+            {{ block.settings.heading }}
+          </div>
+          {% endif %}
+          {% if block.settings.text != blank %}
+          <div class="text">
+            {{block.settings.text}}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% when "image_text" %}
+  <div class="container about-default-image-text">
+    <div class="row">
+      <div class="text col-12 col-md-6">
+        <div class="text-left heading">
+          {{block.settings.heading}}
+        </div>
+        <div class="text-left caption">
+          {{block.settings.caption}}
+        </div>
+      </div>
+      <div class="image col-12 col-md-6">
+      	{% if block.settings.image != blank %}
+        	<img class="w-100 lazyload" data-src="{{block.settings.image | img_url: "master"}}" />
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% when "info_blocks" %}
+  <div class="container about-default-info-blocks">
+    <div class="row">
+      {% for i in (1..3) %}
+      {% assign s_image = "image_" | append: i %}
+      {% assign s_heading = "heading_" | append: i %}
+      {% assign s_caption = "caption_" | append: i %}
+      {% if block.settings[s_image] != blank and block.settings[s_heading] != blank and block.settings[s_caption] != blank %}
+      <div class="info-block col-12 col-md-4">
+        {% if block.settings[s_image] != blank %}
+        <img class="lazyload" data-src="{{block.settings[s_image] | img_url: "master"}}" />
+        {% endif %}
+        <div class="heading">
+          {{block.settings[s_heading]}}
+        </div>
+        <div class="caption">
+          {{block.settings[s_caption]}}
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+   {% when "review" %}
+  <div class="container about-default-info-blocks">
+    <div class="heading">{{block.settings.heading}}</div>
+    <div class="row">
+      {% for i in (1..3) %}
+      {% assign s_review = "review_" | append: i %}
+      {% assign s_date = "date_" | append: i %}
+      {% if block.settings[s_review] != blank and block.settings[s_date] != blank %}
+      <div class="info-block col-12 col-md-4">
+        <div class="review-stars d-flex justify-content-center align-items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg>
+        </div>
+        <div class="review_content">
+          {{block.settings[s_review]}}
+        </div>
+        <div class="date">
+          {{block.settings[s_date]}}
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  {% when "info" %}
+  <div class="about-info-wrapper col-12 text-center">
+    <div class="container">
+      <div class="heading">{{block.settings.heading}}</div>
+      <div class="row about-infos about-infos d-flex justify-content-between align-items-center flex-wrap">
+        <div class="span-line-wrapper col-1"><div class="span-line"></div></div>
+        {% for i in (1..3) %}
+        {% assign s_title = "title" | append: i %}
+        {% assign s_caption = "caption" | append: i %}
+        <div class="about-info col-4 col-md-2">
+          <div class="title text-uppercase">{{block.settings[s_title]}}</div>
+          <div class="caption text-uppercase">{{block.settings[s_caption]}}</div>
+        </div>
+        {% if forloop.last == false %}
+        <div class="span-line-wrapper col-4 col-md-2"><div class="span-line"></div></div>
+        {% endif %}
+        {% endfor %}
+        <div class="span-line-wrapper col-1"><div class="span-line"></div></div>
+      </div>
+    </div>
+  </div>
+  {% when "blog" %}
+  <div class="about-blog-wrapper container">
+    <div class="heading">{{block.settings.heading}}</div>
+    {% if block.settings.blog != blank %}
+    {% assign blog = blogs[block.settings.blog] %}
+    {% if blog.articles.size > 0 %}
+    <div class="row">
+      {% for article in blog.articles limit: block.settings.limit  %}
+      <div class="col-12 col-md-4">
+        <div class="article-block">
+          {% if article.image != blank %}
+          <a href="{{article.url}}"><img class="w-100 lazyload" data-src="{{article.image | img_url: "master"}}" /></a>
+          {% endif %}
+          <div class="blog-title text-left">
+            <a href="{{article.url}}">{{article.title}}</a>
+          </div>
+          <div class="blog-date">
+            <span class="author">{{article.author}}</span>, {{article.published_at | date: "%b %d, %Y"}}
+          </div>
+          <div class="blog-comment">
+            {{ "blogs.comments.comments_with_count" | t: count: article.comments_count  }}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% if block.settings.button != blank %}
+    <a class="article-more d-flex align-items-center justify-content-center pt-3" href="{{block.settings.url}}">
+
+      {{block.settings.button}}
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path fill="currentColor" d="M187.8 264.5L41 412.5c-4.7 4.7-12.3 4.7-17 0L4.2 392.7c-4.7-4.7-4.7-12.3 0-17L122.7 256 4.2 136.3c-4.7-4.7-4.7-12.3 0-17L24 99.5c4.7-4.7 12.3-4.7 17 0l146.8 148c4.7 4.7 4.7 12.3 0 17z" ></path></svg>
+    </a>
+    {% endif %}
+    {% endif %}
+  </div>
+  
+  {% when "instagram" %}
+  <div class="about-instagram-default about-instagram-wrapper">
+    <div class="heading">{{block.settings.heading}}</div>
+    <div class="row">
+      {% for i in (1..10) %}
+      {% assign s_image = "image" | append: i %}
+      {% assign s_url = "url" | append: i %}
+      {% if block.settings[s_image] != blank %}
+      <div class="about-insta">
+        <a href="{{block.settings[s_url]}}"><img class="lazyload" data-src="{{block.settings[s_image] | img_url: "master"}}" /></a>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  {% else %}
+  {% endcase %}
+  {% endfor %}
+</div>
+{% schema %}
+  {
+    "name": "About Page",
+    "settings": [
+
+	],
+	"blocks": [
+		{
+			"type": "banner",
+			"name": "Banner",
+			"settings": [
+				{
+					"type" :"image_picker",
+					"id": "image",
+					"label": "Background Image"
+				},
+				{
+					"type" :"html",
+					"id": "text",
+					"label": "Text"
+				},
+				{
+					"type": "select",
+					"id": "alignment",
+					"label": "Alignment",
+					"options": [
+                      {"value": "center", "label": "Center"},
+                      {"value": "left","label": "Left"},
+                      {"value": "right", "label": "Right"}
+					]
+				}
+			]
+		},
+		{
+			"type": "image_text",
+			"name": "Image with text",
+			"settings": [
+				{
+					"type" :"image_picker",
+					"id": "image",
+					"label": "Image"
+				},
+				{
+					"type" :"html",
+					"id": "heading",
+					"label": "Heading"
+				},
+				{
+					"type" :"html",
+					"id": "caption",
+					"label": "Caption"
+				}
+			]
+		},
+		{
+			"type": "text",
+			"name": "Text",
+			"settings": [
+				{
+					"type" :"html",
+					"id": "heading",
+					"label": "Heading"
+				},
+				{
+					"type" :"html",
+					"id": "text",
+					"label": "Text"
+				},
+				{
+					"type" :"color",
+					"id": "background",
+					"label": "Background Color"
+				}
+			]
+		},
+		{
+			"type": "info_blocks",
+			"name": "Info Blocks",
+			"settings": [
+				{
+					"type" :"header",
+					"content": "Block #1"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image_1",
+					"label": "Image"
+				},
+				{
+					"type" :"html",
+					"id": "heading_1",
+					"label": "Heading"
+				},
+				{
+					"type" :"text",
+					"id": "caption_1",
+					"label": "Caption"
+				},
+				{
+					"type" :"header",
+					"content": "Block #2"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image_2",
+					"label": "Image"
+				},
+				{
+					"type" :"html",
+					"id": "heading_2",
+					"label": "Heading"
+				},
+				{
+					"type" :"text",
+					"id": "caption_2",
+					"label": "Caption"
+				},
+				{
+					"type" :"header",
+					"content": "Block #3"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image_3",
+					"label": "Image"
+				},
+				{
+					"type" :"html",
+					"id": "heading_3",
+					"label": "Heading"
+				},
+				{
+					"type" :"text",
+					"id": "caption_3",
+					"label": "Caption"
+				}
+		
+			]
+		},
+		{
+			"type": "review",
+			"name": "Reviews",
+			"settings": [
+				{
+					"type" :"text",
+					"id": "heading",
+					"label": "Heading"
+				},
+				{
+					"type" :"header",
+					"content": "Review #1"
+				},
+				{
+					"type" :"html",
+					"id": "review_1",
+					"label": "Content"
+				},
+				{
+					"type" :"text",
+					"id": "date_1",
+					"label": "Date"
+				},
+				{
+				
+					"type" :"header",
+					"content": "Review #2"
+				},
+				{
+					"type" :"html",
+					"id": "review_2",
+					"label": "Content"
+				},
+				{
+					"type" :"text",
+					"id": "date_2",
+					"label": "Date"
+				},
+				{
+				
+					"type" :"header",
+					"content": "Review #3"
+				},
+				{
+					"type" :"html",
+					"id": "review_3",
+					"label": "Content"
+				},
+				{
+					"type" :"text",
+					"id": "date_3",
+					"label": "Date"
+				}
+			]
+		},
+		{
+			"type": "info",
+			"name": "Info Static",
+			"settings": [
+				{
+					"type" :"html",
+					"id": "heading",
+					"label": "Heading"
+				},
+				{
+					"type" :"header",
+					"content": "Info #1"
+				},
+				{
+					"type" :"text",
+					"id": "title1",
+					"label": "Title"
+				},
+				{
+					"type" :"text",
+					"id": "caption1",
+					"label": "Caption"
+				},
+				{
+					"type" :"header",
+					"content": "Info #2"
+				},
+				{
+					"type" :"text",
+					"id": "title2",
+					"label": "Title"
+				},
+				{
+					"type" :"text",
+					"id": "caption2",
+					"label": "Caption"
+				},
+				{
+					"type" :"header",
+					"content": "Info #3"
+				},
+				{
+					"type" :"text",
+					"id": "title3",
+					"label": "Title"
+				},
+				{
+					"type" :"text",
+					"id": "caption3",
+					"label": "Caption"
+				}
+			]
+		},
+		{
+			"type": "blog",
+			"name": "Blog",
+			"settings": [
+				{
+					"type" :"blog",
+					"id": "blog",
+					"label": "Choose a blog"
+				},
+				{
+					"type" :"text",
+					"id": "heading",
+					"label": "Heading"
+				},
+				{
+					"type" :"range",
+					"id": "limit",
+					"label": "Limit",
+					"min": 1,
+					"max": 6,
+					"step": 1,
+					"default": 3
+				},
+				{
+					"type" :"text",
+					"id": "button",
+					"label": "Button"
+				},
+				{
+					"type" :"url",
+					"id": "url",
+					"label": "Url"
+				}
+			]
+		},
+		{
+			"type": "instagram",
+			"name": "Insragram Image",
+			"settings": [
+				{
+					"type" :"html",
+					"id": "heading",
+					"label": "Heading"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image1",
+					"label": "Image #1"
+				},
+				{
+					"type" :"url",
+					"id": "url1",
+					"label": "Url #1"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image2",
+					"label": "Image #2"
+				},
+				{
+					"type" :"url",
+					"id": "url2",
+					"label": "Url #2"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image3",
+					"label": "Image #3"
+				},
+				{
+					"type" :"url",
+					"id": "url3",
+					"label": "Url #3"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image4",
+					"label": "Image #4"
+				},
+				{
+					"type" :"url",
+					"id": "url4",
+					"label": "Url #4"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image5",
+					"label": "Image #5"
+				},
+				{
+					"type" :"url",
+					"id": "url5",
+					"label": "Url #5"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image6",
+					"label": "Image #6"
+				},
+				{
+					"type" :"url",
+					"id": "url6",
+					"label": "Url #6"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image7",
+					"label": "Image #7"
+				},
+				{
+					"type" :"url",
+					"id": "url7",
+					"label": "Url #7"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image8",
+					"label": "Image #8"
+				},
+				{
+					"type" :"url",
+					"id": "url8",
+					"label": "Url #8"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image9",
+					"label": "Image #9"
+				},
+				{
+					"type" :"url",
+					"id": "url9",
+					"label": "Url #9"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image10",
+					"label": "Image #10"
+				},
+				{
+					"type" :"url",
+					"id": "url10",
+					"label": "Url #10"
+				}
+			]
+		}
+	]
+  }
+{% endschema %}

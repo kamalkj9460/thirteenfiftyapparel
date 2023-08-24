@@ -1,0 +1,61 @@
+/*Custom CSS for Image with text by Jason */ 
+@media (min-width:768px) {
+  #image-with-text-container .column-2 {
+    position: relative;
+  }
+
+  div#image-with-text-container .cb-item--image {
+    display: flex;
+    width: 100% !important;
+  }
+
+  #image-with-text-container .column-1 img {
+    width: 100%;
+  }
+
+  p.image-with-text-caption {
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    padding: 30px;
+  }
+
+  div#cb-item-283f6098-3a3d-444c-95c5-c21a4a08a5b6 {
+    width: 100% !important;
+  }
+
+  div#image-with-text-container {
+    width: 100%;
+  }
+}
+@media (min-width:959px) and (max-width:1024px) {
+  p.image-with-text-caption {
+    font-size: 17px !important;
+  }
+}
+@media (min-width:768px) and (max-width:958px) {
+  p.image-with-text-caption {
+    font-size: 13px !important;
+  }
+}
+@media (max-width:767px) {
+  #image-with-text-container .column-1 {
+    width: 80% !important;
+    margin: auto;
+  }
+  .image-container img,
+  #image-with-text-container .column-2 {
+    width: 100% !important;
+  }
+
+  p.image-with-text-caption {
+    color: #fff;
+    text-align: center !important;
+    padding: 10px;
+  }
+}
+#cb-item-1632245807260d4146 .image-with-text-caption {
+  font-family: 'Roboto';
+}

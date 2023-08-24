@@ -1,0 +1,11 @@
+<div class="product-info-links d-flex justify-content-start align-items-center flex-wrap">
+    {%- if settings.product_size_chart and settings.product_size_chart_page != '' -%}
+      <a data-_qid="#quickview-btn-{{- product.id -}}" class="button-product-sizechart"  href="javascript:void(0)" data-sizechart="#popup-product-sizechart">{{'products.product.size_chart' | t}}</a>
+    {%- include 'product-sizechart' -%}
+    {%- endif -%}
+    
+    {%- if settings.product_delivery_return and settings.product_delivery_return_page != '' -%}
+      <a data-_qid="#quickview-btn-{{- product.id -}}" class="button-product-delivery"  href="javascript:void(0)" data-sizechart="#popup-product-delivery">{{'products.product.delivery_return' | t}}</a>
+    {%- include 'product-delivery' -%}
+    {% endif %}
+  </div>

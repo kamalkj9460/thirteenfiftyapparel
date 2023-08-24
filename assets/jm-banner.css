@@ -1,0 +1,579 @@
+/* Custom CSS for text alignment for banner captions by Jason */
+.b-caption.text-align-center {
+  text-align: center;
+}
+
+.creative-builder .cb-item .banner-content-wrapper .banner-texting.p-2 {
+  padding: .5rem 0 !important;
+  width: auto;
+  display: block;
+}
+
+@media (max-width: 1199px) {
+  #creative-builder-165944600433ee71f0 .jm-banner-image-cta {
+    font-size: 11px !important;
+    word-break: break-word;
+    display: block !important;
+    white-space: unset !important;
+  }
+  #creative-builder-165944600433ee71f0 .w-100.d-flex.flex-column.text-center {
+    display: block !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .home .banner {
+    margin-top: 0 !important;
+  }
+  .jm-hero-banner .banner-texting.position-absolute {
+    top: unset !important;
+    bottom: 6%;
+    transform: translate(-50%,0) !important;
+  }
+  .jm-hero-banner #cb-item-cbe89cb0-ca21-4dab-90c2-bcb7b4e7cde7 .banner-texting.position-absolute {
+    bottom: unset !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+}
+#cb-item-1619021596eaf42a91-0 .b-heading.h3 {
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .creative-builder .cb-item .banner-content-wrapper .banner-texting.text-align-center {
+    width: 95%;
+  }
+}
+
+/* Custom CSS for 3-column banner by Jason */
+#creative-builder-163250632226ea28ee {
+  padding: 25px 0 !important;
+}
+/* #cb-item-b640ad9b-e4cd-49df-a6fd-ce5bac3b2d6e,
+#cb-item-edce3aa4-6cbb-4143-9ded-238f1c65aa52, 
+#cb-item-4e456986-d076-4965-aab8-aeac4aa2e3e2 {
+    padding-left: 0!important;
+}
+#cb-item-2f946321-ae23-4e5d-8612-e187e8d18957,
+#cb-item-2bceb3ca-4db6-4aa8-8627-f22d4bfda222,
+#cb-item-1faf48d5-ebe8-4d6b-bdb2-ac6680a0946b {
+  padding-right: 0 !important;
+}
+#creative-builder-1632327457da737ed6 .cb-item {
+    padding-top: 0 !important;
+} */
+@media (max-width: 767px) {
+  #cb-item-5082e651-f296-4648-bceb-7136ec67d365 .banner-content-wrapper {
+    margin-bottom: 0 !important;
+  }
+}
+@media (min-width: 768px) {
+  .jm-p-l {
+    padding-left: 0.25rem !important;
+  }
+  .jm-p-r {
+    padding-right: 0.25rem !important;
+  }
+  .jm-p-t {
+    padding-top: 0.5rem !important;
+  }
+  .jm-p-b {
+    padding-bottom: 0.5rem !important;
+  }
+}
+
+/* Custom CSS for video middle banner */
+#cb-item-8589b353-b479-4f97-bde0-b588e65da7ae .w-100 {
+  height: 600px !mportant;
+  width: 177.77777778vh !important;
+  min-width: 100%;
+  min-height: 56.25vw;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  z-index: 1;
+}
+
+#cb-item-8589b353-b479-4f97-bde0-b588e65da7ae [style*="--aspect-ratio"] > :first-child {
+  overflow: hidden;
+  position: relative;
+}
+
+#cb-item-8589b353-b479-4f97-bde0-b588e65da7ae [style*="--aspect-ratio"]::before {
+  display: none;
+}
+
+#cb-item-197c6804-74ff-43b7-87ec-9829551aaa59 {
+  height: 600px !important;
+}
+#cb-item-8589b353-b479-4f97-bde0-b588e65da7ae .position-absolute.custom-absolute-pos.self-center-y.ml-container.pl-3.pl-sm-0 {
+  z-index: 3;
+  bottom: 0 !important;
+  left: 50%!important;
+  transform: translate(-50%,15%);
+  margin-left: 0!important;
+  text-align: center;
+}
+@media (max-width: 767px) {
+  #cb-item-197c6804-74ff-43b7-87ec-9829551aaa59{
+    width: 100%;
+    padding: 0 !important;
+  }
+  #cb-item-197c6804-74ff-43b7-87ec-9829551aaa59 .b-caption {
+    margin-bottom: .8rem!important;
+    font-size: 18px !important;
+  }
+  #cb-item-197c6804-74ff-43b7-87ec-9829551aaa59 .custom-font-size.h3 {
+    font-size: 22px !important;
+  }
+}
+
+#video-banner-caption {
+  left: 50%!important;
+  transform: translate(-50%)!important;
+  bottom: 60px !important;
+  top: unset!important;
+  margin-left: 0!important;
+  text-align: center;
+}
+
+@media (max-width: 500px) {
+  #video-banner-caption {
+    bottom: 30px!important;
+    width: 320px;
+  }
+}
+
+@media (min-width:768px) {
+  .jm-mobile-only {
+    display: none !important;
+  }
+}
+
+@media (max-width:767px) {
+  .jm-desktop-only {
+    display: none !important;
+  }
+  
+  .jm-mobile-only .b-heading.h3 {
+    font-size: 32px!important;
+    text-align: center;
+  }
+  
+  .banner-texting .b-heading.h3, .jm-banner-image-h3 {
+    font-size: 34px !important;
+    text-align: center;
+  }
+
+  .creative-builder .banner-texting .b-heading.h3, .creative-builder .banner-texting .b-caption {
+    margin-bottom: 15px !important;
+  }
+
+  .common-home .banner-texting>a.btn-squared.cta, .jm-mobile-texting a {
+    margin-top: 5px !important;
+    margin-bottom: 0;
+  }
+
+  .jm-mobile-only .b-caption {
+    font-size: 16px !important;
+  }
+}
+
+.jm-mobile-only {
+  width: 100%;
+}
+
+.b-img-caption {
+  margin-bottom: 35px;
+}
+
+.jm-mobile-texting .b-img-caption {
+  margin-bottom: 20px;
+}
+
+.b-img-disclaimer {
+  margin-top: 35px;
+}
+
+.text-align-left .b-img-caption,
+.text-align-left .b-img-disclaimer {
+  text-align: left !important;
+}
+
+.jm-banner-links a {
+    margin-right: 10px;
+    border-radius: 22px !important;
+}
+
+.banner-texting .b-heading.h3, .jm-banner-image-h3,
+.jm-mobile-only .b-heading.h3, .custom-font-size.h3,
+.hb-carousel-section h2 {
+  font-family: Druk !important;
+  line-height: 1 !important;
+  letter-spacing: .96px !important;
+  font-weight: 500 !important;
+}
+
+.hb-carousel-section h2 {
+  font-size: 48px;
+  color: #000 !important;
+  margin-bottom: 25px;
+  margin-top: 35px;
+}
+
+.banner-texting .b-caption, .jm-banner-image-caption, .jm-mobile-only .b-caption {
+  font-family: Apercu !important;
+  word-break: break-word;
+  white-space: normal;
+  line-height: 1.1 !important;
+}
+
+.banner-texting a, .jm-banner-image-cta, .jm-mobile-texting a {
+  font-family: Protract !important;
+}
+
+.jm-banner-image-h3 {
+  padding-top: 30px;
+  margin-bottom: 15px;
+}
+
+.jm-banner-image-caption {
+  max-width: 400px;
+  margin: auto;
+  padding-bottom: 15px;
+}
+
+/* 5-column featured products */
+@media (max-width: 767px) {
+  #creative-builder-165944600433ee71f0 .jm-banner-image-caption {
+    padding-bottom: 0px;
+  }
+}
+
+.jm-banner-image-cta {
+  margin: auto;
+  margin-bottom: 35px !important;
+}
+
+.common-home .banner-texting > a.btn-squared.cta, .jm-banner-image-cta, .jm-mobile-texting > a {
+  padding: 8px 25px!important;
+  text-align: center;
+}
+
+.jm-mobile-texting>a {
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media (min-width: 768px) {
+  .jm-banner-links a:hover {
+    background: transparent !important;
+    color: #fff !important;
+    border-color: #fff !important;
+    opacity: 1 !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .jm-banner-links a:hover {
+    background-color: transparent !important;
+    border-color: #000 !important;
+    color: #000 !important;
+    opacity: 1 !important;
+  }
+}
+
+.common-home .banner-texting > a:not(.btn-modern):hover {
+  background-color: transparent !important;
+  border-color: #fff !important;
+  color: #fff !important;
+  opacity: 1 !important;
+}
+
+.jm-mobile-texting > a:hover, #cb-item-cbe89cb0-ca21-4dab-90c2-bcb7b4e7cde7 .banner-texting > a:hover {
+  background-color: transparent !important;
+  border-color: #000 !important;
+  color: #000 !important;
+  opacity: 1 !important;
+}
+
+.jm-banner-image-cta:hover {
+  background-color: transparent !important;
+  color: #000 !important;
+  opacity: 1 !important;
+}
+
+#creative-builder-165944600433ee71f0 .cb-item:hover a.jm-banner-image-cta {
+  border-bottom: 2px solid #000 !important;
+}
+
+#creative-builder-165944600433ee71f0 > div a.jm-banner-image-cta {
+  padding: 0 !important;
+  letter-spacing: 1.6px !important;
+  margin-bottom: 20px !important;
+}
+
+@media (max-width: 767px) {
+  #creative-builder-165944600433ee71f0 img {
+/*     padding: 0 15px !important; */
+    margin: 1px;
+  }
+  #cb-item-126f7dea-bd73-4ec2-8a7e-57d159d79aa4 {
+    margin: auto;
+  }
+  #creative-builder-165944600433ee71f0 {
+    padding-top: 0 !important;
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+  }
+  #creative-builder-165944600433ee71f0 .custom-font-size.h3 {
+    font-size: 28px !important;
+  }
+}
+
+/* #creative-builder-165944600433ee71f0 .custom-font-size.h3 {
+  text-align: center;
+} */
+
+@media (min-width: 768px) {
+  .creative-builder .cb-item .banner-content-wrapper {
+      white-space: unset !important;
+  }
+}
+
+.creative-builder .cb-item .banner-content-wrapper .banner-texting.text-align-center {
+  text-align: center;
+}
+
+.creative-builder .cb-item .banner-content-wrapper .banner-texting.banner-text-center {
+  text-align: center;
+}
+
+.hb-carousel-section {
+  padding-bottom: 50px;
+}
+
+@media (max-width: 767px) {
+  .hb-carousel-section h2 {
+    font-size: 28px !important;
+  }
+  .jm-mobile-texting .b-img-caption + a {
+    margin-top: 10px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .jm-mobile-texting a {
+    background-color: #000 !important;
+    border-color: #000 !important;
+    color: #fff !important;
+  }
+}
+
+.jm-banner-image-h3, .jm-banner-image-caption {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+#cb-item-1602764001856 div a:first-child {
+  padding-left: 0 !important;
+}
+
+@media (max-width: 767px) {
+  .creative-builder .cb-item .splide__track .banner-content-wrapper .banner-texting {
+    width: auto !important;
+    transform: unset !important;
+  }
+  
+  .creative-builder .cb-item .banner-content-wrapper .banner-texting {
+    transform: unset !important;
+  }
+  
+  .creative-builder .cb-item .banner-content-wrapper .jmobile-text-vcenter {
+    top: 50% !important;
+    bottom:  unset !important;
+    transform: translateY(-50%) !important;
+  }
+  
+  .creative-builder .cb-item .banner-content-wrapper .jmobile-text-hcenter {
+    left: 50% !important;
+    right: unset !important;
+    transform: translateX(-50%) !important;
+    text-align: center !important;
+    display: block !important;
+  }
+  
+  .creative-builder .cb-item .banner-content-wrapper .jmobile-text-vcenter.jmobile-text-hcenter {
+    transform: translate(-50%,-50%) !important;
+  }
+
+  .creative-builder .cb-item .banner-content-wrapper .jmobile-text-bottom {
+    top: unset;
+    bottom: 25px !important;
+  }
+  
+  .creative-builder .cb-item .banner-content-wrapper .jmobile-text-top {
+    top: 25px !important;
+    bottom: unset !important;
+  }
+
+  .creative-builder .cb-item .banner-content-wrapper .jmobile-text-left {
+    left: 15px !important;
+    right: unset !important;
+  }
+
+  .creative-builder .cb-item .banner-content-wrapper .jmobile-text-right {
+    left: unset !important;
+    right: 15px !important;
+  }
+
+  #creative-builder-1660655440799b86fb .banner-texting .b-heading.h3,
+  .splide__track .banner-texting .b-heading.h3 {
+    font-size: 62px !important;
+    margin-bottom: 5px !important;
+  }
+  
+  .creative-builder .cb-item .banner-content-wrapper .banner-texting .b-caption {
+    font-size: 16px !important;
+    margin-bottom: 10px !important;
+  }
+
+  #creative-builder-1660655440799b86fb a.btn-squared.cta,
+  .common-home .splide__track a.btn-squared.cta {
+    border-width: 1px !important;
+  }
+}
+
+.creative-builder .cb-item .banner-content-wrapper .banner-texting.text-align-left div {
+  text-align: left !important;
+}
+
+@media (min-width: 2190px) {
+  .bgimage-center-no-repeat {
+      min-height: 760px !important;
+  }
+}
+
+.custom-absolute-pos.banner-text-right {
+  text-align: right;
+  left: unset !important;
+  right: 5.25% !important;
+}
+.custom-absolute-pos.banner-text-left {
+  text-align: left;
+  align-items: baseline !important;
+  left: 5.25%!important;
+  right: unset !important;
+  transform: translate(0,-50%) !important;
+}
+
+/* Hooded Long Sleeve banner */
+@media (max-width: 768px) {
+  #creative-builder-6ec66675-13e3-4d25-a406-cf6d5f77e9ac .jm-mobile-only > img {
+    object-fit: contain !important;
+    height: auto !important;
+    min-height: 500px !important;
+    width: 101% !important;
+    margin-left: -1px !important;
+    margin-right: -1px !important;
+  }
+}
+
+/* LEA banner button */
+@media (min-width: 768px) {
+  #cb-item-49d6757d-a9f0-4445-9586-5be77fe67490 .custom-absolute-pos.banner-text-right {
+    right: 18.5%!important;
+  }
+  #cb-item-49d6757d-a9f0-4445-9586-5be77fe67490 .b-img-disclaimer img {
+    right: 207px !important;
+    position: relative;
+  }
+}
+@media (max-width: 767px) {
+  #cb-item-49d6757d-a9f0-4445-9586-5be77fe67490 .jm-mobile-texting a {
+    border-color: #fff!important;
+    margin-top: 0 !important;
+  }
+  #cb-item-49d6757d-a9f0-4445-9586-5be77fe67490 .jm-mobile-texting.p-3 {
+    padding-bottom: 25px !important;
+    padding-top: 25px !important;
+  }
+  #cb-item-49d6757d-a9f0-4445-9586-5be77fe67490 .b-img-caption {
+    margin-bottom: 0;
+  }
+}
+
+.banner-texting .b-heading.h3, .jm-banner-image-h3, .jm-mobile-only .b-heading.h3 {
+  font-family: 'OSWALD' !important;
+  font-weight: 700!important;
+  letter-spacing: .1px !important;
+}
+
+.jm-mobile-only .b-heading.h3 br,
+.jm-mobile-only .b-caption br {
+  display: none !important;
+}
+
+.creative-builder .cb-item .banner-content-wrapper .banner-texting .b-caption {
+  max-width: 550px !important;
+}
+
+.creative-builder .cb-item .banner-content-wrapper .gray-text {
+  color: #c7c7c7 !important;
+}
+
+.banner-texting .red, .b-caption .red {
+  color: #ff3234 !important;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .creative-builder .cb-item.banner:not(.collection):not(.product) {
+    min-height: 420px !important;
+  }
+  .common-home .banner-texting img {
+    width: 65% !important;
+  }
+  .creative-builder .cb-item.banner .banner-content-wrapper.jm-bg-right {
+    background-position: 82% center !important;
+  }
+  .common-home .banner-texting a {
+    font-size: 18px !important;
+  }
+}
+
+@media (max-width: 991px) {
+  .creative-builder .cb-item .banner-content-wrapper .banner-texting .b-caption {
+    max-width: 350px !important;
+  }
+}
+@media (min-width: 992px) and (max-width:1024px) {
+  .creative-builder .cb-item .banner-content-wrapper .banner-texting .b-caption {
+    max-width: 460px !important;
+  }
+}
+
+/* March 17 - Hooded Long Sleeve banner */
+@media (max-width: 767px) {
+  #cb-item-141e7471-c9b0-4653-858c-fbf26d8e72f2 .jm-mobile-only .b-heading.h3 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.banner-content-wrapper > .link-all-block {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+}
+
+@media (max-width: 767px) {
+  #creative-builder-165944600433ee71f0 .banner-content-wrapper {
+    margin-bottom: 5px;
+  }
+}

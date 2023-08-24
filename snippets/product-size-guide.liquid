@@ -1,0 +1,649 @@
+{% assign jm_with_size_guide = false %}
+{% assign for_ten7 = false %}
+{% assign for_ten8 = false %}
+{% assign for_mens = false %}
+{% assign for_womens = false %}
+
+
+{% for t in product.tags %}
+  {% if t == "TEN 7 COLLECTION" %}
+    {% assign for_ten7 = true %}
+  {% elsif t == "TEN 8 COLLECTION" %}
+    {% assign for_ten8 = true %}
+  {% endif %}
+    
+  {% if t == "MEN'S" %}
+    {% assign for_mens = true %}
+  {% elsif t == "WOMEN'S" %}
+    {% assign for_womens = true %}
+  {% elsif t == "WOMEN'S SHIRT" %}
+    {% assign the_womens = true %}
+  {% elsif t == "MEN'S SHIRT" %}
+    {% assign the_mens = true %}  
+  {% endif %}
+{% endfor %}
+
+
+{% if for_ten7 and for_mens %}
+<table class="jm-size-guide">
+<tbody>
+  <tr>
+    <td></td>
+    <td>Chest</td>
+    <td>Length</td>
+    <td>Short Sleeve Length</td>
+    <td>Long Sleeve Length</td>
+  </tr>
+  <tr>
+    <td>S</td>
+    <td>
+      104cm
+    </td>
+    <td>
+      71cm
+    </td>
+    <td>
+      18.5cm
+    </td>
+    <td>
+      62.1cm
+    </td>
+  </tr>
+  <tr>
+    <td>M</td>
+    <td>
+      108cm
+    </td>
+    <td>
+      73cm
+    </td>
+    <td>
+      19.5cm
+    </td>
+    <td>
+      62.5cm
+    </td>
+  </tr>
+  <tr>
+    <td>L</td>
+    <td>
+      113cm
+    </td>
+    <td>
+      75.5cm
+    </td>
+    <td>
+      20.5cm
+    </td>
+    <td>
+      63.7cm
+    </td>
+  </tr>
+  <tr>
+    <td>XL</td>
+    <td>
+      118cm
+    </td>
+    <td>
+      77cm
+    </td>
+    <td>
+      21.5cm
+    </td>
+    <td>
+      65cm
+    </td>
+  </tr>
+  <tr>
+    <td>XXL</td>
+    <td>
+      123cm
+    </td>
+    <td>
+      79cm
+    </td>
+    <td>
+      22.5cm
+    </td>
+    <td>
+      66.2cm
+    </td>
+  </tr>
+  <tr>
+    <td>XXXL</td>
+    <td>
+      128cm
+    </td>
+    <td>
+      81.5cm
+    </td>
+    <td>
+      22.5cm
+    </td>
+    <td>
+      67.5cm
+    </td>
+  </tr>
+</tbody>
+</table>
+  {% assign jm_with_size_guide = true %}
+{% elsif for_ten7 and for_womens %}
+<table class="jm-size-guide">
+<tbody>
+  <tr>
+    <td></td>
+    <td>Chest</td>
+    <td>Length</td>
+    <td>Short Sleeve Length</td>
+    <td>Long Sleeve Length</td>
+  </tr>
+  <tr>
+    <td>XS</td>
+    <td>
+      83cm
+    </td>
+    <td>
+      61.7cm
+    </td>
+    <td>
+      16.4cm
+    </td>
+    <td>
+      57.6cm
+    </td>
+  </tr>
+  <tr>
+    <td>S</td>
+    <td>
+      88cm
+    </td>
+    <td>
+      64.2cm
+    </td>
+    <td>
+      17cm
+    </td>
+    <td>
+      58.5cm
+    </td>
+  </tr>
+  <tr>
+    <td>M</td>
+    <td>
+      93cm
+    </td>
+    <td>
+      67cm
+    </td>
+    <td>
+      19.5cm
+    </td>
+    <td>
+      59.5cm
+    </td>
+  </tr>
+  <tr>
+    <td>L</td>
+    <td>
+      98cm
+    </td>
+    <td>
+      69.4cm
+    </td>
+    <td>
+      17.6cm
+    </td>
+    <td>
+      60.4cm
+    </td>
+  </tr>
+  <tr>
+    <td>XL</td>
+    <td>
+      103cm
+    </td>
+    <td>
+      72cm
+    </td>
+    <td>
+      18.8cm
+    </td>
+    <td>
+      61.4cm
+    </td>
+  </tr>
+  <tr>
+    <td>XXL</td>
+    <td>
+      108cm
+    </td>
+    <td>
+      74cm
+    </td>
+    <td>
+      19.4cm
+    </td>
+    <td>
+      62.4cm
+    </td>
+  </tr>
+</tbody>
+</table>
+  {% assign jm_with_size_guide = true %}
+{% elsif for_ten8 and for_mens %}
+  <table class="jm-size-guide">
+    <tbody>
+      <tr>
+        <td></td>
+        <td>Chest</td>
+        <td>Length</td>
+        <td>Short Sleeve Length</td>
+        <td>Long Sleeve Length</td>
+      </tr>
+      <tr>
+        <td>S</td>
+        <td>
+          104cm
+        </td>
+        <td>
+          71cm
+        </td>
+        <td>
+          18.5cm
+        </td>
+        <td>
+          62.1cm
+        </td>
+      </tr>
+      <tr>
+        <td>M</td>
+        <td>
+          108cm
+        </td>
+        <td>
+          73cm
+        </td>
+        <td>
+          19.5cm
+        </td>
+        <td>
+          62.5cm
+        </td>
+      </tr>
+      <tr>
+        <td>L</td>
+        <td>
+          113cm
+        </td>
+        <td>
+          75.5cm
+        </td>
+        <td>
+          20.5cm
+        </td>
+        <td>
+          63.7cm
+        </td>
+      </tr>
+      <tr>
+        <td>XL</td>
+        <td>
+          118cm
+        </td>
+        <td>
+          77cm
+        </td>
+        <td>
+          21.5cm
+        </td>
+        <td>
+          65cm
+        </td>
+      </tr>
+      <tr>
+        <td>XXL</td>
+        <td>
+          123cm
+        </td>
+        <td>
+          79cm
+        </td>
+        <td>
+          22.5cm
+        </td>
+        <td>
+          66.2cm
+        </td>
+      </tr>
+      <tr>
+        <td>XXXL</td>
+        <td>
+          128cm
+        </td>
+        <td>
+          81.5cm
+        </td>
+        <td>
+          22.5cm
+        </td>
+        <td>
+          67.5cm
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  {% assign jm_with_size_guide = true %}
+{% elsif for_ten8 and for_womens %}
+  <table class="jm-size-guide">
+    <tbody>
+      <tr>
+        <td></td>
+        <td>Chest</td>
+        <td>Length</td>
+        <td>Short Sleeve Length</td>
+        <td>Long Sleeve Length</td>
+      </tr>
+      <tr>
+        <td>XS</td>
+        <td>
+          83cm
+        </td>
+        <td>
+          61.7cm
+        </td>
+        <td>
+          16.4cm
+        </td>
+        <td>
+          57.6cm
+        </td>
+      </tr>
+      <tr>
+        <td>S</td>
+        <td>
+          88cm
+        </td>
+        <td>
+          64.2cm
+        </td>
+        <td>
+          17cm
+        </td>
+        <td>
+          58.5cm
+        </td>
+      </tr>
+      <tr>
+        <td>M</td>
+        <td>
+          93cm
+        </td>
+        <td>
+          67cm
+        </td>
+        <td>
+          19.5cm
+        </td>
+        <td>
+          59.5cm
+        </td>
+      </tr>
+      <tr>
+        <td>L</td>
+        <td>
+          98cm
+        </td>
+        <td>
+          69.4cm
+        </td>
+        <td>
+          17.6cm
+        </td>
+        <td>
+          60.4cm
+        </td>
+      </tr>
+      <tr>
+        <td>XL</td>
+        <td>
+          103cm
+        </td>
+        <td>
+          72cm
+        </td>
+        <td>
+          18.8cm
+        </td>
+        <td>
+          61.4cm
+        </td>
+      </tr>
+      <tr>
+        <td>XXL</td>
+        <td>
+          108cm
+        </td>
+        <td>
+          74cm
+        </td>
+        <td>
+          19.4cm
+        </td>
+        <td>
+          62.4cm
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  {% assign jm_with_size_guide = true %}
+{% elsif the_mens %}
+  <table class="jm-size-guide">
+    <tbody>
+      <tr>
+        <td></td>
+        <td>Chest</td>
+        <td>Length</td>
+        <td>Short Sleeve Length</td>
+        <td>Long Sleeve Length</td>
+      </tr>
+      <tr>
+        <td>S</td>
+        <td>
+          104cm
+        </td>
+        <td>
+          71cm
+        </td>
+        <td>
+          18.5cm
+        </td>
+        <td>
+          62.1cm
+        </td>
+      </tr>
+      <tr>
+        <td>M</td>
+        <td>
+          108cm
+        </td>
+        <td>
+          73cm
+        </td>
+        <td>
+          19.5cm
+        </td>
+        <td>
+          62.5cm
+        </td>
+      </tr>
+      <tr>
+        <td>L</td>
+        <td>
+          113cm
+        </td>
+        <td>
+          75.5cm
+        </td>
+        <td>
+          20.5cm
+        </td>
+        <td>
+          63.7cm
+        </td>
+      </tr>
+      <tr>
+        <td>XL</td>
+        <td>
+          118cm
+        </td>
+        <td>
+          77cm
+        </td>
+        <td>
+          21.5cm
+        </td>
+        <td>
+          65cm
+        </td>
+      </tr>
+      <tr>
+        <td>XXL</td>
+        <td>
+          123cm
+        </td>
+        <td>
+          79cm
+        </td>
+        <td>
+          22.5cm
+        </td>
+        <td>
+          66.2cm
+        </td>
+      </tr>
+      <tr>
+        <td>XXXL</td>
+        <td>
+          128cm
+        </td>
+        <td>
+          81.5cm
+        </td>
+        <td>
+          22.5cm
+        </td>
+        <td>
+          67.5cm
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  {% assign jm_with_size_guide = true %}
+{% elsif the_womens %}
+  <table class="jm-size-guide">
+    <tbody>
+      <tr>
+        <td></td>
+        <td>Chest</td>
+        <td>Length</td>
+        <td>Short Sleeve Length</td>
+        <td>Long Sleeve Length</td>
+      </tr>
+      <tr>
+        <td>XS</td>
+        <td>
+          83cm
+        </td>
+        <td>
+          61.7cm
+        </td>
+        <td>
+          16.4cm
+        </td>
+        <td>
+          57.6cm
+        </td>
+      </tr>
+      <tr>
+        <td>S</td>
+        <td>
+          88cm
+        </td>
+        <td>
+          64.2cm
+        </td>
+        <td>
+          17cm
+        </td>
+        <td>
+          58.5cm
+        </td>
+      </tr>
+      <tr>
+        <td>M</td>
+        <td>
+          93cm
+        </td>
+        <td>
+          67cm
+        </td>
+        <td>
+          19.5cm
+        </td>
+        <td>
+          59.5cm
+        </td>
+      </tr>
+      <tr>
+        <td>L</td>
+        <td>
+          98cm
+        </td>
+        <td>
+          69.4cm
+        </td>
+        <td>
+          17.6cm
+        </td>
+        <td>
+          60.4cm
+        </td>
+      </tr>
+      <tr>
+        <td>XL</td>
+        <td>
+          103cm
+        </td>
+        <td>
+          72cm
+        </td>
+        <td>
+          18.8cm
+        </td>
+        <td>
+          61.4cm
+        </td>
+      </tr>
+      <tr>
+        <td>XXL</td>
+        <td>
+          108cm
+        </td>
+        <td>
+          74cm
+        </td>
+        <td>
+          19.4cm
+        </td>
+        <td>
+          62.4cm
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  {% assign jm_with_size_guide = true %}
+{% endif %}
+
+{% unless jm_with_size_guide %}
+  <p style="margin-bottom:10px">No sizing guide available for this product.</p>
+{% endunless %}

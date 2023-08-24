@@ -1,0 +1,7 @@
+<div class="product-info-shipping text-center font-weight-normal text-uppercase p-2" style="background:{{section.settings.shipping_bg}};color: {{section.settings.shipping_color}}">
+    {% assign date = "now" | date: '%s' %}
+    {% assign seconds = section.settings.shipping_days | times: 24 | times: 60 | times: 60 %}
+    {% assign custom_day =  date | date: "%s" | plus: seconds | date: "%A %m/%d/%Y" %}
+    {{ "products.product.shipping_html" | t: hour: section.settings.shipping_hours, minute: section.settings.shipping_minutes, day:custom_day }}
+    <style>.product-info-shipping .highlight {color: {{section.settings.shipping_highlight_color}}}</style>
+  </div>

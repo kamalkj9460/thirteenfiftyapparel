@@ -1,0 +1,66 @@
+<!-- starapps_core_start -->
+<!-- This code is automatically managed by StarApps Studio -->
+<!-- Please contact support@starapps.studio for any help -->
+<!-- File location: snippets/starapps-core.liquid -->
+<script type="text/javascript" src="https://assets-cdn.starapps.studio/apps/vsk/thirteen-fifty-apparel/script-31938-1692732245.js?shop={{shop.permanent_domain}}" async></script>
+
+
+<!-- VSK_PRE_APP_HIDE_CODE -->
+{% if product.id != "" and product.id > 0 and content_for_header contains "swatch-king-installed" %}
+
+<style type="text/css" data-vsk-hide="data-vsk-hide">
+    html:not(.nojs):not(.no-js) .options,html:not(.nojs):not(.no-js) [data-pf-type="ProductVariantSwatches"],html:not(.nojs):not(.no-js) .swatch_options,html:not(.nojs):not(.no-js) form[action="/cart/add"] .product__variants,html:not(.nojs):not(.no-js) form[action="/cart/add"] .form__row div.selector-wrapper,html:not(.nojs):not(.no-js) form .swatch.clearfix,html:not(.nojs):not(.no-js) .shopify-buy__product__variant-selectors{opacity:0;max-height:0}
+
+</style>
+<script type="text/javascript">
+"use strict";
+// JS code added by StarApps Studio
+// It hides the default option selector so it's not visible in the frontend
+// Javascript to prevent options selector to be visible on JS disabled browsers
+(function () {
+    var swatchTarget = ".swatches div[option-target] .swatch-single";
+    var intervalTime = 0;
+    var intervalID = setInterval(function () {
+        // Update interval time
+        intervalTime += 250;
+
+        // Check for app
+        var variantSwatchKingApp = document.querySelector(swatchTarget);
+
+        // If we either find our app or page is loaded + 5 seconds
+        if (variantSwatchKingApp || (intervalTime >= 5000 && document.readyState == "complete")) {
+            // Lookup style tag
+            var styleTagElement = document.querySelector("style[data-vsk-hide]");
+
+            // If element found; Remove it.
+            if (styleTagElement) {
+                if (styleTagElement.remove) {
+                    styleTagElement.remove();
+                } else {
+                    styleTagElement.innerHTML = "";
+                }
+            }
+            // End
+
+            // Remove interval
+            clearInterval(intervalID);
+        }
+        // End
+    }, 250);
+})();
+// END
+</script>
+
+{% endif %}
+<!-- VSK_PRE_APP_HIDE_CODE_END -->
+    
+
+
+{% comment %} meta_information_start {% endcomment %}
+{% comment %}Locale, Currency and other meta data of the store{% endcomment %}
+<script type="text/javascript" sa-language-info="true" data-no-instant="true">{% assign published_locales = shop.published_locales | where: "primary", true %}{%- if published_locales.size == 0 -%} (function(){console.log("LANGUAGE_ERROR ::: Default langaugae is not published in this market.")})(); {% endif %}</script>
+{% comment %} meta_information_end {% endcomment %}
+    
+
+<script type="text/javascript" src="https://cdn.starapps.studio/apps/vsk/thirteen-fifty-apparel/data-1692897515-hP42QP4SEW2Z.js?shop={{shop.permanent_domain}}" async></script>
+<!-- starapps_core_end -->

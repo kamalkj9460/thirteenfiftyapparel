@@ -1,0 +1,31 @@
+{%- for link in linklists[section.settings.special_linklist].links -%}
+{% assign link_title = link.title | upcase %}
+<div class="wn--w-item">
+  <a class="wn--w-item-link" href="{{ link.url }}">
+    <div class="wn--w-item-img--container">
+
+      {% if link_title == 'NEW RELEASES' %}
+      <img class="wn--w-item-img" src="{{ 'new-releases-hot.png' | file_img_url: "48x"}}">
+      {% elsif link_title == "MEN'S" %}
+      <img class="wn--w-item-img" src="{{ 'mens-shirt-1.png' | file_img_url: "48x"}}">
+      {% elsif link_title == "WOMEN'S" %}
+      <img class="wn--w-item-img" src="{{ 'WOMENS_WHITE-cp.png' | file_img_url: "48x"}}">
+      {% elsif link_title == 'HOODIES' %}
+      <img class="wn--w-item-img" src="{{ 'hoodies.png' | file_img_url: "48x"}}">
+      {% elsif link_title == 'HEADWEAR' %}
+      <img class="wn--w-item-img" src="{{ 'HEADWEAR.png' | file_img_url: "48x"}}">
+      {% elsif link_title == 'PATCHES' %}
+      <img class="wn--w-item-img" src="{{ 'patches.png' | file_img_url: "48x"}}">
+      {% elsif link_title == 'ACCESSORIES' %}
+      <img class="wn--w-item-img" src="{{ 'accsessories.png' | file_img_url: "48x"}}">
+      {% elsif link_title == 'CUSTOM GEAR' %}
+      <img class="wn--w-item-img" src="{{ 'custom_gear_67ec056d-659c-4cd0-95ac-32d2b90bccce.png' | file_img_url: "48x"}}">
+      {% endif %}
+      
+    </div>
+    <div class="wn--w-item-title--container">
+      <span class="wn--w-item-tile">{{ link_title }}</span>
+    </div>
+  </a>
+</div>
+{% endfor %}

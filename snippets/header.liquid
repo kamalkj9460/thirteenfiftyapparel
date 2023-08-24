@@ -1,0 +1,27 @@
+<header data-header-section>
+  {% if settings.predictive_search_enabled %}{% include 'search-drawer' %}{% endif %}
+  {%- section 'mobile-nav' -%}
+  <div class="background-header"></div>
+  <div class="header-wrapper">
+    <!-- Top of pages -->
+    <div id="header-parts">
+      <div class="background-top"></div>
+      <div class="background">
+        <div class="shadow"></div>
+        <div class="pattern">
+          {% section "header-elements" %}
+          <div class="row mega-menu-modules">
+            {%- section 'main-menu' -%}
+            {% comment %}
+            {%- section 'secondary-menu' -%}
+            {% endcomment %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{% comment %}
+<!-- JM custom header icons -->
+{%- section 'website-nav' -%}
+{% endcomment %}

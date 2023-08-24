@@ -1,0 +1,68 @@
+{%- assign _switcher_type = switcher_type | default: 'rt_dropdown' -%}
+{%- assign _class_for_current_item = '' -%}
+{%- assign _class_for_list = '' -%}
+{%- assign _class_for_list_item = '' -%}
+
+{%- if _switcher_type == 'rt_list' -%}
+{%- assign _switcher_type = _switcher_type | append: ' d-flex flex-column' -%}
+{%- assign _class_for_current_item = 'd-none' -%}
+{%- assign _class_for_list = 'list-inline my-0 lang-code-mode' -%}
+{%- assign _class_for_list_item = 'list-inline-item text-uppercase' -%}
+{%- endif -%}
+
+{%- assign _no_language_switcher = no_language_switcher | default: false -%}
+{%- assign _no_currency_switcher = no_currency_switcher | default: false -%}
+{%- if _no_language_switcher == false and _no_currency_switcher == false -%}
+{%- assign _switcher_type = _switcher_type | append: ' mr-2' -%}
+{%- endif -%}
+
+{%-unless _no_language_switcher == true-%}
+{%-if settings.show_languages-%}
+<div class="{{_switcher_type}} language__picker">
+  <a href="javascript:void(0);" class="language_wrapper {{_class_for_current_item}}">
+    <div class="language__current notranslate"></div>
+  </a>
+  <ul class="language__switcher {{_class_for_list}}" data-item-class="{{_class_for_list_item}}">
+  </ul>
+</div>
+{%-endif-%}
+{%-endunless-%}
+
+{%-unless _no_currency_switcher == true-%}
+{%-if settings.multiple_currencies_used-%}
+{%- if settings.builtin_multi_currencies -%}
+<div class="{{_switcher_type}} currency__picker{% if settings.currency_flag == false %} noflag{% endif %}">
+  {%- assign codes = 'USD,EUR,GBP,CAD,ALL,DZD,AOA,ARS,AMD,AWG,AUD,BBD,AZN,BDT,BSD,BHD,BYR,BZD,BTN,BAM,BRL,BOB,BWP,BND,BGN,MMK,KHR,KYD,XAF,CLP,CNY,COP,CRC,HRK,CZK,DKK,DOP,XCD,EGP,ETB,XPF,FJD,GMD,GHS,GTQ,GYD,GEL,HNL,HKD,HUF,ISK,INR,IDR,ILS,JMD,JPY,JEP,JOD,KZT,KES,KWD,KGS,LVL,LBP,LTL,MGA,MKD,MOP,MVR,MXN,MYR,MUR,MDL,MAD,MNT,MZN,NAD,NPR,ANG,NZD,NIO,NGN,NOK,OMR,PKR,PGK,PYG,PEN,PHP,PLN,QAR,RON,RUB,RWF,WST,SAR,STD,RSD,SCR,SGD,SYP,ZAR,KRW,LKR,SEK,CHF,TWD,THB,TZS,TTD,TND,TRY,UGX,UAH,AED,UYU,VUV,VEF,VND,XBT,XOF,ZMW,AFN,CVE,KMF,CDF,HTG,LAK,LSL,LRD,MWK,SDG,SBD,SRD,SZL,TMT,UZS,YER' | split: ',' -%}
+  {%- assign supported_codes = settings.currency_supported | split: ' ' -%}
+  <a class="currency__current notranslate {{_class_for_current_item}}" data-code="{{ shop.currency }}">{{ settings.currency_default | default: shop.currency | escape }}</a>
+  <ul class="currencies__list ml__js {{_class_for_list}}">
+    <li data-code="{{ shop.currency }}" class="currency active notranslate {{_class_for_list_item}}">{{ shop.currency }}</li>
+    {%- for code in supported_codes -%}
+    {%- if code != shop.currency and codes contains code -%}
+    <li data-code="{{ code }}" class="currency notranslate {{_class_for_list_item}}">{{ code }}</li>
+    {%- endif -%}
+    {%- endfor -%}
+  </ul>
+  <input type="hidden" class="currency_format" value="{{ settings.currency_format | default: 'money_with_currency_format' | escape }}" />
+  <input type="hidden" class="shop_currency" value="{{ shop.currency | escape }}" />
+  <input type="hidden" class="default_currency" value="{{ settings.currency_default | default: shop.currency | escape }}" />
+  <input type="hidden" class="money_with_currency_format" value="{{ shop.money_with_currency_format | strip_html | escape }}" />
+  <input type="hidden" class="money_format" value="{{ shop.money_format | strip_html | escape }}" />
+  <input type="hidden" class="auto_switch" value="{{ settings.currency_auto_switch | escape }}" />
+  <input type="hidden" class="original_price" value="{{ settings.currency_original_price | escape }}" />
+</div>
+{% else %}
+<div class="{{_switcher_type}} currency__picker{% if settings.currency_flag == false %} noflag{% endif %}">
+  <a class="currency__current notranslate {{_class_for_current_item}}" data-code="{{ cart.currency.iso_code }}">{{ cart.currency.iso_code | escape }}</a>
+  <ul class="currencies__list {{_class_for_list}}">
+    <li data-code="{{ cart.currency.iso_code }}" class="currency active notranslate {{_class_for_list_item}}">{{ cart.currency.iso_code }}</li>
+    {%- for currency in shop.enabled_currencies -%}
+    {%- if currency != cart.currency -%}
+    <li data-code="{{  currency.iso_code }}" class="currency notranslate {{_class_for_list_item}}">{{  currency.iso_code }}</li>
+    {%- endif -%}
+    {%- endfor -%}
+  </ul>
+</div>
+{% endif %}
+{%-endif-%}
+{%-endunless-%}

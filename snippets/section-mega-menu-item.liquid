@@ -1,0 +1,110 @@
+{%- assign max_block = section.blocks.size | minus: 1 -%}
+{%- assign parent_idx = 0 -%}
+{%- for i in (0..max_block) -%}
+{%- assign block = section.blocks[i] -%}
+  {%- if block.type == 'menu_parent' -%}
+    {%- assign _submenu_fullwidth = block.settings.mi_submenu_fullwidth -%}
+    {%- assign _submenu_content_has_container = block.settings.mi_submenu_content_has_container -%}
+    {%- assign _submenu_w = block.settings.mi_submenu_w -%}
+    {%- assign _submenu_has_padding = block.settings.mi_submenu_has_padding -%}
+    {%- assign _submenu_bg_c =  block.settings.mi_submenu_bg_c | default: '#ffffff' -%}
+    
+    {%- assign mmenu_vertical			= section.settings.mmenu_vertical -%}
+    {%- assign mmenu_static_vertical			= section.settings.mmenu_static_vertical -%}
+    {%- assign mmenu_static_vertical_height	= section.settings.mmenu_static_vertical_height | default: "0" -%}
+	
+    {%- assign next_item_index = i | plus: 1 -%}
+    {%- assign _item_has_sub = false -%}
+    {%- if next_item_index < section.blocks.size and section.blocks[next_item_index].type != 'menu_parent' -%}
+    	{%- assign _item_has_sub = true -%}
+    {%- endif -%}
+
+    {%- assign _url = block.settings.mi_url -%}
+    {%- assign _class = '' -%}
+    {%- assign _class_link = 'clearfix' -%}
+    {%- assign _label = '' -%}
+    {%- assign _label_html = '' -%}
+
+    {%- assign _name = block.settings.mi_text | strip -%}
+    {%- assign _label = block.settings.mi_label | strip -%}
+
+    {%- if _item_has_sub == true -%}
+      {%- assign _class = _class | append: ' with-sub-menu' -%}
+    {%- endif -%}
+
+    {%- if block.settings.mi_pos_right -%}
+    	{%- assign _class = _class | append: ' float-right' -%}
+    {%- endif -%}
+
+    {%- if _label != empty -%}
+    {%- capture _label_style -%}
+    {%- if block.settings.mmenu_label_text_color != empty and block.settings.mmenu_label_text_color != 'rgba(0,0,0,0)' -%}color:{{block.settings.mmenu_label_text_color}};{%- endif -%}
+    {%- if block.settings.mmenu_label_bg_color != empty and block.settings.mmenu_label_bg_color != 'rgba(0,0,0,0)' -%}background-color:{{block.settings.mmenu_label_bg_color}}{%- endif -%}
+    {%- endcapture -%}
+    {%- assign _label_html = '<span class="megamenu-label" style="' | append: _label_style | append: '">' | append: _label | append: '</span>' -%}
+    {%- endif -%}
+
+    {%- if _item_has_sub == true -%}
+    {%- if _submenu_fullwidth == true and mmenu_vertical == false -%}
+    {%- assign _submenu_w = '100%' -%}
+    {%- else -%}
+    {%- assign _submenu_w = _submenu_w | append: 'px' -%}
+    {%- endif -%}
+
+    {%- capture submenu_container_style -%}
+    {%- if _submenu_bg_c != '' and _submenu_bg_c != 'rgba(0,0,0,0)' -%}--bgcolor-submenu:{{_submenu_bg_c}};{% endif -%}
+    {%- if mmenu_static_vertical == true -%}--height-vert-submenu:{{mmenu_static_vertical_height}};{%- endif -%}
+    --width-submenu:{{_submenu_w}};{%- if _submenu_fullwidth == true and mmenu_vertical == false -%}--left-submenu:0;{%- endif -%}
+    {%- endcapture -%}
+    {%- endif -%}
+    
+    <li class='{{_class}}' style="{{submenu_container_style}}" {{ block.shopify_attributes }}>
+      <a href='{{_url | default:'#'}}' class='{{_class_link}}'>
+        <span>
+          <strong><span class="raw-title">{{_name}}</span>{{_label_html}}</strong>
+        </span>
+      </a>
+      <div class="sub-menu">
+        <div><p class="arrow m-0"></p></div>
+        <div class="content">
+          <div class="{% if _submenu_content_has_container %}container d-flex flex-wrap{% else %}row{% endif %}{% if _submenu_has_padding %}{% if _submenu_fullwidth == true %} pt-4{% else %} p-2{% endif %}{% endif %}">
+            {%- assign width_counter = 0 -%}
+            {%- for k in (next_item_index..max_block) -%}
+            <!-- check next next item is sub or not -->
+            {%- if section.blocks[k].type != 'menu_parent' -%}
+              {%- include 'section-mega-menu-subitem' -%}
+            	{%- assign i = k -%}
+            {%- else -%}
+            	{%- break -%}
+            {%- endif -%}
+            <!-- end -->
+            {%- endfor -%}
+          </div>
+          <div class="menu-notice" style="background-color:{{ section.settings.mi_announcement_bgcolor }};">
+            <span style="color:{{ section.settings.mi_announcement_color }};font-size:{{ section.settings.mi_announcement_size }}px;">
+              {{ section.settings.mmenu_announcement_text }}
+            </span>
+            {% if section.settings.mmenu_announcement_url != blank %}
+            <style>
+              .menu-notice span {
+                border-right: 1px solid #000;
+                margin-right: 20px;
+                padding-right: 15px;
+              }
+            </style>
+            <a href="{{ section.settings.mmenu_announcement_url }}"
+              style="color:{{ section.settings.mi_announcement_button_color }};font-size:{{ section.settings.mi_announcement_button_size }}px;border-bottom:2px solid {{ section.settings.mi_announcement_button_color }}">
+              {{ section.settings.mmenu_announcement_button }}
+            </a>
+            {% endif %}
+          </div>
+          {%- if _submenu_fullwidth == true and mmenu_vertical == false -%}
+          <div class="position-relative w-100"><span class="mmenu-shadow"></span></div>
+          {%- endif -%}
+        </div>
+      </div>
+      
+    </li>
+	  {%- assign parent_idx = parent_idx | plus: 1 -%}
+  {%- endif -%}
+{%- endfor -%}

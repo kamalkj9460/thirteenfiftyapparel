@@ -1,0 +1,94 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign featured_image = current_variant.featured_media.preview_image | default:product.featured_media.preview_image -%}
+{%- assign _dim = '500x' -%}
+<style>
+/* Home page product slider CSS - START */
+.common-home .product-pull-up {
+  min-height: unset !important;
+}
+.common-home .product-pull-up .product-item__shadow {
+  height: 100% !important;
+}
+.common-home .splide.has-container .splide__track {
+  padding-bottom: 0 !important;
+}
+.common-home .jm-collection-block .splide.has-container {
+  padding-bottom: 35px !important;
+}
+.common-home variant-swatch-king {
+  display: none !important;
+}
+.common-home .product-item-content .name a * {
+  text-align: center !important;
+  display: block !important;
+}
+.product-item-content .name {
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Home page product slider CSS - END */
+</style>
+
+{%-assign _onepone = ' lazyload" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-'-%}
+<div class="product-pull-up product product-content-wrapper clearfix product-hover product-item-advanced-wrapper quickshop-type-advanced-wrapper position-relative dots{% if settings.product_countdown_show and product.metafields.info.countdown != blank %} has-countdown{% endif %}" sa-swatch-root="true">
+ {% render 'starapps-product-json', product: product %}
+  <span class="product-item__shadow"></span>
+  <div class="product-item__top">
+    <div class="jm-tag-badges--wrapper">
+    {% for t in product.tags %}
+     {% if t == 'NEW RELEASE' %}
+       <span class="jm-fire-badge jm-new-badge"><img src="https://cdn.shopify.com/s/files/1/1489/5902/files/new-release-flame-icon-orange-2_b66adb43-a54b-4d34-add4-3e210ee0c0a3.png?v=1675282923" height="18"><span class="ml-2">NEW</span></span>
+     {% elsif t == 'BEST SELLER' %}
+       <span class="jm-tag-badges jm-best-badge">BEST SELLER</span>
+     {% elsif t == 'GIFT WORTHY' %}
+<!--        <span class="jm-tag-badges jm-gift-badge">GIFT WORTHY</span> -->
+     {% elsif t == 'FINAL SALE' %}
+       <span class="jm-tag-badges jm-sale-badge">FINAL SALE</span>
+     {% elsif t == 'SALE' %}
+       <span class="jm-tag-badges jm-sale-badge">ON SALE</span>
+      {% elsif t == 'PRE SALE' %}
+       <span class="jm-tag-badges jm-sale-badge">PRE SALE</span>
+     {% endif %}
+    {% endfor %}
+    </div>
+    {% render 'shappify-sales-icon-product', product: product %}
+
+    {%- include 'product-item-images', my_layout: 'grid' -%}
+    {%- if product.images.size > 1 -%}{%- include 'item-images' -%}{%- endif -%}
+    {%- if settings.product_countdown_show -%}{%- include 'limited-offer' -%}{%- endif -%}
+    <div class="product__item-hover d-flex flex-wrap flex-row flex-md-column">
+
+      {%- render 'shappify-bdl-load-bundle' -%}
+
+    </div>
+  </div> 
+  <div class="product-item-content d-flex flex-column align-items-start justify-content-start v_{{ current_variant.id }}">
+    <div class="name">
+      <a href="{{product.url | within: collection}}">
+        {% assign break_first = product.title | replace_first: "] ", "|" %}
+        {% assign product_names = break_first | split: "|" %}
+        {% if product_names.size > 1 %}
+          {% for name in product_names %}
+            <span>{{ name | split: " [" | first }}{% if forloop.index == 1 %}]{% endif %}</span>
+          {% endfor %}
+        {% else  %}
+          {{ product.title | split: " [" | first }}
+        {% endif %}
+        {% assign break_color = break_first | split: " [" %}
+        {% if break_color.size > 1 %}
+          <span class="pname-color">[{{ break_color.last }}</span>
+        {% endif %}
+      </a>
+    </div>
+  </div>
+  
+  {% comment %}<div class="order-receive-by">ORDER BY 3PM EST 12/14 TO RECEIVE BY 12/25</div>{% endcomment %}
+  
+  <div class="short-description d-none py-5 pl-5">{{ product.description | strip_html | truncatewords: 50}}</div>
+
+  {%- unless product == empty -%}
+  <script type="application/json" class="ProductItemJson">
+    {% include 'bold-product', output: 'json' %}
+  </script>
+  {%- endunless -%}
+</div>

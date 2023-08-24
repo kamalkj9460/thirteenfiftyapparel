@@ -1,0 +1,12 @@
+<div class="item-images-wrapper">
+  <a href="javascript:void(0);" class="active" data-_image="{{ featured_image | product_img_url:"master" }}">
+    <div class="dot"></div>
+  </a>
+  {%- for image in product.images limit: 3 -%}
+  {%- unless image == featured_image -%}
+  <a href="javascript:void(0);" data-_image="{{ image.src  | img_url:"master" }}">
+    <div class="dot"></div>
+  </a>
+  {%- endunless -%}
+  {%- endfor -%}
+</div>

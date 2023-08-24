@@ -1,0 +1,56 @@
+{%- if section.settings.show_stock_countdown -%}
+  {%- assign current_variant_available = false -%}
+  {%- assign stock_countdown_fake = false -%}
+
+  {%- comment -%} Real stock countdown {%- endcomment -%}
+  {%- if section.settings.show_stock_countdown_fake == false -%}
+    {%- if current_variant.available and current_variant.inventory_quantity > 0 and current_variant.inventory_management == 'shopify' -%}
+      {%- assign current_variant_available = true -%}
+    {%- endif -%}
+
+  {%- comment -%} Fake stock countdown {%- endcomment -%}
+  {%- else -%}
+    {%- if current_variant.available -%}
+      {%- assign current_variant_available = true -%}
+      {%- if current_variant.inventory_quantity <= 0 and current_variant.inventory_management == 'shopify' -%}
+        {%- assign current_variant_available = false -%}
+      {%- endif -%}
+    {%- endif -%}
+    {%- assign stock_countdown_fake = true -%}
+    {%- assign stock_countdown_fake_from = section.settings.stock_countdown_fake_from -%}
+    {%- assign stock_countdown_fake_to = section.settings.stock_countdown_fake_to -%}
+  {%- endif -%}
+
+  <div id="product-single__stock-{{ section_id }}" class="font-weight-normal text-uppercase product-single__stock{% if stock_countdown_fake %} is-fake{% if current_variant_available %} is-visible{% endif %}{% endif %}{% if current_variant_available == false or stock_countdown_fake %} hide{% endif %}"{% if stock_countdown_fake %} data-min="{{ stock_countdown_fake_from }}" data-max="{{ stock_countdown_fake_to }}"{% endif %}>
+    <div class="stock-countdown-message">{{ 'products.product.only_left_html' | t: count: current_variant.inventory_quantity }}</div>
+    <div class="progress-bar {{ section.settings.stock_countdown_color }}"{% if section.settings.stock_countdown_color == 'custom' %} style="background-color: {{ section.settings.stock_countdown_custom_bground }};"{% endif %}>
+      <span{% if section.settings.stock_countdown_color == 'custom' %} style="background-color: {{ section.settings.stock_countdown_custom_color }};"{% endif %}></span>
+    </div>
+  </div>
+ <style>
+   .stock-countdown-message{
+     color: {{section.settings.stock_countdown_color}};
+   }
+   .stock-countdown-message .highlight{
+     color: {{section.settings.stock_countdown_highlight_color}};
+   }
+</style>
+{%- endif -%}
+{%- if product.available and section.settings.show_total_sold -%}
+<div class="d-table-row">
+  <div id="product-single__sold-{{ section_id }}" class="d-flex justify-content-start align-items-center font-weight-normal text-uppercase product-single__sold" data-qty_min="{{ section.settings.total_sold_qty_min }}" data-qty_max="{{ section.settings.total_sold_qty_max }}" data-time_min="{{ section.settings.total_sold_time_min }}" data-time_max="{{ section.settings.total_sold_time_max }}" style="color: {{ section.settings.total_sold_color }};">
+	<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="16px"> <path d="M11.747,7.429 C11.684,7.218 11.429,7.150 11.267,7.287 C10.850,7.640 10.390,7.922 9.895,8.127 C9.770,4.451 7.061,1.398 3.455,0.819 C3.206,0.779 3.020,1.050 3.149,1.269 C4.061,2.824 4.136,4.705 3.413,6.293 C3.062,5.805 2.798,5.266 2.627,4.686 C2.567,4.483 2.315,4.399 2.147,4.541 C0.783,5.686 -0.000,7.368 -0.000,9.155 C-0.000,12.516 2.715,15.175 6.000,15.175 C9.308,15.175 12.000,12.475 12.000,9.155 C12.000,8.567 11.915,7.986 11.747,7.429 Z"/> </svg>
+    {{- 'products.product.total_sold_html' | t: count: '/count/', time: '/time/' -}}
+  </div>
+</div>
+<style>
+  .product-single__sold svg {
+    fill:{{section.settings.total_sold_highlight_color}};
+    margin-right: 2px;
+  }
+  .product-single__sold .highlight {
+    color: {{section.settings.total_sold_highlight_color}};
+    padding: 0 3px;
+  };
+</style>
+{%- endif -%}

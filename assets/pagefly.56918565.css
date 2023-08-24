@@ -1,0 +1,33 @@
+/* PageFly Element Styles */
+						.bjKdkd__parallax { position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; overflow: hidden; pointer-events: none; }
+.bjKdkd { padding: 15px 0px; position: relative; }
+.cjQBWh::before, .cjQBWh::after { clear: both; display: block; content: ""; }
+						/* PageFly Styles */
+						
+@media all {
+	.__pf .pf-5fc13fa7 {
+		background-image: url("https://cdn.shopify.com/s/files/1/1489/5902/t/19/assets/pf-c13fa7cd--header.png?v=1614167569");
+		 background-size: cover;
+		 background-repeat: no-repeat;
+		 background-position: 0% 50%;
+		 min-height: 24.5vw;
+	}
+	.__pf .pf-3e6acee9 {
+		background-position: 50% 100%;
+		 background-image: url("https://cdn.shopify.com/s/files/1/1489/5902/t/19/assets/pf-6acee94a--borderbottom.png?v=1614172903");
+		 background-repeat: no-repeat;
+		 background-size: cover;
+		 height: 8vw;
+	}
+}
+@media only screen and (max-width: 767px) {
+	.__pf .pf-3e6acee9 {
+		height: 30px;
+	}
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+	.__pf .pf-3e6acee9 {
+		height: 70px;
+	}
+}
+						

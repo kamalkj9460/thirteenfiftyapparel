@@ -1,0 +1,38 @@
+{%- if settings.product_swatch_color and settings.product_swatch_color_item -%}
+{%- assign is_default_variant = false -%}
+{%- if product.variants[0].title == 'Default Title' or product.variants[0].title == 'Default' or product.variants[0].title == 'Ship From' -%}
+{%- assign is_default_variant = true -%}
+{%- endif -%}
+{%- unless product.options.size == 1 and is_default_variant -%}
+<button class="d-md-none btn px-2 ml-1 text-center" style="opacity:0.5" onclick="$(this).toggleClass('options-toggle-mobile ');">...</button> 
+<div class="product-item-option"  style="order:4;margin-top:5px;"
+     data-id="#ProductItemJson-{{- product.id -}}"
+     data-swatch_id="ProductSwatchItemJson-{{ product.id }}">
+  <div class="variations-item-{{product.id}} variations">
+    <div class="variations-content variations-content-{{product.id}}">
+      {%- for option in product.options_with_values -%}
+      {% assign swatch_option = false %}
+      {%- assign downcased_option = option.name | downcase -%}
+      {% if downcased_option contains 'color' and settings.product_swatch_color %}
+      {% assign swatch_option = true %}
+      {% endif %}
+      {% if downcased_option contains 'size' and settings.product_swatch_size %}
+      {% assign swatch_option = true %}
+      {% endif %}
+      {% if swatch_option %}
+      {% include 'product-options-swatch', function: "item", section_id: product.id, option_drop: option, option_index: forloop.index, option_index0: forloop.index0 %}
+      {% else %}
+      <div class="selector-wrapper{{- " " -}}{{- option.name | handlezie -}}{{- " " -}}variation-select-{{ product.id }}-{{ forloop.index0 }}">
+        <select id="single-option-selector-{{ product.id }}-{{ forloop.index0 }}" data-id="single-option-selector-{{ product.id }}-{{ forloop.index0 }}" class="single-option-selector-item single-option-selector single-option-selector-{{ product.id }}" data-index="option{{ forloop.index }}" data-option="option{{ forloop.index }}">
+          {%- for value in option.values -%}
+          <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+      {% endif %}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+{%- endunless -%}
+{%- endif -%}

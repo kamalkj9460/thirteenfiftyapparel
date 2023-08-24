@@ -1,0 +1,58 @@
+{% capture media_id %}FeaturedMedia-{{ section.id }}-{{ featured_media.id }}{% endcapture %}
+{% capture media_class %}product-featured-media{% endcapture %}
+{% capture media_wrapper_id %}{{ media_id }}-wrapper{% endcapture %}
+
+{%- comment -%}
+  Load different poster image sizes depending on the product layout
+{%- endcomment -%}
+{% capture image_size %}{{ height }}x{{ height }}{% endcapture %}
+
+<div id="{{ media_wrapper_id }}"
+    class="product-single__media-wrapper js"
+    {% if featured_media.media_type == 'video' or featured_media.media_type == 'external_video' %} data-product-media-type-video data-enable-video-looping="{{ section.settings.enable_video_looping }}"{% endif %}
+    {% if featured_media.media_type == 'model' %} data-product-media-type-model{% endif %}
+    {% if featured_media.media_type == 'external_video' %} data-video-id="{{ featured_media.external_id }}"{% endif %}
+    data-product-single-media-wrapper
+    data-media-id="{{ section.id }}-{{ featured_media.id }}"
+    tabindex="-1">
+  {% case featured_media.media_type %}
+    {% when 'image' %}
+      {% capture zoom_media_id %}ImageZoom-{{ section.id }}-{{ featured_media.id }}{% endcapture %}
+      <div
+        id="{{ zoom_media_id }}"
+        style="padding-top:{{ 1 | divided_by: featured_media.preview_image.aspect_ratio | times: 100}}%;"
+        class="product-single__media{% if product.media.size > 1 %} product-single__media--has-thumbnails{% endif %}{% if enable_image_zoom %} js-zoom-enabled{% endif %} {{ pwrapper_item_class }}"
+           {% if enable_image_zoom %} data-image-zoom-wrapper data-zoom="{{ featured_media | img_url: "master" }}"{% endif %}>
+        {% if product_lightbox != '' %}
+        <a href="{{ featured_media | img_url: 'master' }}" class="photoswipe" data-size="{{featured_media.width}}x{{featured_media.height}}">
+        {% endif %}
+          {%- assign img_url = featured_media | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          <img id="{{ media_id }}"
+               class="feature-row__image {{ media_class }} lazyload"
+               src="{{ featured_media | img_url: '300x300' }}"
+               data-src="{{  img_url }}"
+               data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+               data-sizes="auto"
+               alt="{{ featured_media.alt | escape }}" />
+          {% if product_lightbox != '' %}
+        </a>
+        {% endif %}
+      </div>
+    {% when 'external_video' %}
+      <div class="product-single__media" style="padding-top: {{ 1 | divided_by: featured_media.aspect_ratio | times: 100 }}%;">
+        {{ featured_media | external_video_tag }}
+      </div>
+    {% when 'video' %}
+      <div class="product-single__media product-single__media--video product-single__media--{{ featured_media.id }}" style="padding-top: {{ 1 | divided_by: featured_media.aspect_ratio | times: 100 }}%;">
+        {{ featured_media | video_tag: class: 'media-video', image_size: image_size }}
+      </div>
+    {% when 'model' %}
+      <div class="product-single__media" style="padding-top: 100%">
+        {{ featured_media | model_viewer_tag: image_size: image_size, reveal: 'interaction', toggleable: true, data-model-id: featured_media.id }}
+      </div>
+    {% else %}
+      <div class="product-single__media" style="padding-top: {{ 1 | divided_by: featured_media.aspect_ratio | times: 100 }}%;">
+        {{ featured_media | media_tag: class: 'media-item', image_size: image_size }}
+      </div>
+  {% endcase %}
+</div>

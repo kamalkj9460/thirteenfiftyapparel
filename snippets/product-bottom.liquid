@@ -1,0 +1,97 @@
+<div class="row product-bottom-wrappper" style="--snapscroll-itemsize:70%;">
+  <div class="col-sm-12">
+    {%- if settings.product_bottom_html and settings.product_bottom_html_content != '' -%}
+    {{settings.product_bottom_html_content}}
+    {%- endif -%}
+    
+    <div data-rt-tabs class="rt-tabs col-p-100 mt-4 justify-content-center" style="--border-color:#3a3a3a">
+      {%- if settings.product_bottom_related -%}
+      <div class="rt-tab">
+        <input class="rt-tab__radio" type="radio" name="rt-tabgroup-bottom" id="rt-tab-related" checked>
+        <label class="h3 pb-1 border-bottom custom-border-color" for="rt-tab-related">{{settings.product_bottom_related_heading}}</label>
+        <div class="rt-tab__content">
+          <div id="productsRelated" class="col-p-100">
+            <div style="--splide-arrow-size:2em;--splide-arrow-size-md:3em;--splide-arrow-bgc:#c6c6c66e;--splide-arrow-br:0;" class="is-slider no-pagination splide splide--arrowpos--cent-side has-container" data-splide='{"type":"slide","perMove":"1","breakpoints":{"767":{"destroy":"true"}},"perPage":"4"}'>
+              <span class="position-absolute h-100 zi-lv9 ml-n-container custom-bgcolor w-container" style="--bg-color:{{settings.color_body_bg}};"></span>
+              <span class="absolute-right h-100 zi-lv9 mr-n-container custom-bgcolor w-container" style="--bg-color:{{settings.color_body_bg}};"></span>
+              {%- render 'slider-nav-buttons', custom_class: 'd-none d-md-block' -%}
+
+              <div class="splide__track w-100">
+                <div class="splide__list w-100 rt-mobile-snapscroll">
+
+                  {%- if collection == null -%}
+                  {%- assign my_collection_found = false -%}
+                  {%- for my_collection in product.collections -%}
+                  {%- if my_collection_found == false and my_collection.all_products_count > 1 -%}
+                  {%- assign my_collection_found = true -%}
+                  {%- assign collection = my_collection -%}
+                  {%- endif -%}
+                  {%- endfor -%}
+                  {%- endif -%}
+
+                  {%- assign my_limit = settings.product_bottom_related_limit | plus:1 -%}
+                  {%- assign my_product = product -%}
+                  {%- assign my_product_found = false -%}
+
+                  {%- for product in collection.products limit: my_limit -%}
+                  {%- if product.handle == my_product.handle -%}
+                  {%- assign my_product_found = true -%}
+                  {%- else -%}
+                  {%- unless my_product_found == false and forloop.last -%}
+                  <div class="splide__slide p-sm-1 product product-related-item">
+                    {%- include 'product-item' -%}
+                  </div>
+                  {%- endunless -%}
+                  {%- endif -%}
+                  {%- endfor -%}
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {%- endif -%}
+      {% if settings.product_bottom_recommendations %}
+      <div class="rt-tab">
+        <input class="rt-tab__radio" type="radio" name="rt-tabgroup-bottom" id="rt-tab-recommendation">
+        <label class="h3 pb-1 border-bottom custom-border-color" for="rt-tab-recommendation">{{ settings.product_bottom_recommendations_heading }}</label>
+        <div class="rt-tab__content">
+        {% section 'product-recommendations' %}
+        </div>
+      </div>
+      {% endif %}
+      {% if settings.product_bottom_upsell and settings.product_bottom_upsell_collection != blank %}
+      <div class="rt-tab">
+        <input class="rt-tab__radio" type="radio" name="rt-tabgroup-bottom" id="rt-tab-upsells">
+        <label class="h3 pb-1 border-bottom custom-border-color" for="rt-tab-upsells">{{settings.product_bottom_upsell_heading}}</label>
+        <div class="rt-tab__content">
+        {% include "product-upsells" %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    {%- if settings.product_bottom_viewed -%}
+    <div class="viewed-products">
+      <div class="cb-head col-p-100 pb-2 d-flex justify-content-center" style="--border-color:#e5e5e5">
+        <span class="h3">{{settings.product_bottom_viewed_heading}}</span>
+      </div>
+      <div id="productsViewed" class="col-p-100">
+        <div style="--splide-arrow-size:2em;--splide-arrow-size-md:3em;--splide-arrow-bgc:#c6c6c66e;--splide-arrow-br:0;" class="is-slider no-pagination splide splide--arrowpos--cent-side has-container" data-splide='{"type":"slide","perMove":"1","breakpoints":{"767":{"destroy":"true"}},"perPage":"4"}'>
+          <span class="position-absolute h-100 zi-lv9 ml-n-container custom-bgcolor w-container" style="--bg-color:{{settings.color_body_bg}};"></span>
+          <span class="absolute-right h-100 zi-lv9 mr-n-container custom-bgcolor w-container" style="--bg-color:{{settings.color_body_bg}};"></span>
+
+          {%- render 'slider-nav-buttons', custom_class: 'd-none d-md-block' -%}
+          <div class="splide__track w-100">
+            <div class="splide__list w-100 rt-mobile-snapscroll" id="recently-viewed-products" data-limit="{{settings.product_bottom_viewed_limit}}" data-handle="{{- product.handle -}}" data-id="{{- product.id -}}">
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {%- endif -%}
+
+  </div>
+</div>

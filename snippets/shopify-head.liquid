@@ -1,0 +1,146 @@
+{%- capture _myEncodedString -%}{%- assign _myString = settings.purchase_code -%}{%- assign _mySource = 'a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,0,1,2,3,4,5,6,7,8,9' | remove: ',' -%}{%- assign _mySourceSize =  _mySource | size -%}{%- assign _myString = _myString | remove: '-' -%}{%- assign _myLen = _myString | size | minus: 1 -%}{%- assign _myMin = 5 -%}{%- assign _myMax = _mySourceSize | minus: 1 -%}{%- assign _myDiff = _myMax | minus: _myMin %}{%- assign _myRandomPos = "now" | date: "%N" | modulo: _myDiff | plus: _myMin -%}{%- for _i in (0.._myLen) -%}{%- assign _currChar = _myString | slice: _i, 1 -%}{%- assign _currArr = _mySource | split: _currChar -%}{%- assign _currCharPos = _currArr[0] | size -%}{%- assign _currIncrease = _currCharPos | plus: _myRandomPos -%}{%- assign _newPos = _currIncrease | modulo: _mySourceSize -%}{%- assign _newChar =  _mySource | slice: _newPos, 1 -%}{{- _newChar -}}{%- endfor -%}{{- _mySource | slice: _myRandomPos, 1 -}}{%- endcapture -%}
+<script>
+  var loadScriptAsync = function(lib){
+    
+    return new Promise((resolve, reject) => {
+      if(lib.state == 1) {
+        resolve('JS already loaded.');
+        return;
+      }
+
+      var tag = document.createElement('script');
+      tag.src = lib.src;
+      tag.async = true;
+      lib.state = 1;
+      tag.onload = () => {
+        resolve();
+      };
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    });
+  }
+  function onLoadStylesheet(_url) {
+    
+  }
+</script>
+{%- if template == 'index' -%}
+<link rel="stylesheet" href="{{ 'bootstrap-purged.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'rt.style-purged.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'rt.application-purged.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+{%- else -%}
+<link rel="stylesheet" href="{{ 'bootstrap.min.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'rt.style.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'rt.application.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+{%- endif -%}
+<link rel="stylesheet" href="{{ 'rt.vendors.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'rt.vendor.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+{%- if settings.page_direction == 'RTL' -%}
+<link rel="stylesheet" href="{{ 'rt.vendor-rtl.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+{%- endif -%}
+<link rel="stylesheet" href="{{ 'rt.menu.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'rt.custom.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'custom_styles.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+{%- if template == 'page.gallery' -%}
+<link rel="stylesheet" href="{{ 'gallery.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+{%- endif -%}
+<link rel="stylesheet" href="{{ 'rt.pages.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'rt.cbuilder.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'rt.helper.css' | asset_url }}" type="text/css" media="print" onload="this.media='all'">
+
+<script type="text/javascript" async>
+window.sidebar={% if settings.content_sidebar %}1{% else %}!1{% endif %},
+window.template="{{template}}",
+window.rtl={% if settings.page_direction == 'LTR' %}!1{% else %}1{% endif %},
+window.popup_mailchimp_expire={{settings.popup_mailchimp_expire | plus:0}},
+window.popup_mailchimp_period={{settings.popup_mailchimp_period | plus:0}},
+window.popup_mailchimp_delay={{settings.popup_mailchimp_delay | plus:0}},
+window.popup_mailchimp_close={{settings.popup_mailchimp_close | plus:0}},
+window.products={},window.product_image_zoom={{settings.product_image_zoom | plus:0}},
+window.asset_url="{{'?' | asset_url}}",
+window.swatch_color={{settings.product_swatch_color}},
+window.swatch_size={{settings.product_swatch_size}},
+window.shopping_cart_type="{{settings.shopping_cart_type}}",
+window.contact_map_address="{{settings.contact_map_address | strip_newlines}}",
+window.money_format="{{shop.money_format}}",
+window.builtin_currencies_used={%-if settings.multiple_currencies_used == true and settings.builtin_multi_currencies == true-%}true{%-else-%}false{%-endif-%},
+{%- if settings.multiple_currencies_used == true and settings.builtin_multi_currencies == true -%}
+window.shopCurrency="{{shop.currency}}",
+window.defaultCurrency="{{settings.default_currency}}",
+window.cookieCurrency="",
+window.jsonCurrency={{shop.money_with_currency_format | strip_html | json}},
+window.jsonMoney={{shop.money_format | strip_html | json}},
+window.formatCurrency="{{settings.currency_format | default: 'money_with_currency_format'}}",
+{%- endif -%}
+window.all_results_text="{{'search.general.see_all_results' | t | escape}}",
+window.compare="{%- if settings.compare_enable -%}1{%- endif -%}",
+window.pitem_row="2",
+window.swatch_color="{%- if settings.product_swatch_color -%}1{%- endif -%}",
+window.swatch_size="{%- if settings.product_swatch_size -%}1{%- endif -%}",
+window.swatch_color_advanced="{%- if settings.product_swatch_color_advanced  -%}1{%- endif -%}";
+window.reviews_enable ={{settings.reviews_enable | json}};
+var theme = {
+  apps: {
+    details: {{ 'apps.lookbook.details' | t | json }},
+    buyNow: {{ 'apps.lookbook.buy_now' | t | json }},
+  },
+  strings: {
+    onlyLeft: {{- 'products.product.only_left_html' | t | json -}},
+    addToCart: {{ 'products.product.add_to_cart' | t | json }},
+    soldOut: {{ 'products.product.sold_out' | t | json }},
+    unavailable: {{ 'products.product.unavailable' | t | json }},
+    inStock: {{ 'products.product.in_stock' | t | json }},
+    available: {{ 'products.product.available' | t | json }},
+    outStock: {{ 'products.product.out_of_stock' | t | json }},
+    sale: {{ 'products.product.sale' | t | json }},
+    btn_select_options: {{'products.product.select_options' | t | json }},
+    btn_add_to_cart: {{'products.product.add_to_cart' | t | json }},
+    searchFor: {{ 'general.search.search_for' | t | json }},
+    products: {{ 'general.search.products' | t | json }},
+    loading: {{ 'general.search.loading' | t | json }},
+    number_of_results: {{ 'general.search.number_of_results' | t: result_number: '[result_number]', results_count: '[results_count]' | json }},
+    number_of_results_found: {{ 'general.search.number_of_results_found' | t: results_count: '[results_count]' | json }},
+    one_result_found: {{ 'general.search.one_result_found' | t | json }},
+    fromLowestPrice: {{ 'general.search.from_lowest_price_html' | t: lowest_price: '[price]' | json }}
+  },
+  moneyFormat: {{ shop.money_format | json }},
+  moneyFormatWithCurrency: {{ shop.money_with_currency_format | json }},
+  settings: {
+    moneyFormat: {{- shop.money_format | json -}},
+    predictiveSearchEnabled: {{ settings.predictive_search_enabled | json }},
+    predictiveSearchShowPrice: {{ settings.predictive_search_show_price | json }},
+    predictiveSearchShowVendor: {{ settings.predictive_search_show_vendor | json }}
+  },
+  inventory: {{ settings.product_info_status | json }},
+  sale_percentages: {{ settings.shop_sale_percentages | json }},
+  asset_url: {{ '?' | asset_url | json }},
+  libs: {
+    psearch: {
+      src: "{{ 'll.prs.js' | asset_url }}",
+      state: 0
+    },
+    slick: {
+      src: "{{ 'll.sl.js' | asset_url }}",
+      state: 0
+    },
+    photoswipe: {
+      src: "{{ 'll.phs.js' | asset_url }}",
+      state: 0
+    },
+    mpopup: {
+      src: "{{ 'll.mp.js' | asset_url }}",
+      state: 0
+    }
+  }
+};
+var roar_api = {
+  main_info: {
+    theme_id: '18389593',
+    owner_email: '{{ shop.email }}',
+    shop: '{{ shop.permanent_domain }}',
+    domain: '{{ shop.permanent_domain }}',
+   	rdomain: '{{ shop.domain }}',
+    license: '{{-_myEncodedString | strip -}}'
+  }
+};
+</script>
+<script src="{{ 'jquery-3.5.0.min.js' | asset_url }}" defer="defer"></script>

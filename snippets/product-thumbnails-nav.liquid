@@ -1,0 +1,66 @@
+{% if product.media.size > 1 %}
+<div class="product-thumbnails{%- if settings.product_design == "sidebar" or settings.product_design == "simple" or settings.product_design == "bottom" or  settings.product_design == "full-screen" or  settings.product_design == "split" -%}-bottom{%- endif -%}" id="product-thumbnails-{{section.id}}" >
+  <div class="thumbnails product-single__thumbnails-{{ section.id }} {% if product.media.size <= 4%}product-thumbnails-no-slick {% endif %}" data-vertical="{%- if settings.product_design == "left" or settings.product_design == "upsell" or settings.product_design == "compact2" -%}1{%- else -%}0{%- endif -%}">
+	{%- assign featured_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
+    
+    <div class="product-single__thumbnails-item product-single__thumbnails-item--{{ section.settings.media_size }} js">
+      <a href="{{ featured_media.preview_image | img_url: product_image_zoom_size, scale: product_image_scale }}"
+         class="active-thumb thumbnails-item text-link product-single__thumbnail product-single__thumbnail--{{ section.id }}"
+         data-thumbnail-id="{{ section.id }}-{{ featured_media.id }}">
+        {%- capture thumbnailAlt -%}
+        {%- if featured_media.media_type == 'video' or featured_media.media_type == 'external_video' -%}
+        {{ 'sections.featured_product.video_thumbnail_alt' | t: imageAlt: featured_media.alt | escape }}
+        {%- elsif featured_media.media_type == 'model' -%}
+        {{ 'sections.featured_product.model_thumbnail_alt' | t: imageAlt: featured_media.alt | escape }}
+        {%- else -%}
+        {{ 'sections.featured_product.gallery_thumbnail_alt' | t: imageAlt: featured_media.alt | escape }}
+        {%- endif -%}
+        {%- endcapture -%}
+
+        <img class="product-single__thumbnail-image lazyload" src='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==' data-src="{{ featured_media.preview_image | img_url: "180x240", crop:"top" }}" alt="{{ thumbnailAlt }}">
+        {%- if featured_media.media_type == 'video' or featured_media.media_type =='external_video' -%}
+        <div class="product-single__thumbnail-badge">
+          {% include 'icon-video-badge-full-color' %}
+        </div>
+        {%- endif -%}
+        {%- if featured_media.media_type == 'model' -%}
+        <div class="product-single__thumbnail-badge">
+          {% include 'icon-3d-badge-full-color' %}
+        </div>
+        {%- endif -%}
+      </a>
+    </div>
+    {% for media in product.media %}
+    {% unless featured_media == media %}
+    <div class="product-single__thumbnails-item product-single__thumbnails-item--{{ section.settings.media_size }} js">
+      <a href="{{ media.preview_image | img_url: product_image_zoom_size, scale: product_image_scale }}"
+         class="thumbnails-item text-link product-single__thumbnail product-single__thumbnail--{{ section.id }}"
+         data-thumbnail-id="{{ section.id }}-{{ media.id }}">
+        {%- capture thumbnailAlt -%}
+        {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+        {{ 'sections.featured_product.video_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+        {%- elsif media.media_type == 'model' -%}
+        {{ 'sections.featured_product.model_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+        {%- else -%}
+        {{ 'sections.featured_product.gallery_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+        {%- endif -%}
+        {%- endcapture -%}
+
+        <img class="product-single__thumbnail-image lazyload" src='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==' data-src="{{ media.preview_image | img_url: "180x240", crop:"top" }}" alt="{{ thumbnailAlt }}">
+        {%- if media.media_type == 'video' or media.media_type =='external_video' -%}
+        <div class="product-single__thumbnail-badge">
+          {% include 'icon-video-badge-full-color' %}
+        </div>
+        {%- endif -%}
+        {%- if media.media_type == 'model' -%}
+        <div class="product-single__thumbnail-badge">
+          {% include 'icon-3d-badge-full-color' %}
+        </div>
+        {%- endif -%}
+      </a>
+    </div>
+    {% endunless %}
+    {% endfor %}
+  </div>
+</div>
+{% endif %}

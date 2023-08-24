@@ -1,0 +1,15 @@
+{%- if block.settings.search_type == 'icon' -%}
+<a href="{% if settings.predictive_search_enabled %}javascript:;{% else %}/search{% endif %}" class="block-{{block.id}} search-icon header-icon mx-1 custom-color d-flex justify-content-center align-items-center {% if block.settings.icon_type == 'rounded_border' %}with-border is-rounded{% else %}h-auto flex-column w-auto{% endif %}{% if settings.predictive_search_enabled %} js-drawer-open-top{% endif %}"{% if settings.predictive_search_enabled %} data-predictive-search-open-drawer{% endif %}>
+  <svg class="custom-color" style="transform:scaleX(-1);--color:{{block.settings.color_icon}}"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#global__symbols--search"></use></svg>
+{%- if block.settings.icon_type == 'with_text' -%}
+<span class="h6 pt-2 custom-color" style="--color:{{block.settings.color_text}}">{{ 'search.general.submit' | t | upcase }}</span>
+{%- endif -%}
+</a>
+{%- else -%}
+<form action="/search" class=" custom-width" style="--width:{{block.settings.width_searchbox}}%">
+  <div class="position-relative">
+    <input type="text" name="q" class="w-100 custom-color custom-bgcolor custom-border-color{% if settings.predictive_search_enabled %} js-drawer-open-top{% endif %}" style="--color:{{block.settings.color_placeholder}};--border-color:{{block.settings.color_border}};--bg-color:{{block.settings.color_bg}};" placeholder="Find It Here"{% if settings.predictive_search_enabled %} data-predictive-search-open-drawer{% endif %}/>
+    <svg class="custom-color custom-svg-size position-absolute" style="--svg-size:1rem;--color:{{block.settings.color_search_icon}};right:0.5rem;top:50%;transform:scaleX(-1) translateY(-50%)"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#global__symbols--search"></use></svg>
+  </div>
+</form>
+{%- endif -%}

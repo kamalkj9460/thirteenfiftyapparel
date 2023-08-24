@@ -1,0 +1,138 @@
+/* start -- collection pages badge */
+.jm-tag-badges {
+  position: absolute;
+  top: 20px !important;
+  z-index: 9;
+  font-size: 9px !important;
+  line-height: 10px !important;
+  font-family: 'Protract';
+  letter-spacing: .8px !important;
+  background: #000 !important;
+  color: #fff !important;
+  padding: 4px 2px 5px 5px !important;
+}
+.jm-fire-badge.jm-new-badge {
+  position: absolute;
+  top: 20px !important;
+  z-index: 9;
+  font-size: 9px !important;
+  line-height: 10px !important;
+  font-family: 'Protract';
+  letter-spacing: .8px !important;
+  color: #000 !important;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.home .jm-fire-badge img {
+  width: auto !important;
+  min-width: unset !important;
+}
+.home .jm-fire-badge .ml-2 {
+  margin-left: 0.5rem!important;
+}
+
+.jm-tag-badges:after {
+  border-color: #000 transparent transparent;
+  border-width: 18px 10px 0 0;
+  left: 100%;
+  margin-left: 0px;
+  right: auto;
+  border-style: solid;
+  content: "";
+  display: inline-block;
+  height: 0;
+  position: absolute;
+  top: 0px;
+  width: 0;
+}
+.jm-tag-badges.jm-gift-badge {
+  background: #d9121f !important;
+}
+.jm-tag-badges.jm-gift-badge:after {
+  border-color: #d9121f transparent transparent !important;
+}
+.jm-tag-badges + .jm-sale-badge,
+.jm-tag-badges--wrapper .jm-sale-badge:not(:only-child),
+.jm-tag-badges--wrapper .jm-gift-badge:first-child:not(:only-child)  {
+  top: 42px !important;
+}
+@media (max-width: 767px) {
+  .jm-tag-badges {
+    font-size: 6px !important;
+    padding: 1px 2px 2px 3px !important;
+    top: 1px !important;
+  }
+  .jm-fire-badge.jm-new-badge {
+    top: 1px !important;
+  }
+  .jm-fire-badge img {
+    height: 9px !important;
+  }
+  .jm-fire-badge span {
+    font-size: 7px !important;
+    margin-left: 5px !important;
+  }
+  .jm-tag-badges + .jm-sale-badge,
+  .jm-tag-badges--wrapper .jm-sale-badge:not(:only-child),
+  .jm-tag-badges--wrapper .jm-gift-badge:first-child:not(:only-child) {
+    top: 16px !important;
+  }
+  .jm-tag-badges:after {
+    border-width: 13px 7px 0 0;
+  }
+}
+/* end -- collection pages badge */
+
+/* start -- product pages badge */
+.templateProduct .jm-tag-badges.prod {
+  left: 80px !important;
+  top: 0 !important;
+  font-size: 12px !important;
+  padding: 7px 4px 7px 6px !important;
+}
+
+.templateProduct .jm-fire-badge.prod.jm-new-badge {
+  left: 80px !important;
+  top: 0 !important;
+  font-size: 12px !important;
+}
+
+.templateProduct .jm-tag-badges.prod:after {
+  border-width: 23px 14px 0 0;
+}
+.templateProduct .jm-tag-badges.prod + .jm-sale-badge,
+.templateProduct .jm-tag-badges--wrapper .jm-tag-badges.prod.jm-sale-badge:not(:only-child),
+.templateProduct .jm-tag-badges--wrapper .jm-tag-badges.prod.jm-gift-badge:first-child:not(:only-child) {
+  top: 28px !important;
+}
+@media (max-width: 767px) {
+  .templateProduct .jm-tag-badges.prod {
+    right: 0 !important;
+    left: unset !important;
+    font-size: 8px !important;
+    padding: 4px 6px 5px 4px !important;
+  }
+  .templateProduct .jm-fire-badge.prod.jm-new-badge {
+    right: 0 !important;
+    left: unset !important;
+  }
+  .templateProduct .jm-fire-badge.prod.jm-new-badge img {
+    height: 16px !important;
+  }
+  .templateProduct .jm-fire-badge.prod.jm-new-badge span {
+    font-size: 8px !important;
+  }
+  .templateProduct .jm-tag-badges.prod:after {
+    border-width: 18px 0 0 11px;
+    left: auto !important;
+    right: 100% !important;
+  }
+  .templateProduct .jm-tag-badges.prod + .jm-sale-badge,
+  .templateProduct .jm-tag-badges--wrapper .jm-tag-badges.prod.jm-sale-badge:not(:only-child),
+  .templateProduct .jm-tag-badges--wrapper .jm-tag-badges.prod.jm-gift-badge:first-child:not(:only-child) {
+    top: 22px !important;
+  }
+}
+/* end -- product pages badge */

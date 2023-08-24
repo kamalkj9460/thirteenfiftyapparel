@@ -1,0 +1,85 @@
+{%-assign active_grouped = false -%}
+{%-if product.available -%}
+{%-assign total_price = current_variant.price -%}
+{%-else-%}
+{%-assign total_price = 0 -%}
+{%-endif -%}
+{%-for link in linklists[settings.product_grouped].links -%}
+{%-if link.type == "product_link" -%}
+{%-assign _product = link.object  -%}
+{%-if _product.handle == my_product.handle %}
+{%-assign active_grouped = true -%}
+{%-assign _current_product = _product -%}
+{%-break-%}
+{%-endif-%}
+{%-endif-%}
+{%-endfor-%}
+{%-if active_grouped == true -%}
+<div id="products-grouped-{{section.id}}" class="d-flex flex-wrap product-grouped-wrapper">
+  
+  
+  <div class="col-p-100 pb-3 d-flex justify-content-center" style="--border-color:#3a3a3a">
+    <span class="h3 pt-4 pb-1 border-bottom custom-border-color">{{settings.product_grouped_heading}}</span>
+  </div>
+
+
+
+  <div class="product-grouped-content d-flex flex-wrap w-100" style="--snapscroll-itemsize: 70%;">
+    <div class="d-flex col-p pr-md-2 rt-mobile-snapscroll" style="--pcol:70%;--pmcol:100%">
+      <div class="current-product grouped-product p-md-3 col-md-4" id="grouped-product-{{-_current_product.id-}}" data-id="{{- _current_product.id -}}">
+        {% assign product = _current_product %}
+        {%-include 'product-item' -%}
+      </div>
+      {%-for link in linklists[settings.product_grouped].links -%}
+      {%-if link.type == "product_link" -%}
+      {%-assign _product = link.object  -%}
+      {%-if _product.handle != _current_product.handle %}
+      <div class="grouped-product p-md-3 col-md-4" data-id="{{- _product.id -}}" id="grouped-product-{{-_product.id-}}">
+        {% assign product = _product %}
+        {%-include 'product-item' -%}
+      </div>
+      {%-endif-%}
+      {%-endif-%}
+      {%-endfor-%}
+    </div>
+
+    <div class="products-grouped-action col-p product-info" style="--pcol:30%;--pmcol:100%">
+      <div class="products-grouped-items">
+        <div class="grouped-product-item current-product"  id="grouped-product-item-{{- _current_product.id -}}"  data-id="{{- _current_product.id -}}">
+          <label> 
+            <input data-product_id="{{- _current_product.id -}}" type="checkbox" checked="checked" class="grouped-checkbox" data-id="#grouped-product-{{-_current_product.id-}}"> 
+            <span class="product-title">{{ _current_product.title }}</span> 
+          </label>
+        </div>
+        {%-for link in linklists[settings.product_grouped].links -%}
+        {%-if link.type == "product_link" -%}
+        {%-assign _product = link.object  -%}
+        {%-if _product.handle != _current_product.handle -%}
+        {%-if _product.available  -%}
+        {%- assign _current_variant = _product.selected_or_first_available_variant | default:_product.variants.first -%}
+        {%-assign total_price = total_price | plus: _current_variant.price -%}
+        {%- endif -%}
+        {% assign product = _product %}
+        <div class="grouped-product-item" id="grouped-product-item-{{- _product.id -}}" data-id="{{- _product.id -}}">
+          <label class="d-flex align-items-center mt-0 mb-2"> 
+            <input data-product_id="{{- product.id -}}" type="checkbox" {% if _product.available  %}checked="checked"{% else %}disabled{% endif %} class="mr-1 grouped-checkbox" data-id="#grouped-product-{{-product.id-}}"> 
+            <span class="product-title">{{ product.title }}</span> 
+          </label>
+        </div>
+        {%-endif-%}
+        {%-endif-%}
+        {%-endfor-%}
+      </div>
+      <div class="price">
+        <span  id="grouped-price" class="amount price-new">
+          <span class="money">{{- total_price | money -}}</span>
+        </span>
+      </div>
+      <div class="action">
+        <button type="button" id="grouped-add-button-{{-section.id-}}" class="grouped-button button button-cart">{{- 'products.grouped.add_to_cart' | t | escape-}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+{%-endif-%}
+{% assign product = my_product %}

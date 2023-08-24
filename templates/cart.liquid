@@ -1,0 +1,213 @@
+<script data-cfasync="false" type="text/javascript">if (typeof Shopify === "undefined") var Shopify = {}; Shopify.cart = {{ cart | json }};</script> 
+<div id="sca-fg-owl-carousel">
+  <div id="freegift_cart_container" class="sca-fg-cart-container" style="display: none;">
+    <div id="freegift_message" class="owl-carousel"></div>
+  </div> 
+  <div id="sca-fg-slider-cart" style="display: none;">
+    <div class="sca-fg-cart-title">
+      <strong>Select your free gift (s)</strong>
+    </div>
+    <div id="sca_freegift_list" class="owl-carousel"></div>
+  </div>
+</div>
+<div id="sca_fg_cart">
+<div class="container px-2 pb-5">
+  <div id="content" class="col-auto center-column content-with-background">
+    <div class="cart-page-empty {% if cart.items.size > 0 %} d-none{% endif %}">
+      <p>{{'cart.general.empty' | t}}</p>
+      <div class="buttons">
+        <div class="float-right"><a href="{{shop.url}}" class="btn btn--secondary">{{'cart.general.continue_shopping' | t}}</a></div>
+      </div>
+    </div>
+    <div class="cart-page-content">
+      {%- if cart.items.size > 0-%}
+      <form action="/cart" method="post" id="cartform" enctype="multipart/form-data">
+        <div class="cart-info">
+          <table>
+            <thead>
+              <tr>
+                <td>{{'cart.general.image' | t}}</td>
+                <td>{{'cart.general.name' | t}}</td>
+                <td>{{'cart.general.price' | t}}</td>
+                <td>{{'cart.general.quantity' | t}}</td>
+                <td>{{'cart.general.total' | t}}</td>
+                <td>{{'cart.general.action' | t}}</td>
+              </tr>
+            </thead>
+            <tbody>
+              {%- for item in cart.items -%}
+              <tr>
+                <td>
+                  <div class="cart-img">
+                    <img src='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==' data-src="{{item | img_url:'medium'}}" alt="{{item.title | escape}}" title="{{item.title | escape}}" class="img-thumbnail lazyload" />
+                  </div>
+                </td>
+                <td>
+                  <h2>
+                    <a href="{{item.url}}">
+                      {{item.product.title}}
+                      {%- if item.product.variants.size > 1 -%}
+                      <span class="variant_title"> - {{item.variant.title}}</span>
+                      {%- endif -%}
+                    </a>
+                  </h2>
+                  <span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_item_properties" style="display:none !important;"></span>
+                  {% assign propertySize = item.properties | size %}
+                  {% if propertySize > 0 %}
+                      {% for p in item.properties %}
+{%- if p.first.first == '_' -%}{%- continue -%}{%- endif -%}
+                          {% assign first_character_in_key = p.first | truncate: 1, '' %}
+                          {% unless p.last == blank or first_character_in_key == '_' %}
+                              {{ p.first }}:
+                              {% if p.last contains '/uploads/' %}
+                                 <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                              {% else %}
+                                  {{ p.last }}
+                              {% endif %}
+                          {% endunless %}
+                      {% endfor %}
+                  {% endif %}
+                  <ul class="cart-params">
+                    <li>
+                      <div class="cart-price">
+                        <span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_item_price" data-item-key="{{item.key}}" style="display:none !important;"></span>
+                        <span class="money">{{item.price | money}}</span>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="cart-quantity-mobile d-flex justify-content-start"></div>
+                    </li>
+                    <li>
+                      <div class="cart-price subtotal">
+                        <span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_item_price" data-item-key="{{item.key}}" style="display:none !important;"></span>
+                        <span class="money">{{item.price | times:item.quantity | money}}</span>
+                      </div>
+                    </li>
+                  </ul>
+                </td>
+                <td>
+                  <div class="cart-price">
+                    <span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_item_price" data-item-key="{{item.key}}" style="display:none !important;"></span>
+                    <span class="money">{{item.price | money}}</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="cart-quantity-desktop d-flex justify-content-center">
+                    <div class="cart-quantity-wrapper position-relative">
+                      <span class="cart-minus d-flex align-items-center justify-content-center" {% if item.product.metafields.inventory.ShappifyHidden == 'true' %} readonly {% endif %} ></span>
+                      <input class="text-center w-100" type="number" id="updates_{{item.id}}" name="updates[]" value="{{item.quantity}}" {% if item.product.metafields.inventory.ShappifyHidden == 'true' %} readonly {% endif %}  >
+                      <span class="cart-plus d-flex align-items-center justify-content-center" {% if item.product.metafields.inventory.ShappifyHidden == 'true' %} readonly {% endif %} ></span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="cart-price subtotal">
+                    <span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_item_total" data-item-key="{{item.key}}" style="display:none !important;"></span>
+                    <span class="money">{{item.price | times:item.quantity | money}}</span></div>
+                </td>
+                <td>
+                  <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="svg-icon-delete cart-delete-ajax">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z" class=""></path></svg>
+                  </a>
+                </td>
+              </tr>
+              {%- endfor -%}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="rt-collapses-wrapper pt-2">
+          <h2 class="py-4 mb-0">{{ 'cart.general.what_would_you_like_to_do_next' | t }}</h2>
+          <div class="rt-collapses">
+            <div class="rt-collapse">
+              <input type="checkbox" id="collapse-note">
+              <label class="rt-collapse-label h4 p-3 d-flex justify-content-between" for="collapse-note">
+                <span>{{ 'cart.general.note' | t }}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+                  <path d="m15.5 0.932-4.3 4.38 14.5 14.6-14.5 14.5 4.3 4.4 14.6-14.6 4.4-4.3-4.4-4.4-14.6-14.6z"></path>
+                </svg>
+              </label>
+              <div class="rt-collapse-content">
+                <textarea placeholder="{{'cart.general.enter_note' | t}}" id="input-note" rows="3" class="form-control" name="note">{{cart.note}}</textarea>
+              </div>
+            </div>
+
+            {%- if settings.shipping_calculator == "yes" -%}
+            <div class="rt-collapse" data-section-id="{{ section.id }}" data-section-type="shipping-calculator">
+              <input type="checkbox" id="collapse-shipping-calculator">
+              <label class="rt-collapse-label h4 p-3 d-flex justify-content-between" for="collapse-shipping-calculator">
+                <span>{{ 'cart.shipping.title' | t }}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+                  <path d="m15.5 0.932-4.3 4.38 14.5 14.6-14.5 14.5 4.3 4.4 14.6-14.6 4.4-4.3-4.4-4.4-14.6-14.6z"></path>
+                </svg>
+              </label>
+              <div class="rt-collapse-content">
+                <div id="shipping__calculator-{{ section.id }}" class="form-horizontal shipping__calculator">
+                  <div class="form-group required">
+                    <label class="control-label" for="address_country-{{ section.id }}">{{'cart.shipping.country' | t}}</label>
+                    <div class="selector-wrapper"><select id="address_country-{{ section.id }}" class="form-control" name="address[country]" data-default="{%- if shop.customer_accounts_enabled and customer -%}{{customer.default_address.country}}{%- elsif settings.shipping_calculator_default_country != '' -%}{{settings.shipping_calculator_default_country}}{%- endif -%}">{{country_option_tags}}</select></div>
+                  </div>
+                  <div id="address_province_container-{{ section.id }}"  class="form-group required" style="display:none;">
+                    <label class="control-label" for="address_province-{{ section.id }}" id="address_province_label-{{ section.id }}">{{'cart.shipping.state' | t}}</label>
+                    <div class="selector-wrapper"><select id="address_province-{{ section.id }}" class="form-control" name="address[province]" data-default="{%- if shop.customer_accounts_enabled and customer and customer.default_address.province != '' -%}{{customer.default_address.province}}{%- endif -%}"></select></div>
+                  </div>
+                  <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="address_zip-{{ section.id }}">{{'cart.shipping.zip' | t}}</label>
+                    <input type="text" class="form-control" name="address[zip]" id="address_zip-{{ section.id }}" {% if shop.customer_accounts_enabled and customer %} value="{{customer.default_address.zip}}"{% endif %} />
+                  </div>
+                  <input id="shipping__calculator-btn-{{ section.id }}"  type="button" value="{{'cart.shipping.submit_button' | t}}" class="btn btn--secondary get-rates" />
+                  <div id="shipping__calculator-response-{{ section.id }}" class="shipping__calculator-response"></div>
+                </div>
+              </div>
+            </div>
+            {%- endif -%}
+          </div>
+        </div>
+
+        <div class="cart-total">
+          <table>
+            <tr id="subtotal">
+              <td class="text-right"><strong>{{'cart.general.subtotal' | t}}</strong></td>
+              <td class="text-right subtotal-price">
+                <span class="Bold-theme-hook-DO-NOT-DELETE bold_cart_total" style="display:none !important;"></span>
+                <span class="money">{{cart.total_price | money}}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="buttons d-flex flex-wrap">
+          <div class=""><a href="{{shop.url}}" class="btn btn-default">{{'cart.general.continue_shopping' | t}}</a></div>
+          <div class="cart__condition__wrapper ml-auto text-right">
+            <input type="submit" name="checkout" id="update-cart" class="btn btn--secondary checkout-button {% if settings.cart_terms_enable %}btn-disabled{% endif %}" value="{{'cart.general.checkout' | t}}" />
+            {%- if settings.cart_terms_enable -%}
+            {%- if settings.cart_terms_page != blank -%}
+            {%- assign terms_conditions_url = '/pages/' | append: settings.cart_terms_page -%}
+            {%- endif -%}
+            <div class="product-cart__condition text-center d-block">
+              <input type="checkbox" class="product-cart__agree" data-message="{{ 'cart.general.terms_conditions_message' | t | escape }}" />
+              <label for="product-cart__agree">{{ 'cart.general.terms_conditions_html' | t : terms_conditions_url: "/policies/terms-of-service" ,  privacy_policy_url: "/policies/privacy-policy" }}</label>
+            </div>
+            {%- endif -%}
+
+          </div>
+        </div>
+        {%- if additional_checkout_buttons -%}
+        <div id="additional-checkout-buttons">
+          <span id="additional-checkout-buttons-label">{{'cart.general.checkout_using' | t}}:</span>
+          {{content_for_additional_checkout_buttons}}
+        </div>
+        {%- endif -%}
+      </form>
+      {%- endif -%}
+    </div>
+    {% include "product-upsells" %}
+
+    {% comment %}{% section "jm-collection" %}{% endcomment %}
+  </div>
+</div>
+<script src="https://cdn.pagefly.io/static/assets/pf-custom-shopify-cart.min.js" defer></script>
+<script src="https://cdn.pagefly.io/static/assets/pf-custom-shopify-cart.min.js" defer></script>
+
+
+
+</div>

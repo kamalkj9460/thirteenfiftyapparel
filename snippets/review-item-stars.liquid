@@ -1,0 +1,13 @@
+{% comment %}
+<div class="product-item-rating d-none d-md-flex pt-2" data-url="{{- product.url -}}">
+  {%-if settings.reviews_enable == "0"-%}
+  <span class="shopify-product-reviews-badge" data-id="{{- product.id -}}"></span>
+  {%-elsif settings.reviews_enable == "1"-%}
+  <div product-id="{{ product.id }}" class="arv-collection arv-collection--{{ product.id }}"></div> 
+  {%-endif-%}
+</div>
+{% endcomment %}
+
+<div class="yotpo bottomLine"
+data-product-id="{{ product.id }}">
+</div>

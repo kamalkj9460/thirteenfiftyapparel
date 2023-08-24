@@ -1,0 +1,279 @@
+<div class="page-gallery-section" data-section-id="{{section.id}}" data-section-type="page-gallery-grid"> 
+  {% for block in section.blocks %}
+  {% case block.type %}
+  {% when "gallery" %}
+  <div class="gallery-wrapper-{{block.settings.gallery_type}} gallery-wrapper container">
+    <div class="d-flex flex-wrap align-items-start justify-content-start gallery-content">
+      {% if block.settings.gallery_type == "small" %}
+      {% for i in(1..3) %}
+      {% assign s_image = "image" | append: i %}
+      {% assign s_heading = "heading" | append: i %}
+      {% assign s_caption = "caption" | append: i %}
+      {% if block.settings[s_image] != blank  %}
+      <div class="gallery-item gallery-item-order{{i}}">
+        {% if block.settings[s_image] != blank %}
+        <div class="lazyload gallery-image-{{block.settings.gallery_type}}" data-bg="{{ block.settings[s_image] | img_url : "master"}}">
+        </div>
+        {%- endif -%}
+        <div class="g-content">
+          <div class="heading">{{block.settings[s_heading]}}</div>
+          <div class="caption">{{block.settings[s_caption]}}</div>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+      {% else %}
+      <div class="gallery-item-column gallery-item-large">
+        <div class="gallery-item">
+          {% if block.settings.image1 != blank %}
+          <div class="lazyload gallery-image-large"
+               data-bg="{{ block.settings.image1 | img_url : "master"}}">
+          </div>
+          {%- endif -%}
+          <div class="g-content">
+            <div class="heading">{{block.settings.heading1}}</div>
+            <div class="caption">{{block.settings.caption1}}</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="gallery-item-column">
+        <div class="gallery-item">
+          {% if block.settings.image2 != blank %}
+          <div class="lazyload gallery-image-small"
+               data-bg="{{ block.settings.image2 | img_url : "master"}}">
+          </div>
+          {%- endif -%}
+          <div class="g-content">
+            <div class="heading">{{block.settings.heading2}}</div>
+            <div class="caption">{{block.settings.caption2}}</div>
+          </div>
+        </div>
+        <div class="gallery-item">
+          {% if block.settings.image3 != blank %}
+          <div class="lazyload gallery-image-small"
+               data-bg="{{ block.settings.image3 | img_url : "master"}}">
+          </div>
+          {%- endif -%}
+          <div class="g-content">
+            <div class="heading">{{block.settings.heading3}}</div>
+            <div class="caption">{{block.settings.caption3}}</div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      
+    </div>
+  </div>
+ {% when "instagram" %}
+  <div class="about-instagram-default about-instagram-wrapper">
+    <div class="heading">{{block.settings.heading}}</div>
+    <div class="row">
+      {% for i in (1..10) %}
+      {% assign s_image = "image" | append: i %}
+      {% assign s_url = "url" | append: i %}
+      {% if block.settings[s_image] != blank %}
+      <div class="about-insta">
+        <a href="{{block.settings[s_url]}}"><img class="lazyload" data-src="{{block.settings[s_image] | img_url: "master"}}" /></a>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  {% else %}
+  {% endcase %}
+  {% endfor %}
+</div>
+{% schema %}
+  {
+    "name": "Gallery Section",
+	"class": "gallery-template-wrapper",
+    "settings": [
+		
+	],
+	"blocks": [
+		{
+          "type": "gallery",
+          "name": "Gallery Items",
+          "settings": [	
+			{
+				"type": "select",
+				"id": "gallery_type",
+				"label": "Type",
+				"options": [
+                  {"value": "small", "label": "Small"},
+                  {"value": "large", "label": "Large"}
+				]
+			},
+			{
+				"type" :"header",			
+				"content" : "Block #1"
+			},
+			{
+				"type" :"image_picker",			
+				"id" : "image1",
+				"label": "Image"
+			},
+			{
+				"type" :"text",			
+				"id" : "heading1",
+				"label": "Heading"
+			},
+			{
+				"type" :"text",			
+				"id" : "caption1",
+				"label": "Caption"
+			},
+			{
+				"type" :"header",			
+				"content" : "Block #2"
+			},
+			{
+				"type" :"image_picker",			
+				"id" : "image2",
+				"label": "Image"
+			},
+			{
+				"type" :"text",			
+				"id" : "heading2",
+				"label": "Heading"
+			},
+			{
+				"type" :"text",			
+				"id" : "caption2",
+				"label": "Caption"
+			},{
+				"type" :"header",			
+				"content" : "Block #3"
+			},
+			{
+				"type" :"image_picker",			
+				"id" : "image3",
+				"label": "Image"
+			},
+			{
+				"type" :"text",			
+				"id" : "heading3",
+				"label": "Heading"
+			},
+			{
+				"type" :"text",			
+				"id" : "caption3",
+				"label": "Caption"
+			}
+		  ]
+		},
+{
+			"type": "instagram",
+			"name": "Insragram Image",
+			"settings": [
+				{
+					"type" :"html",
+					"id": "heading",
+					"label": "Heading"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image1",
+					"label": "Image #1"
+				},
+				{
+					"type" :"url",
+					"id": "url1",
+					"label": "Url #1"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image2",
+					"label": "Image #2"
+				},
+				{
+					"type" :"url",
+					"id": "url2",
+					"label": "Url #2"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image3",
+					"label": "Image #3"
+				},
+				{
+					"type" :"url",
+					"id": "url3",
+					"label": "Url #3"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image4",
+					"label": "Image #4"
+				},
+				{
+					"type" :"url",
+					"id": "url4",
+					"label": "Url #4"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image5",
+					"label": "Image #5"
+				},
+				{
+					"type" :"url",
+					"id": "url5",
+					"label": "Url #5"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image6",
+					"label": "Image #6"
+				},
+				{
+					"type" :"url",
+					"id": "url6",
+					"label": "Url #6"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image7",
+					"label": "Image #7"
+				},
+				{
+					"type" :"url",
+					"id": "url7",
+					"label": "Url #7"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image8",
+					"label": "Image #8"
+				},
+				{
+					"type" :"url",
+					"id": "url8",
+					"label": "Url #8"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image9",
+					"label": "Image #9"
+				},
+				{
+					"type" :"url",
+					"id": "url9",
+					"label": "Url #9"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image10",
+					"label": "Image #10"
+				},
+				{
+					"type" :"url",
+					"id": "url10",
+					"label": "Url #10"
+				}
+			]
+		}
+	]
+  }
+{% endschema %}

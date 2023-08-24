@@ -1,0 +1,8 @@
+{%- assign instructions = product.metafields.info -%}
+<div class="product-additional-galleries">
+  {%- if instructions.video != blank -%}
+  <div class="product-video-button">
+    <a href="javascript:void(0)" data-_qid="#quickview-btn-{{- product.id -}}" data-video="{{- instructions.video -}}" class="fastor-tooltip"><span class="fastor-tooltip-label">{{- 'products.product.video_btn' | t | escape -}}</span></a>
+  </div>
+  {%- endif -%}
+</div>

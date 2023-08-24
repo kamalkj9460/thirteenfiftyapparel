@@ -1,0 +1,287 @@
+{%- capture section_class -%}
+{% if section.settings.has_container %}container px-0 {% endif %}lookbook 
+{%- endcapture -%}
+
+<div id="lookbook-{{ section.id }}" class="{{section_class}} " data-section-id="{{ section.id }}" data-section-type="lookbook" style="--aspect-ratio: {{section.settings.ratio}};">
+<div class="lookbook-wrapper {% if section.settings.bg_image != blank %} bgimage-center-no-repeat lazyload{% endif %}" style="background-color:{{section.settings.color_bg}};{% if section.settings.bg_image == blank %}{% render 'ssh-pattern', _pattern: 2, _opacity: '0.25' %}{% endif %}"{% if section.settings.bg_image != blank %}{% assign img_url = section.settings.bg_image | img_url: "master" %} data-bg="{{img_url}}"{% endif %}>
+        <div class="lookbook-texting position-absolute custom-absolute-pos self-center-y {% if section.settings.has_container == false %} ml-container pl-3 pl-sm-0{% else %} ml-5{% endif %}" style="--custom-gutter:0px;--top-side:50%">
+            {%-if section.settings.title != blank-%}
+            <div class="h3 mb-1 mb-lg-3 custom-font-size custom-font-weight custom-color" style="--font-weight:{{section.settings.heading_weight}};--font-size-lg:{{section.settings.heading_size}}px;--font-size-md:{{section.settings.heading_size | times: 0.7 }}px;--font-size:20px;--color:{{section.settings.heading_color}};">
+            {{section.settings.title}}
+            </div>
+            {%-endif-%}
+            {%-if section.settings.title != blank-%}
+            <div class="b-caption custom-font-size custom-color custom-font-weight" style="--font-weight:{{section.settings.cap_weight}};--font-size-lg:{{section.settings.cap_size}}px;--font-size-md:{{section.settings.cap_size | times: 0.7 }}px;--font-size:14px;--color:{{section.settings.cap_color}};">
+            {{section.settings.cap}}
+            </div>	
+            {%-endif-%}
+        </div>
+        {%- for block in section.blocks -%}
+        {% capture block_class %}lookbook-item{% endcapture %}
+        {% capture block_id %}lookbook-item-{{block.id}}{% endcapture %}
+        
+        {%- case block.type -%}
+        {%- when 'product' -%}
+        <div id="{{block_id}}" class="position-absolute custom-absolute-pos self-center-x self-center-y {{block_class}}" style="--left-side:{{block.settings.left}}%;--top-side:{{block.settings.top}}%;" {{ block.shopify_attributes }}>
+            <div class="has-pointer position-relative custom-width custom-height" style="--width:20px;--width-md:28px;--height:26px;--height-md:36px;--bg-color:{{block.settings.color_number_bg}};--color:{{block.settings.color_number}}">'
+                <span class="position-absolute d-flex align-items-center justify-content-center custom-width custom-height custom-bgcolor custom-color" style="top:0">{{forloop.index}}</span>
+                
+                <div class="lookbook-item-wrapper d-flex position-absolute" style="top:0;{% if block.settings.left >= 50 %}right:100%{% else %}left:100%{% endif %}">
+                    {%- if block.settings.product_id != empty -%}
+                    {%- assign product = all_products[block.settings.product_id] -%}
+                    {%- include 'product-item' -%}
+                    {%- else -%}
+                    <div class="d-flex flex-column align-items-center p-2" style="--bg-color:#efefef;--width:180px;--width-md:200px;">
+                        {{ 'product-1' | placeholder_svg_tag: 'custom-bgcolor custom-width' }}
+                        <span class="h4 pt-2">PRODUCT ITEM</span>
+                    </div>
+                    {%- endif -%}
+                </div>
+                
+            </div>
+        </div>                
+        {%- endcase -%}
+        {%- endfor -%}
+    </div>
+</div>
+{% schema %}
+
+{
+    "name": "Lookbook",
+    "class": "index-section section-wrapper",
+    "settings": [
+        {
+            "type": "header",
+            "content": "General"
+        },
+        {
+            "type": "select",
+            "id": "ratio",
+            "label": "Aspect ratio",
+            "options": [
+                {
+                    "value": "1",
+                    "label": "Square"
+                },
+                {
+                    "value": "4/3",
+                    "label": "Medium"
+                },
+                {
+                    "value": "3/2",
+                    "label": "35mm"
+                },
+                {
+                    "value": "16/9",
+                    "label": "Widescreen"
+                },
+                {
+                    "value": "3/1",
+                    "label": "Panoramic"
+                }
+            ],
+            "default": "3/1"
+        },
+        {
+            "type": "header",
+            "content": "Layout"
+        },
+        {
+            "type": "checkbox",
+            "id": "has_container",
+            "label": "Within Container",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "has_padding",
+            "label": "Add padding",
+            "default": false
+        },
+        {
+            "type": "header",
+            "content": "Background"
+        },
+        {
+            "type": "image_picker",
+            "id": "bg_image",
+            "label": "Your image"
+        },
+        {
+            "type": "color",
+            "id": "color_bg",
+            "label": "Underneath color",
+            "default": "#2d2d2d"
+        },
+        {
+            "type": "header",
+            "content": "Heading"
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "LOOKBOOK"
+        },
+        {
+            "type": "color",
+            "id": "heading_color",
+            "label": "Heading color",
+            "default": "#ffffff"
+        },
+        {
+            "type": "range",
+            "id": "heading_size",
+            "min": 15,
+            "max": 115,
+            "step": 1,
+            "unit": "px",
+            "label": "Heading Font Size",
+            "default": 100
+        },
+        {
+            "type": "range",
+            "id": "heading_weight",
+            "min": 100,
+            "max": 700,
+            "step": 100,
+            "label": "Heading Font Weight",
+            "default": 400
+        },
+        {
+            "type": "header",
+            "content": "Caption"
+        },
+        {
+            "type": "textarea",
+            "id": "cap",
+            "label": "Caption",
+            "default": "HOVER THE NUMBER TO SEE THE PRODUCT"
+        },
+        {
+            "type": "color",
+            "id": "cap_color",
+            "label": "Caption color",
+            "default": "#ffffff"
+        },
+        {
+            "type": "range",
+            "id": "cap_size",
+            "min": 10,
+            "max": 110,
+            "step": 1,
+            "unit": "px",
+            "label": "Caption Font Size",
+            "default": 20
+        },
+        {
+            "type": "range",
+            "id": "cap_weight",
+            "min": 100,
+            "max": 700,
+            "step": 100,
+            "label": "Caption Font Weight",
+            "default": 300
+        }
+    ],
+    "blocks": [
+        {
+            "type": "product",
+            "name": "Product",
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Content"
+                },
+                {
+                    "type": "product",
+                    "id": "product_id",
+                    "label": "Choose a product"
+                },
+                {
+                    "type": "color",
+                    "id": "color_number",
+                    "label": "Number color",
+                    "default": "#fff"
+                },
+                {
+                    "type": "color",
+                    "id": "color_number_bg",
+                    "label": "Number background color",
+                    "default": "#d9121f"
+                },
+                {
+                    "type": "header",
+                    "content": "Position"
+                },
+                {
+                    "type": "range",
+                    "id": "left",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "label": "Left padding",
+                    "default": 50
+                },
+                {
+                    "type": "range",
+                    "id": "top",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "label": "Top padding",
+                    "default": 50
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Lookbook",
+            "category": "4. Contents",
+            "settings": {
+                "ratio": "3\/1",
+                "has_container": false,
+                "has_padding": false,
+                "color_bg": "#2d2d2d",
+                "title": "LOOKBOOK",
+                "heading_color": "#ffffff",
+                "cap": "HOVER THE NUMBER TO SEE THE PRODUCT",
+                "cap_color": "#ffffff"
+            },
+            "blocks": [
+                {
+                    "type": "product",
+                    "settings": {
+                        "color_number": "#fff",
+                        "color_number_bg": "#d9121f",
+                        "left": 56,
+                        "top": 40
+                    }
+                },
+                {
+                    "type": "product",
+                    "settings": {
+                        "color_number": "#fff",
+                        "color_number_bg": "#d9121f",
+                        "left": 73,
+                        "top": 28
+                    }
+                },
+                {
+                    "type": "product",
+                    "settings": {
+                        "color_number": "#fff",
+                        "color_number_bg": "#d9121f",
+                        "left": 74,
+                        "top": 65
+                    }
+                }
+            ]
+        }
+    ]
+}
+
+{% endschema %}

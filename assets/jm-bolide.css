@@ -1,0 +1,389 @@
+.bolideai-overhidden variant-swatch-king {
+  order: 2;
+}
+
+.bolideai-simple-options-box {
+  display: none !important;
+}
+
+.bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-price-list .bolideai-price {
+  order: 3;
+  font-family: Protract;
+  color: #fff !important;
+  width: auto !important;
+  position: absolute;
+  bottom: 1px;
+  right: 2px;
+  z-index: 9;
+  padding: 11px 15px!important;
+  background-color: #000;
+}
+
+.bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-product .bolideai-price-list span.bolideai-price.money {
+  background: #d9121f !important;
+  padding: 11px 14px;
+}
+
+.bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-product .bolideai-price-list span.bolideai-price.money.bolideai-price--actual {
+  background-color: #000 !important;
+  padding: 11px 14px;
+}
+
+.bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-price-list span.bolideai-discounted-price {
+  background: none !important;
+}
+
+.bolideai-recommendations.widget-type.page-width.wrapper {
+  max-width: 1630px !important;
+  margin: auto !important; 
+}
+
+.bolideai-recommendation-results .swiper {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results div.bolideai-product button.bolideai-button {
+  order: 5;
+  text-align: left;
+  font-family: Protract;
+  border: 1px solid #000;
+  box-sizing: inherit !important;
+  padding-left: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results span.bolideai-title {
+  order: 1;
+  font-family: Protract;
+  font-size: 14px !important;
+  color: #000 !important;
+}
+
+.icart .bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results span.bolideai-title {
+  font-size: 12px !important;
+  min-height: 44px;
+}
+
+h3.bolideai-recommendation-title {
+  font-family: Druk !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.96px;
+  font-size: 40px !important;
+  border-bottom: unset !important;
+  color: #000 !important;
+  text-align: center !important;
+}
+
+.bolideai-recommendation-results .bolideai-thumbnail-wrapper, 
+.bolideai-recommendation-results span.bolideai-thumbnail,
+.bolideai-recommendation-results span.bolideai-thumbnail img {
+  height: 370px !important;
+  object-fit: cover !important;
+}
+
+.bolideai-recommendation-results .swiper {
+  padding-bottom: 45px !important;
+  position: relative;
+}
+
+.bolideai-swiper-button-next.swiper-button-next, 
+.bolideai-swiper-button-prev.swiper-button-prev {
+  bottom: -10px !important;
+  top: unset !important;
+  position: absolute;
+  margin: 0 !important;
+  padding: 15px !important;
+  border: unset !important;
+  height: auto !important;
+  width: auto !important;
+  z-index: 99;
+}
+
+.bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-price-list .bolideai-discounted-price {
+  margin: 0 !important;
+}
+
+.swiper-pagination-clickable .swiper-pagination-bullet {
+  width: 25px;
+  height: 3px;
+  border-radius: 0 !important;
+  background: #000!important;
+}
+
+.bolideai-swiper-button-prev.swiper-button-prev {
+  left: 15px !important;
+}
+
+.bolideai-swiper-button-next.swiper-button-next {
+  right: 15px !important;
+}
+
+@media (max-width: 767px) {
+  .bolideai-recommendation-results .bolideai-thumbnail-wrapper, .bolideai-recommendation-results span.bolideai-thumbnail, .bolideai-recommendation-results span.bolideai-thumbnail img {
+    min-height: 170px !important;
+    height: auto !important;
+  }
+  
+  .bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results span.bolideai-title {
+    font-size: 10px !important;
+    line-height: 13px !important;
+  }
+  
+  .bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results div.bolideai-product button.bolideai-button {
+    font-size: 10px !important;
+    padding-left: 5px !important;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+  }
+  
+  .bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-price-list .bolideai-price {
+    font-size: 10px !important;
+    right: -3px!important;
+    bottom: 0 !important;
+    padding: 5px 12px!important;
+  }
+
+  .icart .bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-price-list .bolideai-price {
+    padding: 10px 12px!important;
+  }
+  
+  div.bolideai-recommendations div.bolideai-recommendation-results {
+    padding: 15px !important;
+  }
+  
+  .bolideai-recommendation-results .swiper {
+    padding-bottom: 60px !important;
+  }
+  
+  .bolideai-swiper-button-next.swiper-button-next, 
+  .bolideai-swiper-button-prev.swiper-button-prev {
+    display: block !important;
+    padding: 5px !important;
+    bottom: 0 !important;
+  }
+}
+
+.bolideai-recommendation-results .swiper-pagination {
+  bottom: 11px !important;
+}
+
+@media (min-width: 768px) {
+  div.bolideai-recommendations div.bolideai-recommendation-results .bolideai-item {
+    padding: 15px !important;
+  }
+  .bolideai-recommendation .bolideai-product {
+    min-height: 512px;
+  }
+  
+  .icart .bolideai-recommendations-big-pictures-new-layout.bolideai-recommendations span.bolideai-overhidden {
+    gap: 51px;
+  }
+}
+
+@media (max-width: 991px) {
+  .bolideai-overhidden variant-swatch-king {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .bolideai-recommendation-results .bolideai-thumbnail-wrapper, .bolideai-recommendation-results span.bolideai-thumbnail, .bolideai-recommendation-results span.bolideai-thumbnail img {
+    min-height: 270px !important;
+    height: unset !important;
+  }
+  .bolideai-recommendation .bolideai-product {
+    min-height: 412px !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .bolideai-recommendation .bolideai-product {
+    min-height: 580px !important;
+  }
+}
+
+.icart-content .bolideai-thumbnail-wrapper {
+  width: 40%;
+}
+
+.icart-content span.bolideai-overhidden {
+  width: 60%;
+}
+
+.icart-content .bolideai-view-link {
+  display: flex !important;
+  max-height: 155px !important;
+  min-height: 155px !important;
+}
+
+.icart-content .bolideai-recommendation .bolideai-product, 
+.icart-content .bolideai-recommendation-results .bolideai-thumbnail-wrapper, 
+.icart-content .bolideai-recommendation-results span.bolideai-thumbnail, 
+.icart-content .bolideai-recommendation-results span.bolideai-thumbnail img {
+  min-height: unset !important;
+  height: 150px !important;
+}
+
+
+.icart-content .bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-price-list .bolideai-discounted-price, 
+.icart-content .bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-price-list .bolideai-price {
+  font-size: 12px;
+}
+
+.icart-content .bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-price-list {
+  padding: 15px !important;
+  line-height: 12px;
+}
+
+.icart-content .bolideai-recommendation-results .swiper {
+  padding-bottom: 60px !important;
+}
+
+@media (max-width: 767px) {
+  .icart-content .bolideai-view-link {
+    display: block !important;
+    max-height: unset !important;
+  }
+  
+  .icart-content .bolideai-recommendation .bolideai-product, .icart .bolideai-recommendation-results .bolideai-thumbnail-wrapper, .icart .bolideai-recommendation-results span.bolideai-thumbnail, .icart .bolideai-recommendation-results span.bolideai-thumbnail img {
+    width: 100%;
+    min-height: 170px !important;
+    height: auto !important;
+  }
+  
+  .icart-content span.bolideai-overhidden {
+    width: 100% !important;
+  }
+  
+  .icart-content .bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-price-list {
+    padding: 13px !important;
+  }
+}
+@media (min-width: 1200px) {
+.bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-item .bolideai-price-list .bolideai-discounted-price {
+  display: block !important;
+}
+}
+.bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-price-list .bolideai-discounted-price {
+  position: absolute;
+  bottom: 1px;
+  right: 65px;
+  top: unset;
+  font-size: 16px;
+  padding: 11px 9px!important;
+  z-index: 9;
+  font-family: Protract;
+}
+@media (max-width: 767px) {
+  .bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-price-list .bolideai-discounted-price {
+    right: 50px;
+  }
+}
+.bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-price-list {
+  padding: 0 !important;
+  background-color: unset !important;
+  bottom: 6px !important;
+}
+.common-home .bolideai-recommendations {
+  display: none !important;
+}
+.icart-content .bolideai-recommendations-big-pictures-new-layout .bolideai-recommendation .bolideai-recommendation-title {
+  text-align: left !important;
+}
+.icart-content .bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-price-list .bolideai-price.money {
+  padding: 15.5px 14px !important;
+}
+.icart-content .bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-price-list .bolideai-discounted-price {
+  padding: 15.5px 5px !important;
+}
+.icart-content .bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-price-list {
+  padding: 0 !important;
+  bottom: 6px;
+}
+.icart-content button.bolideai-button.bolideai-action-button.bolideai-add-to-cart-button {
+  font-size: 12px !important;
+}
+@media (max-width: 767px) {
+  .bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-price-list .bolideai-discounted-price {
+    font-size: 10px;
+    padding: 4px 5px !important;
+  }
+  .bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-price-list .bolideai-price.money {
+    padding: 8px 14px !important;
+  }
+  .icart-content .bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-price-list .bolideai-price.money {
+    padding: 11.5px 14px 13.5px 14px !important;
+    font-size: 10px !important;
+  }
+  .icart-content .bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-price-list .bolideai-discounted-price {
+    padding: 11.5px 5px 13.5px 5px !important;
+    font-size: 10px !important;
+  }
+  .bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results span.bolideai-title {
+    line-height: 12px !important;
+  }
+}
+.icart-content variant-swatch-king {
+  display: none !important;
+}
+.icart-content .icart-main button:hover {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+@media (min-width: 992px) {
+  #shopify-section-footer span.bolideai-overhidden {
+    min-height: 230px;
+  }
+  
+  #shopify-section-footer .bolideai-recommendation-results .swiper .swiper-slide.swiper-slide-visible .bolideai-action-button {
+    top: 180px !important;
+    position: absolute;
+    left: 0 !important;
+  }
+}
+
+.icart button.bolideai-button.bolideai-action-button.bolideai-view-product-button {
+  padding-top: 7px !important;
+  padding-bottom: 6px !important;
+}
+
+.bolideai-recommendations-big-pictures-new-layout div.bolideai-recommendation-results .bolideai-price-list .bolideai-price:not(.bolideai-price--actual) {
+/*   background-color: #d9121f; */
+}
+
+#shopify-section-footer .bolideai-recommendation-results .bolideai-item a:hover .bolideai-button {
+  background-color: #1349b2 !important;
+  border-color: #1349b2 !important;
+  color: #fff !important;
+}
+
+#shopify-section-footer .bolideai-recommendation-results .swatch-variant-soldout .bolideai-item a:hover .bolideai-button, 
+#shopify-section-footer .bolideai-recommendation-results .swatch-variant-soldout .bolideai-item a .bolideai-button {
+  background-color: #eaeaea !important;
+  border-color: #eaeaea !important;
+  color: #000 !important;
+  pointer-events: none !important;
+}
+
+#shopify-section-footer .bolideai-recommendation-results .swatch-variant-soldout .bolideai-item a .bolideai-button:after {
+  content: "OUT OF STOCK";
+  text-indent: unset !important;
+  white-space: unset !important;
+  overflow: unset !important;
+  position: absolute;
+  left: -90px;
+}
+
+#shopify-section-footer .bolideai-recommendation-results .swatch-variant-soldout .bolideai-item a .bolideai-button {
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+}
+
+.icart .bolideai-item a:hover .bolideai-button {
+  background-color: #1349b2 !important;
+  border-color: #1349b2 !important;
+}

@@ -1,0 +1,59 @@
+{% comment %}
+{% assign with_static_description = "no" %}
+{% for t in product.tags %}
+  {% if t == "HOODIE" %}
+      <div class="jm-accordion-list">
+        <span class="jm-accordion-list-title">Details</span>
+          <div>
+            <li class="jm-acc-list"><span>Slim fit performance hoodie made from 100% polyester with a soft-fleece interior for warmth and comfort</span></li>
+          </div><br>
+          <div> 
+            <li class="jm-acc-list"><span>Features ribbed hem and cuffs for a snug, secure fit</span></li>
+          </div><br>
+          <div>
+            <li class="jm-acc-list"><span>Durable and lightweight fabric is ideal for outdoor activities, workouts, or everyday wear</span></li>
+          </div>
+      </div>
+      {% assign with_static_description = "yes" %}
+  {% endif %}
+  {% if t == "TEN 7 COLLECTION" %}
+      <div class="jm-accordion-list">
+        <span class="jm-accordion-list-title">Details</span>
+          <div>
+            <li class="jm-acc-list"><span>Proprietary Polyester / Cotton Blend T-Shirt </span></li>
+          </div><br>
+          <div> 
+            <li class="jm-acc-list"><span>Extended Length for an enhanced silhouette</span></li>
+          </div><br>
+          <div> 
+            <li class="jm-acc-list"><span>Soft Feel for maximum comfort</span></li>
+          </div><br>
+          <div> 
+            <li class="jm-acc-list"><span>Tapered Bicep Fit for added style</span></li>
+          </div><br>
+          <div> 
+            <li class="jm-acc-list"><span>Shrinks Less Than 3% for a consistent fit</span></li>
+          </div><br>
+          <div>
+            <li class="jm-acc-list"><span>Available Exclusively at 13 Fifty Apparel</span></li>
+          </div>
+      </div>
+      {% assign with_static_description = "yes" %}
+  {% endif %}
+{% endfor %}
+
+{% if with_static_description == "no" %}
+  <div class="jm-accordion-list-title">Details</div>
+  <div id="jm-product-description">
+    {{product.description}}
+  </div>
+{% endif %}
+{% endcomment %}
+
+<p><strong>DETAILS</strong></p>
+<div id="jm-product-description">
+  {{- product.description | replace: "&nbsp;", " " -}}
+</div>
+{%- if customize_it -%}
+  <p>THIS SHIRT CAN BE CUSTOMIZED WITH YOUR INSIGNIA (MINIMUM 24 PIECES). PLEASE <a href="https://thirteenfiftyapparel.com/pages/customize-your-gear-13-fifty-apparel-2022">CLICK HERE</a> TO LEARN MORE ABOUT OUR CUSTOM GEAR OPTIONS.</p>
+{%- endif -%}

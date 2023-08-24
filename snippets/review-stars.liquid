@@ -1,0 +1,7 @@
+<a class="smoothscroll" href="#product-reviews-a">
+  {%-if settings.reviews_enable == "0"-%}
+  <span class="shopify-product-reviews-badge" data-id="{{product.id}}"></span>
+  {%-elsif settings.reviews_enable == "1"-%}
+  <div product-id="{{ product.id }}" class="alr-display-review-badge"></div>
+  {%-endif-%}
+</a>

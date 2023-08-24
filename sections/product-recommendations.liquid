@@ -1,0 +1,22 @@
+<div class="product-recommendations" data-product-id="{{ product.id }}" data-limit="{{settings.product_bottom_recommendations_limit}}"  data-section-type="product-recommendations">
+  <div id="productRecommendations" class="col-p-100">
+    <div style="--splide-arrow-size:2em;--splide-arrow-size-md:3em;--splide-arrow-bgc:#c6c6c66e;--splide-arrow-br:0;" class="is-slider no-pagination splide splide--arrowpos--cent-side has-container" data-splide='{"type":"slide","perMove":"1","breakpoints":{"767":{"destroy":"true"}},"perPage":"4"}'>
+      <span class="position-absolute h-100 zi-lv9 ml-n-container custom-bgcolor w-container" style="--bg-color:{{settings.color_body_bg}};"></span>
+      <span class="absolute-right h-100 zi-lv9 mr-n-container custom-bgcolor w-container" style="--bg-color:{{settings.color_body_bg}};"></span>
+      {%- render 'slider-nav-buttons', custom_class: 'd-none d-md-block' -%}
+      <div class="splide__track w-100">
+        <div class="splide__list w-100 rt-mobile-snapscroll">
+          {%- if recommendations.products_count > 0 -%}
+          {%- for product in recommendations.products -%}
+            <div class="splide__slide p-sm-1 product product-recommend-item">
+              {%- include 'product-item' -%}
+            </div>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+            

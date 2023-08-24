@@ -1,0 +1,346 @@
+<div class="page-contact-section" data-section-id="{{section.id}}" data-section-type="page-contact"> 
+  {% for block in section.blocks %}
+  {% case block.type %}
+  {% when "contact_faqs" %}
+  <div class="contact-faqs-wrapper col-12">
+    <img class="w-100 lazyload" {% if block.settings.image != blank %} data-src="{{ block.settings.image | img_url: "master"}}"{% endif %} />
+    <div class="container contact-faqs position-absolute">
+      {% if block.settings.heading != blank %}
+      <div class="heading">{{ block.settings.heading }}</div>
+      {% endif %}
+      <div class="faqs-content">
+        {% if block.settings.faqs_heading != blank %}
+        <div class="heading">{{ block.settings.faqs_heading }}</div>
+        {% endif %}
+        <div class="faqs-content row">
+          {% for i in (1..4) %}
+          {% assign s_faq = "faq" | append: i %}
+          {% if block.settings[s_faq] != blank %}
+          <div class="col-12 col-md-3">
+            <div class="faq-content">{{block.settings[s_faq]}}</div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+        {% if block.settings.button != blank %}
+        <a class="faq-button btn-link" href="{{block.settings.url}}">{{ block.settings.button }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% when "contact_info" %}
+  
+  <div class="contact-info-wrapper container">
+    <div class="row">
+      <div class="col-12 col-md-2"></div>
+      {% for i in(1..2) %}
+      {% assign s_label = "label" | append: i %}
+      {% assign s_content = "content" | append: i %}
+      {% if block.settings[s_label] != blank and block.settings[s_content] != blank %}
+      <div class="col-12 col-md-4">
+        <div class="contact-label">
+          {{block.settings[s_label]}}
+        </div>
+        <div class="contact-content">
+          {{block.settings[s_content]}}
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+      <div class="col-12 col-md-2"></div>
+    </div>
+  </div>
+  
+  {% when "contact_map" %}
+  
+     <div class="contact-map-wrapper container">
+       <div class="row">
+         {% if block.settings.map != blank %}
+         <div class="map-iframe-wrapper col-12 col-md-8">
+           {{block.settings.map}}
+         </div>
+         {% endif %}
+         {% if block.settings.address_label != blank or block.settings.address != blank %}
+         <div class="map-info col-12 col-md-4">
+           <div class="contact-label">
+             {{block.settings.address_label}}
+           </div>
+           <div class="contact-content">
+             {{block.settings.address}}
+           </div>
+         </div>
+         {% endif %}
+       </div>
+       {% if block.settings.contact_form %}
+       <div class="row contact-map-form">
+         <div class="col-12 col-md-4">
+           <div class="heading">{{block.settings.heading}}</div>
+         </div>
+         <div class="col-12 col-md-8">
+           {%- form 'contact' -%}
+           {%- if form.posted_successfully? -%}
+           <div class="success">
+             <button type="button" class="close" data-dismiss="alert">×</button>
+             {{'contact.form.post_success' | t}}
+           </div>
+           {%- endif -%}
+           {%- if form.errors -%}
+           <div class="warning">
+             <button type="button" class="close" data-dismiss="alert">×</button>
+             {{form.errors | default_errors}}
+           </div>
+           {%- endif -%}
+           <div class="input-wrapper">
+             <input placeholder="{{'contact.form.name' | t}}" required="required" type="text" id="name" class="form-control" value="{%- if form.name -%}{{form.name}}{%- elsif customer -%}{{customer.first_name}} {{customer.last_name}}{%- endif -%}" name="contact[name]" />
+           </div>
+
+           <div class="input-wrapper">
+             <div class="row">
+               <div class="col-12 col-md-6">
+                 <input placeholder="{{'contact.form.email' | t}}" required="required" type="email" id="email" class="form-control" value="{%- if form.email -%}{{form.email}}{%- elsif customer -%}{{customer.email}}{%- endif -%}" name="contact[email]" />
+               </div>
+               <div class="col-12 col-md-6">
+                 <input placeholder="{{'contact.form.phone' | t}}" type="text" id="phone" class="form-control" value="{{form.phone}}" name="contact[phone]" />
+               </div>
+             </div>
+           </div>
+
+           <div class="input-wrapper">
+             <textarea placeholder="{{'contact.form.message' | t}}" required="required" id="message" rows="5" class="form-control" name="contact[body]">{{form.body}}</textarea>
+           </div>
+
+           <div class="input-wrapper button-contact">
+             <input class="btn btn-primary" type="submit" value="{{'contact.form.submit' | t}}" />
+           </div>
+
+           {%- endform -%}
+         </div>
+       </div>
+       {% endif %}
+     </div>
+  {% when "instagram" %}
+  <div class="about-instagram-wrapper container my-5">
+    <div class="row">
+      {% for i in (1..6) %}
+      {% if i == 3 %}
+      <div class="col-6 col-md-2 about-insta insta-info text-left d-flex justify-content-center align-items-center">
+        <a href="{{block.settings.url}}">
+          <div class="heading  text-left">{{block.settings.heading}}</div>
+          <div class="caption">{{block.settings.caption}}</div>
+        </a>
+      </div>
+      {% else %}
+      {% assign s_image = "image" | append: i %}
+      {% assign s_url = "url" | append: i %}
+      {% if block.settings[s_image] != blank %}
+      <div class="col-6 col-md-2  about-insta">
+        <a href="{{block.settings[s_url]}}"><img class="lazyload" data-src="{{block.settings[s_image] | img_url: "master"}}" /></a>
+      </div>
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  {% else %}
+  {% endcase %}
+  {% endfor %}
+</div>
+{% schema %}
+  {
+    "name": "Contact Page",
+    "settings": [
+
+	],
+	"blocks": [
+		{
+			"type": "contact_faqs",
+			"name": "Faqs Banner",
+			"settings": [
+				{
+					"type" :"image_picker",
+					"id": "image",
+					"label": "Background Image"
+				},
+				{
+					"type" :"text",
+					"id": "heading",
+					"label": "Heading"
+				},
+				{
+					"type" :"header",
+					"content": "FAQs"
+				},
+				{
+					"type" :"text",
+					"id": "faqs_heading",
+					"label": "Heading"
+				},
+				{
+					"type" :"html",
+					"id": "faq1",
+					"label": "Content #1"
+				},
+				{
+					"type" :"html",
+					"id": "faq2",
+					"label": "Content #2"
+				},
+				{
+					"type" :"html",
+					"id": "faq3",
+					"label": "Content #3"
+				},
+				{
+					"type" :"html",
+					"id": "faq4",
+					"label": "Content #4"
+				},
+				{
+					"type" :"url",
+					"id": "url",
+					"label": "URL"
+				},
+				{
+					"type" :"text",
+					"id": "button",
+					"label": "Button"
+				}
+			]
+		},
+		{
+			"type": "contact_info",
+			"name": "Contact Info",
+			"settings": [
+
+				{
+					"type" :"text",
+					"id": "label1",
+					"label": "Label"
+				},
+				{
+					"type" :"text",
+					"id": "content1",
+					"label": "Email"
+				},
+				{
+					"type" :"text",
+					"id": "label2",
+					"label": "Label"
+				},
+				{
+					"type" :"text",
+					"id": "content2",
+					"label": "Account"
+				}
+			]
+		},
+		{
+			"type": "contact_map",
+			"name": "Map",
+			"settings": [
+				{
+					"type" :"html",
+					"id": "map",
+					"label": "Map"
+				},
+				{
+					"type" :"text",
+					"id": "address_label",
+					"label": "Label"
+				},
+				{
+					"type" :"text",
+					"id": "address",
+					"label": "Address"
+				},
+				{
+					"type": "header",
+					"content": "Contact Form"
+				},
+				{
+					"type" :"checkbox",
+					"id": "contact_form",
+					"label": "Form enabled?"
+				},
+				{
+					"type" :"html",
+					"id": "heading",
+					"label": "Heading"
+				}
+			]
+		},
+		{
+			"type": "instagram",
+			"name": "Insragram Image",
+			"settings": [
+				{
+					"type" :"image_picker",
+					"id": "image1",
+					"label": "Image #1"
+				},
+				{
+					"type" :"url",
+					"id": "url1",
+					"label": "Url #1"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image2",
+					"label": "Image #2"
+				},
+				{
+					"type" :"url",
+					"id": "url2",
+					"label": "Url #2"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image4",
+					"label": "Image #3"
+				},
+				{
+					"type" :"url",
+					"id": "url3",
+					"label": "Url #3"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image5",
+					"label": "Image #4"
+				},
+				{
+					"type" :"url",
+					"id": "url4",
+					"label": "Url #4"
+				},
+				{
+					"type" :"image_picker",
+					"id": "image6",
+					"label": "Image #5"
+				},
+				{
+					"type" :"url",
+					"id": "url5",
+					"label": "Url #5"
+				},
+				
+				{
+					"type" :"text",
+					"id": "heading",
+					"label": "Heading"
+				},
+				{
+					"type" :"text",
+					"id": "caption",
+					"label": "Caption"
+				},
+				{
+					"type" :"url",
+					"id": "url",
+					"label": "Url"
+				}
+			]
+		}
+	]
+  }
+{% endschema %}

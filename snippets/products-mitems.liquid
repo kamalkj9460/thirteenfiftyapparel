@@ -1,0 +1,42 @@
+{%-assign has_stuff = false -%}
+{%-for link in linklists[settings.product_mitems_linklist].links-%}
+{%-if link.type == "product_link" and link.object.id == product.id-%}
+{%-assign has_stuff = true -%}
+{%-break-%}
+{%-endif-%}
+{%-endfor-%}
+{%-if has_stuff ==  true -%}
+<div class="product-more-products" id="product-more-products-{{section.id}}">
+  {%-if settings.product_mitems_heading != blank-%}
+  <div class="heading">{{- settings.product_mitems_heading -}}</div>
+  {% endif %}
+  <div class="content">
+    <div class="mproducts-list">
+      {%-for link in linklists[settings.product_mitems_linklist].links-%}
+      {%-if link.type == "product_link"-%}
+      {%-assign mproduct = link.object -%}
+      {%-if mproduct.id != product.id-%}
+      <a href="#" class="mproduct-item" data-url="{{-mproduct.url-}}?view=item">
+      	<div class="image">
+          <img src="{{- mproduct.featured_image.src | img_url: '150x' -}}" />
+        </div>
+        <div class="info">
+          <div class="price">
+            {%- if mproduct.available -%}
+            <span class="price-new money"><span class="money" data-product-id="{{ product.id }}">{{mproduct.price | money}}</span></span>
+            {%- else -%}
+            <span class="price-old">{{'products.product.sold_out' | t}}</span>
+            {%- endif -%}
+          </div>
+        </div>
+      </a>
+      {%-endif-%}
+      {%-endif-%}
+      {%-endfor-%}
+    </div>
+    <div class="mproducts-list-detail product-grid">
+      <div class="loading-overlay"><i class="button-loader"></i></div>
+    </div>
+  </div>
+</div>
+{%-endif-%}

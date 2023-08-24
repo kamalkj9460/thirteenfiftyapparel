@@ -1,0 +1,42 @@
+<div class="rt-collapses-wrapper py-5 faq-wrapper"  data-section-id="{{ section.id }}" data-section-type="faq-section">
+  <div class="rt-collapses">
+    {%- for block in section.blocks -%}
+    <div class="rt-collapse" {{ block.shopify_attributes }}>
+      <input type="checkbox" id="answer-{{block.id}}">
+      <label class="rt-collapse-label h4 p-3 d-flex justify-content-between" for="answer-{{block.id}}">
+		<span>{{- block.settings.question -}}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+          <path d="m15.5 0.932-4.3 4.38 14.5 14.6-14.5 14.5 4.3 4.4 14.6-14.6 4.4-4.3-4.4-4.4-14.6-14.6z"></path>
+        </svg>
+      </label>
+      <div class="rt-collapse-content">
+        {{- block.settings.answer -}}
+      </div>
+    </div>
+    {%- endfor -%}
+  </div>
+</div> 
+{% schema %}
+  {
+    "name": "FAQ Page",
+    "settings": [],
+	"blocks": [
+		{
+			"type": "faq",
+			"name": "Content",
+			"settings": [
+				{
+					"type": "html",
+					"id": "question",
+					"label": "Question"
+				},
+				{
+					"type": "html",
+					"id": "answer",
+					"label": "Answer"
+				}
+			]
+		}
+	]
+  }
+{% endschema %}

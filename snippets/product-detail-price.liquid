@@ -1,0 +1,49 @@
+{%- if settings.price_range and product.price_varies -%}
+<div class="price-range price"  style="cursor:pointer;" onclick="document.getElementById('AddToCart-{{ section.id }}').click()">
+  <span class="price-new"><span class="money">{{- product.price_min | money -}}</span></span> - <span class="price-new"><span class="money">{{- product.price_max | money -}}</span></span>
+</div>
+{%- endif -%}
+<div class="product-single__price-{{ section.id }}"  style="cursor:pointer;" onclick="document.getElementById('AddToCart-{{ section.id }}').click()">
+  <div id="price" class="d-flex justify-content-start align-items-center price price--on-sale price {% if available == false %} price--sold-out {% endif %}
+  {% if compare_at_price > price %} price--on-sale {% endif %}
+  {% if variant.unit_price_measurement %} price--unit-available {% endif %}"
+  data-price >
+    <span id="ComparePrice-{{- section.id -}}" class="amount price-old{%- unless variant.compare_at_price > variant.price %}{{- " hide" -}}{%- endunless -%}" data-regular-price>
+      <span class="money">{{- variant.compare_at_price | money -}}</span>
+    </span>
+    <span  id="ProductPrice-{{- section.id -}}" class="amount price-new" data-sale-price>
+      <span class="money">{{- variant.price | money -}}</span>
+    </span>
+  </div>
+  <div class="price__unit">
+    <dt>
+      <span class="visually-hidden visually-hidden--inline">{{ 'products.product.unit_price_label' | t }}</span>
+    </dt>
+    <dd class="price-unit-price">
+      {%- capture unit_price_separator -%}
+      <span aria-hidden="true">/</span><span class="visually-hidden">{{ 'products.product.unit_price_separator' | t }}&nbsp;</span>
+      {%- endcapture -%}
+      {%- capture unit_price_base_unit -%}
+      <span data-unit-price-base-unit>
+        {%- if variant.unit_price_measurement -%}
+        {%- if variant.unit_price_measurement.reference_value != 1 -%}
+        {{- variant.unit_price_measurement.reference_value -}}
+        {%- endif -%}
+        {{ variant.unit_price_measurement.reference_unit }}
+        {%- endif -%}
+      </span>
+      {%- endcapture -%}
+      <span data-unit-price>{{ variant.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
+    </dd>
+  </div>
+</div>
+{%- if shop.taxes_included or shop.shipping_policy.body != blank -%}
+<div class="product__policies rte" data-product-policies>
+  {%- if shop.taxes_included -%}
+  {{ 'products.product.include_taxes' | t }}
+  {%- endif -%}
+  {%- if shop.shipping_policy.body != blank -%}
+  {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+  {%- endif -%}
+</div>
+{%- endif -%}

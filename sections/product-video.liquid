@@ -1,0 +1,15 @@
+{%- assign instructions = product.metafields.info -%}
+{%- if instructions.video != blank -%}
+<div class="product-video-button">
+  <a href="{{- instructions.video -}}" class="fastor-tooltip"><span class="fastor-tooltip-label" title="{{- 'products.product.video_btn' | t | escape -}}">{{- 'products.product.video_btn' | t | escape -}}</span></a>
+</div>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Video",
+	  "class": "product-additional-galleries",
+    "settings": [
+	]
+  }
+{% endschema %}

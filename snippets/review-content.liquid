@@ -1,0 +1,5 @@
+{%-if settings.reviews_enable == "0"-%}
+<div id="shopify-product-reviews" data-id="{{product.id}}">{{product.metafields.spr.reviews}}</div>
+{%-elsif settings.reviews_enable == "1"-%}
+<div id="shopify-ali-review" product-id="{{ product.id }}">{{ shop.metafields.review_collector.review_code }}</div>
+{%-endif-%}

@@ -1,0 +1,1469 @@
+{% assign style_sheet = "" %}
+
+<div class="d-flex flex-wrap header-elements align-items-stretch position-relative" style="background-color:{{section.settings.color_bg}};" id="{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="header-elements">
+    {%- assign first_row = true -%}
+    {%- assign default_align_class = 'align-items-center' -%}
+    {%- assign prev_block_type = '' -%}
+
+    {%- assign prev_block_is_right_aligned = false -%}
+
+    {%- for block in section.blocks -%}
+        {%- if block.type == 'search' or block.type == 'account' or block.type == 'wishlist' or block.type == 'cart' -%}
+        {%- assign default_padding_class = 'px-1 py-2' -%}
+        {%- else -%}
+        {%- assign default_padding_class = 'p-2' -%}
+        {%- endif -%}
+        {%- assign master_class = 'header__element d-flex' -%}
+        {%- assign master_css = '' -%}
+
+        {% capture borders_class%}{% if block.settings.border_top %}border-top{% endif %}{% if block.settings.border_bottom %} border-bottom{% endif %}{% if block.settings.border_left %} border-left pl-2{% endif %}{% if block.settings.border_right %} border-right pr-2{% endif %}{% endcapture %}
+        
+        {%- assign master_class = master_class | append: ' ' | append: block.settings.content_align -%}
+
+        {%- if block.settings.auto_width == false or block.type == 'spacing' -%}
+        {%- assign master_class = master_class | append: ' col-p' -%}
+        {%- assign master_css = '--pcol:' | append: block.settings.width | append: '%' -%}
+        {%- endif -%}
+        
+        {%- if block.settings.align_right -%}
+        {%- if prev_block_type == 'row' or prev_block_is_right_aligned == false -%}
+        {%- assign prev_block_is_right_aligned = true -%}
+        {%- assign master_class = master_class | append: ' flex-child-align--right' -%}
+        {%- else -%}
+        {%- assign prev_block_is_right_aligned = false -%}
+        {%- endif -%}
+        {%- endif -%}
+
+        {%- assign prev_block_type = block.type -%}
+        {%- assign prev_block_is_right_aligned = block.settings.align_right -%}
+
+        {%- case block.type -%}
+            {%- when 'row' -%}
+                {%- if first_row == false -%}
+                {{- row_end -}}
+                {%- endif -%}
+
+                {%- if block.settings.has_container -%}
+                {%- assign row_start = '<div class="no-gutters col-p-100 $bordes $padding row position-relative"><div class="container d-flex align-items-center justify-content-$alignment">' -%}
+                {%- assign row_end = '</div></div>' -%}
+                {%- else -%}
+                {%- assign row_start = '<div class="col-p-100 $bordes $padding d-flex align-items-center justify-content-$alignment">' -%}
+                {%- assign row_end = '</div>' -%}  
+                {%- endif -%}
+
+                {%- assign row_start_new = row_start | replace: '$bordes', borders_class | replace: '$alignment', block.settings.alignment -%}
+                {% if block.settings.has_padding %}
+                {%- assign row_start_new = row_start_new | replace: '$padding', 'py-2' -%}
+                {%- endif -%}
+                {{- row_start_new -}}
+                {%- assign first_row = false -%}
+            {%- when 'user_menu' -%}
+                <ul style="{{master_css}}" class="{{master_class}} usermenu{% if block.settings.has_padding %} {{default_padding_class}}{% endif %} {{default_align_class}} {{borders_class}}">
+                    {%- assign _item_class = 'mx-2' -%}
+                    {%- if block.settings.uppercase_text -%}
+                    {%- assign _item_class = _item_class | append: ' text-uppercase' -%}
+                    {%- endif -%}
+                    {%- if shop.customer_accounts_enabled and block.settings.account_link_enabled -%}
+                        <li class="{{_item_class}}">
+                            <a href="/account">{{ 'general.top.my_account' | t }}</a>
+                        </li>
+                    {%- endif -%}
+                    {%- if settings.wishlist_enable and block.settings.wishlist_link_enabled -%}
+                        <li class="{{_item_class}}">
+                            <a href="{{pages[settings.wishlist_page].url}}" id="wishlist-total">{{ 'general.top.wishlist' | t }}</a>
+                        </li>
+                    {%- endif -%}
+                    {%- if block.settings.cart_link_enabled -%}
+                    <li class="{{_item_class}}">
+                        <a href="/cart">{{ 'general.cart_info.cart' | t }}</a>
+                    </li>
+                    {%- endif -%}
+                    {%- if block.settings.checkout_link_enabled -%}
+                    <li class="{{_item_class}}">
+                        <a href="/checkout">{{ 'general.cart_info.checkout' | t }}</a>
+                    </li>
+                    {%- endif -%}
+                </ul>
+
+            {%- when 'custom_links' -%}
+                {%- if block.settings.linklist != blank -%}
+                {%- assign _item_class = 'mx-1' -%}
+                {%- if block.settings.uppercase_text -%}
+                {%- assign _item_class = _item_class | append: ' text-uppercase' -%}
+                {%- endif -%}
+                <ul style="{{master_css}}" class="{{master_class}} usermenu{% if block.settings.has_padding %} {{default_padding_class}}{% endif %} {{default_align_class}} {{borders_class}}">
+                    {%- for link in linklists[block.settings.linklist].links -%}
+                        <li class="{{_item_class}}">
+                            <a href="{{link.url}}">{{link.title}}</a>
+                        </li>
+                    {%- endfor -%}
+                </ul>
+                {%- endif -%}
+            {%- when 'account' -%}
+                {%- if shop.customer_accounts_enabled -%}
+                    <div style="{{master_css}}" class="{{master_class}} {{borders_class}} {{default_align_class}}{% if block.settings.has_padding %} {{default_padding_class}}{% endif %}" {{ block.shopify_attributes }}>
+                        {%- include 'header-account' -%}
+                    </div>
+                {%- endif -%}
+
+            {%- when 'cart' -%}
+                <div style="{{master_css}}" class="{{master_class}} {{borders_class}} {{default_align_class}} pr-4{% if block.settings.has_padding %} {{default_padding_class}}{% endif %}" {{ block.shopify_attributes }}>
+                    {%- include 'header-cart' -%}
+                </div>
+
+            {%- when 'currency' -%}
+                <div style="{{master_css}}" class="{{master_class}} {{default_align_class}} {{borders_class}}{% if block.settings.has_padding %} {{default_padding_class}}{% endif %}" {{ block.shopify_attributes }}>
+                    {%- include 'currencies-switcher', no_language_switcher: true, switcher_type: block.settings.switcher_type -%}
+                </div>
+
+            {%- when 'language' -%}
+                <div style="{{master_css}}" class="{{master_class}} {{default_align_class}} {{borders_class}}{% if block.settings.has_padding %} {{default_padding_class}}{% endif %}" {{ block.shopify_attributes }}>
+                    {%- include 'currencies-switcher', no_currency_switcher: true, switcher_type: block.settings.switcher_type -%}
+                </div>
+
+            {%- when 'logo' -%}
+                <div style="{{master_css}}" class="{{master_class}} {{default_align_class}} {{borders_class}}{% if block.settings.has_padding %} {{default_padding_class}}{% endif %}" {{ block.shopify_attributes }}>
+                    {%- include 'header-logo' -%}
+                </div>
+
+            {%- when 'main_menu' -%}
+                <div style="{{master_css}}" id="main-menu-placement" class="rt-destination {{master_class}} {{default_align_class}} {{borders_class}} mega-menu-modules{% if block.settings.has_padding %} {{default_padding_class}}{% endif %}" {{ block.shopify_attributes }}><span>m-menu</span></div>
+
+            {%- when 'search' -%}
+                <div style="{{master_css}}" class="{{master_class}} {{borders_class}} {{default_align_class}}{% if block.settings.has_padding %} {{default_padding_class}}{% endif %}" {{ block.shopify_attributes }}>
+                    {%- include 'header-search' -%}
+                </div>
+
+            {%- when 'custom_text' -%}
+                <div style="{{master_css}}" class="{{master_class}} {{borders_class}} {{default_align_class}}{% if block.settings.has_padding %} {{default_padding_class}}{% endif %}" {{ block.shopify_attributes }}>
+                    {{block.settings.html}}
+                </div>
+
+            {%- when 'wishlist' -%}
+                {%- if settings.wishlist_enable and settings.wishlist_page != blank -%}
+                <div style="{{master_css}}" class="{{master_class}} {{borders_class}} {{default_align_class}}{% if block.settings.has_padding %} {{default_padding_class}}{% endif %}" {{ block.shopify_attributes }}>
+                    {%- include 'header-wishlist' -%}
+                </div>
+                {%- endif -%}
+
+            {%- when 'spacing' -%}  
+                <div style="{{master_css}}" class="{{master_class}}"></div>
+
+        {%- endcase -%}
+    {%- endfor -%}
+    {{row_end}}
+</div>
+
+<style id="style-{{section.id}}">{{style_sheet}}</style>
+
+{% schema %}
+
+{
+    "name": "Header",
+    "class": "header",
+    "settings": [
+        {
+            "type": "header",
+            "content": "General"
+        },
+        {
+            "type": "color",
+            "id": "color_bg",
+            "label": "Background color",
+            "default": "#fff"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "row",
+            "name": "— Row",
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Layout"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "has_container",
+                    "label": "Within Container",
+                    "default": false
+                },
+                {
+                    "type": "select",
+                    "id": "alignment",
+                    "label": "Alignment",
+                    "default": "start",
+                    "options": [
+                        {
+                            "value": "start",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "end",
+                            "label": "Right"
+                        }
+                    ]
+                },
+                {
+                    "type": "checkbox",
+                    "id": "has_padding",
+                    "label": "Add padding",
+                    "default": false
+                },
+                {
+                    "type": "header",
+                    "content": "Borders"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_top",
+                    "label": "Top",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_bottom",
+                    "label": "Bottom",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_left",
+                    "label": "Left",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_right",
+                    "label": "Right",
+                    "default": false
+                }
+            ]
+        },
+        {
+            "type": "logo",
+            "name": "Logo",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Layout"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "auto_width",
+                    "label": "Auto width",
+                    "default": true
+                },
+                {
+                    "type": "range",
+                    "id": "width",
+                    "label": "Width",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "default": 100
+                },
+                {
+                    "type": "checkbox",
+                    "id": "align_right",
+                    "label": "Float to the right",
+                    "default": false     
+                },
+                {
+                    "type": "select",
+                    "id": "content_align",
+                    "label": "Content alignment",
+                    "options": [
+                        {
+                            "value": "justify-content-start",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "justify-content-center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "justify-content-end",
+                            "label": "Right"
+                        }
+                    ],
+                    "default": "justify-content-start"
+                },
+
+                {
+                    "type": "checkbox",
+                    "id": "has_padding",
+                    "label": "Add padding",
+                    "default": true
+                },
+                {
+                    "type": "header",
+                    "content": "Borders"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_top",
+                    "label": "Top",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_bottom",
+                    "label": "Bottom",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_left",
+                    "label": "Left",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_right",
+                    "label": "Right",
+                    "default": false
+                }
+            ]
+        },
+        {
+            "type": "main_menu",
+            "name": "Main menu",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Layout"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "auto_width",
+                    "label": "Auto width",
+                    "default": true
+                },
+                {
+                    "type": "range",
+                    "id": "width",
+                    "label": "Width",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "default": 100
+                },
+                {
+                    "type": "checkbox",
+                    "id": "align_right",
+                    "label": "Float to the right",
+                    "default": false     
+                },
+                {
+                    "type": "checkbox",
+                    "id": "has_padding",
+                    "label": "Add padding",
+                    "default": true
+                },
+                {
+                    "type": "header",
+                    "content": "Borders"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_top",
+                    "label": "Top",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_bottom",
+                    "label": "Bottom",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_left",
+                    "label": "Left",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_right",
+                    "label": "Right",
+                    "default": false
+                }
+            ]
+        },
+        {
+            "type": "search",
+            "name": "Search box",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Layout"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "auto_width",
+                    "label": "Auto width",
+                    "default": true
+                },
+                {
+                    "type": "range",
+                    "id": "width",
+                    "label": "Width",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "default": 100
+                },
+                {
+                    "type": "checkbox",
+                    "id": "align_right",
+                    "label": "Float to the right",
+                    "default": false     
+                },
+                {
+                    "type": "select",
+                    "id": "content_align",
+                    "label": "Content alignment",
+                    "options": [
+                        {
+                            "value": "justify-content-start",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "justify-content-center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "justify-content-end",
+                            "label": "Right"
+                        }
+                    ],
+                    "default": "justify-content-start"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "has_padding",
+                    "label": "Add padding",
+                    "default": true
+                },
+                {
+                    "type": "header",
+                    "content": "General"
+                },
+                {
+                    "type": "radio",
+                    "id": "search_type",
+                    "options": [
+                       { "value": "icon", "label": "Icon"},
+                       { "value": "textbox", "label": "Textbox"}
+                    ],
+                    "label": "Search type",
+                    "default": "icon"
+                },
+                {
+                    "type": "header",
+                    "content": "Icon type"
+                },
+                {
+                    "type": "radio",
+                    "id": "icon_type",
+                    "options": [
+                       { "value": "rounded_border", "label": "Rounded border"},
+                       { "value": "with_text", "label": "With text"}
+                    ],
+                    "label": "Icon type",
+                    "default": "with_text"
+                },
+                {
+                    "type": "color",
+                    "id": "color_icon",
+                    "label": "Icon color",
+                    "default": "#000"
+                },
+                {
+                    "type": "color",
+                    "id": "color_text",
+                    "label": "Text color",
+                    "default": "#999999"
+                },
+                {
+                    "type": "header",
+                    "content": "Textbox type"
+                },
+                {
+                    "type": "range",
+                    "id": "width_searchbox",
+                    "label": "Search box width",
+                    "unit": "%",
+                    "min": 20,
+                    "max": 100,
+                    "step": 1,
+                    "default": 100
+                },
+                {
+                    "type": "color",
+                    "id": "color_placeholder",
+                    "label": "Placeholder color",
+                    "default": "#808080"
+                },
+                {
+                    "type": "color",
+                    "id": "color_bg",
+                    "label": "Background color",
+                    "default": "#f0f0f0"
+                },
+                {
+                    "type": "color",
+                    "id": "color_border",
+                    "label": "Border color",
+                    "default": "#fff"
+                },
+                {
+                    "type": "color",
+                    "id": "color_search_icon",
+                    "label": "Icon color",
+                    "default": "#000"
+                },
+                {
+                    "type": "header",
+                    "content": "Borders"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_top",
+                    "label": "Top",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_bottom",
+                    "label": "Bottom",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_left",
+                    "label": "Left",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_right",
+                    "label": "Right",
+                    "default": false
+                }
+            ]
+        },
+        {
+            "type": "account",
+            "name": "Customer account",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Layout"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "auto_width",
+                    "label": "Auto width",
+                    "default": true
+                },
+                {
+                    "type": "range",
+                    "id": "width",
+                    "label": "Width",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "default": 100
+                },
+                {
+                    "type": "checkbox",
+                    "id": "align_right",
+                    "label": "Float to the right",
+                    "default": false     
+                },
+                {
+                    "type": "select",
+                    "id": "content_align",
+                    "label": "Content alignment",
+                    "options": [
+                        {
+                            "value": "justify-content-start",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "justify-content-center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "justify-content-end",
+                            "label": "Right"
+                        }
+                    ],
+                    "default": "justify-content-start"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "has_padding",
+                    "label": "Add padding",
+                    "default": true
+                },
+                {
+                    "type": "header",
+                    "content": "General"
+                },
+                {
+                    "type": "paragraph",
+                    "content": "Settings > Checkout > Customer accounts, to change more settings."
+                },
+                {
+                    "type": "radio",
+                    "id": "icon_type",
+                    "options": [
+                       { "value": "rounded_border", "label": "Rounded border"},
+                       { "value": "with_text", "label": "With text"}
+                    ],
+                    "label": "Icon type",
+                    "default": "with_text"
+                },
+                {
+                    "type": "color",
+                    "id": "icon_color",
+                    "label": "Color"
+                },
+                {
+                    "type": "header",
+                    "content": "Borders"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_top",
+                    "label": "Top",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_bottom",
+                    "label": "Bottom",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_left",
+                    "label": "Left",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_right",
+                    "label": "Right",
+                    "default": false
+                }
+            ]
+        },
+        {
+            "type": "wishlist",
+            "name": "Wishlist",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Layout"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "auto_width",
+                    "label": "Auto width",
+                    "default": true
+                },
+                {
+                    "type": "range",
+                    "id": "width",
+                    "label": "Width",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "default": 100
+                },
+                {
+                    "type": "checkbox",
+                    "id": "align_right",
+                    "label": "Float to the right",
+                    "default": false     
+                },
+                {
+                    "type": "select",
+                    "id": "content_align",
+                    "label": "Content alignment",
+                    "options": [
+                        {
+                            "value": "justify-content-start",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "justify-content-center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "justify-content-end",
+                            "label": "Right"
+                        }
+                    ],
+                    "default": "justify-content-start"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "has_padding",
+                    "label": "Add padding",
+                    "default": true
+                },
+                {
+                    "type": "header",
+                    "content": "General"
+                },
+                {
+                    "type": "radio",
+                    "id": "icon_type",
+                    "options": [
+                       { "value": "rounded_border", "label": "Rounded border"},
+                       { "value": "with_text", "label": "With text"}
+                    ],
+                    "label": "Icon type",
+                    "default": "with_text"
+                },
+                {
+                    "type": "color",
+                    "id": "icon_color",
+                    "label": "Color"
+                },
+                {
+                    "type": "header",
+                    "content": "Borders"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_top",
+                    "label": "Top",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_bottom",
+                    "label": "Bottom",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_left",
+                    "label": "Left",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_right",
+                    "label": "Right",
+                    "default": false
+                }
+            ]
+        },
+        {
+            "type": "cart",
+            "name": "Cart Info",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Layout"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "auto_width",
+                    "label": "Auto width",
+                    "default": true
+                },
+                {
+                    "type": "range",
+                    "id": "width",
+                    "label": "Width",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "default": 100
+                },
+                {
+                    "type": "checkbox",
+                    "id": "align_right",
+                    "label": "Float to the right",
+                    "default": false     
+                },
+                {
+                    "type": "select",
+                    "id": "content_align",
+                    "label": "Content alignment",
+                    "options": [
+                        {
+                            "value": "justify-content-start",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "justify-content-center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "justify-content-end",
+                            "label": "Right"
+                        }
+                    ],
+                    "default": "justify-content-start"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "has_padding",
+                    "label": "Add padding",
+                    "default": true
+                },
+                {
+                    "type": "header",
+                    "content": "General"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "icon_only",
+                    "label": "Icon only",
+                    "default": true
+                },
+                {
+                    "type": "radio",
+                    "id": "icon_type",
+                    "options": [
+                       { "value": "rounded_border", "label": "Rounded border"},
+                       { "value": "with_text", "label": "With text"}
+                    ],
+                    "label": "Icon type",
+                    "default": "with_text"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "cart_count",
+                    "label": "Show items count",
+                    "default": true
+                },
+                {
+                    "type": "checkbox",
+                    "id": "no_border",
+                    "label": "No border",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "cart_total",
+                    "label": "Show total price",
+                    "default": true
+                },
+                {
+                    "type": "color",
+                    "id": "icon_color",
+                    "label": "Icon color"
+                },
+                {
+                    "type": "color",
+                    "id": "count_color",
+                    "label": "Count color"
+                },
+                {
+                    "type": "color",
+                    "id": "count_color_bg",
+                    "label": "Count background color"
+                },
+                {
+                    "type": "header",
+                    "content": "Borders"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_top",
+                    "label": "Top",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_bottom",
+                    "label": "Bottom",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_left",
+                    "label": "Left",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_right",
+                    "label": "Right",
+                    "default": false
+                }
+            ]
+        },
+        {
+            "type": "custom_text",
+            "name": "Custom text",
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Layout"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "auto_width",
+                    "label": "Auto width",
+                    "default": true
+                },
+                {
+                    "type": "range",
+                    "id": "width",
+                    "label": "Width",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "default": 100
+                },
+                {
+                    "type": "checkbox",
+                    "id": "align_right",
+                    "label": "Float to the right",
+                    "default": false     
+                },
+                {
+                    "type": "select",
+                    "id": "content_align",
+                    "label": "Content alignment",
+                    "options": [
+                        {
+                            "value": "justify-content-start",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "justify-content-center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "justify-content-end",
+                            "label": "Right"
+                        }
+                    ],
+                    "default": "justify-content-start"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "has_padding",
+                    "label": "Add padding",
+                    "default": true
+                },
+                {
+                    "type": "header",
+                    "content": "Content"
+                },
+                {
+                    "type": "richtext",
+                    "id": "html",
+                    "label": "Your text"
+                },
+                {
+                    "type": "header",
+                    "content": "Borders"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_top",
+                    "label": "Top",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_bottom",
+                    "label": "Bottom",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_left",
+                    "label": "Left",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_right",
+                    "label": "Right",
+                    "default": false
+                }
+            ]
+        },
+        {
+            "type": "currency",
+            "name": "Currency",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Layout"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "auto_width",
+                    "label": "Auto width",
+                    "default": true
+                },
+                {
+                    "type": "range",
+                    "id": "width",
+                    "label": "Width",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "default": 100
+                },
+                {
+                    "type": "checkbox",
+                    "id": "align_right",
+                    "label": "Float to the right",
+                    "default": false     
+                },
+                {
+                    "type": "select",
+                    "id": "content_align",
+                    "label": "Content alignment",
+                    "options": [
+                        {
+                            "value": "justify-content-start",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "justify-content-center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "justify-content-end",
+                            "label": "Right"
+                        }
+                    ],
+                    "default": "justify-content-start"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "has_padding",
+                    "label": "Add padding",
+                    "default": true
+                },
+                {
+                    "type": "header",
+                    "content": "General"
+                },
+                {
+                    "type": "paragraph",
+                    "content": "Theme settings > Currencies & Languages, to change more settings."
+                },
+                {
+                    "type": "radio",
+                    "id": "switcher_type",
+                    "options": [
+                       { "value": "rt_dropdown", "label": "Dropdown"},
+                       { "value": "rt_list", "label": "List"}
+                    ],
+                    "default": "rt_dropdown",
+                    "label": "Type"
+                },
+                {
+                    "type": "header",
+                    "content": "Borders"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_top",
+                    "label": "Top",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_bottom",
+                    "label": "Bottom",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_left",
+                    "label": "Left",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_right",
+                    "label": "Right",
+                    "default": false
+                }
+            ]
+        },
+        {
+            "type": "language",
+            "name": "Language",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Layout"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "auto_width",
+                    "label": "Auto width",
+                    "default": true
+                },
+                {
+                    "type": "range",
+                    "id": "width",
+                    "label": "Width",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "default": 100
+                },
+                {
+                    "type": "checkbox",
+                    "id": "align_right",
+                    "label": "Float to the right",
+                    "default": false     
+                },
+                {
+                    "type": "select",
+                    "id": "content_align",
+                    "label": "Content alignment",
+                    "options": [
+                        {
+                            "value": "justify-content-start",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "justify-content-center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "justify-content-end",
+                            "label": "Right"
+                        }
+                    ],
+                    "default": "justify-content-start"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "has_padding",
+                    "label": "Add padding",
+                    "default": true
+                },
+                {
+                    "type": "header",
+                    "content": "General"
+                },
+                {
+                    "type": "paragraph",
+                    "content": "Theme settings > Currencies & Languages, to change more settings."
+                },
+                {
+                    "type": "radio",
+                    "id": "switcher_type",
+                    "options": [
+                       { "value": "rt_dropdown", "label": "Dropdown"},
+                       { "value": "rt_list", "label": "List"}
+                    ],
+                    "default": "rt_dropdown",
+                    "label": "Type"
+                },
+                {
+                    "type": "header",
+                    "content": "Borders"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_top",
+                    "label": "Top",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_bottom",
+                    "label": "Bottom",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_left",
+                    "label": "Left",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_right",
+                    "label": "Right",
+                    "default": false
+                }
+            ]
+        },
+        {
+            "type": "user_menu",
+            "name": "User menu",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Layout"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "auto_width",
+                    "label": "Auto width",
+                    "default": true
+                },
+                {
+                    "type": "range",
+                    "id": "width",
+                    "label": "Width",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "default": 100
+                },
+                {
+                    "type": "checkbox",
+                    "id": "align_right",
+                    "label": "Float to the right",
+                    "default": false     
+                },
+                {
+                    "type": "select",
+                    "id": "content_align",
+                    "label": "Content alignment",
+                    "options": [
+                        {
+                            "value": "justify-content-start",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "justify-content-center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "justify-content-end",
+                            "label": "Right"
+                        }
+                    ],
+                    "default": "justify-content-start"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "has_padding",
+                    "label": "Add padding",
+                    "default": true
+                },
+                {
+                    "type": "header",
+                    "content": "General"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "uppercase_text",
+                    "label": "Uppercase text",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "account_link_enabled",
+                    "label": "Display ACCOUNT",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "wishlist_link_enabled",
+                    "label": "Display WISHLIST",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "cart_link_enabled",
+                    "label": "Display CART",
+                    "default": true
+                },
+                {
+                    "type": "checkbox",
+                    "id": "checkout_link_enabled",
+                    "label": "Display CHECKOUT",
+                    "default": true
+                },
+                {
+                    "type": "header",
+                    "content": "Borders"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_top",
+                    "label": "Top",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_bottom",
+                    "label": "Bottom",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_left",
+                    "label": "Left",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_right",
+                    "label": "Right",
+                    "default": false
+                }
+            ]
+        },
+        {
+            "type": "custom_links",
+            "name": "Custom links",
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Layout"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "auto_width",
+                    "label": "Auto width",
+                    "default": true
+                },
+                {
+                    "type": "range",
+                    "id": "width",
+                    "label": "Width",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "default": 100
+                },
+                {
+                    "type": "checkbox",
+                    "id": "align_right",
+                    "label": "Float to the right",
+                    "default": false     
+                },
+                {
+                    "type": "select",
+                    "id": "content_align",
+                    "label": "Content alignment",
+                    "options": [
+                        {
+                            "value": "justify-content-start",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "justify-content-center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "justify-content-end",
+                            "label": "Right"
+                        }
+                    ],
+                    "default": "justify-content-start"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "has_padding",
+                    "label": "Add padding",
+                    "default": true
+                },
+                {
+                    "type": "header",
+                    "content": "General"
+                },
+                {
+                    "type": "link_list",
+                    "label": "Links",
+                    "id": "linklist"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "uppercase_text",
+                    "label": "Uppercase text",
+                    "default": false
+                },
+                {
+                    "type": "header",
+                    "content": "Borders"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_top",
+                    "label": "Top",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_bottom",
+                    "label": "Bottom",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_left",
+                    "label": "Left",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "border_right",
+                    "label": "Right",
+                    "default": false
+                }
+            ]
+        },
+        {
+            "type": "spacing",
+            "name": "Spacing",
+            "settings": [
+                {
+                    "type": "range",
+                    "id": "width",
+                    "label": "Width",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "default": 5
+                }
+            ]
+        }
+    ]
+}
+
+{% endschema %}

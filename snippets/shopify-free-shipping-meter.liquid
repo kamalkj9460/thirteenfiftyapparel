@@ -1,0 +1,84 @@
+{% assign shopData = shop.metafields.free-shipping-meter.data %}
+
+{% if shopData and shopData.is_active %}
+
+  {% assign elegible_cart_total = cart.total_price %}
+  {% assign optimumColor = shopData.optimum_color %}
+  {% assign subOptimumColor = shopData.sub_optimum_color %}
+  {% assign subSubOptimumColor = shopData.sub_sub_optimum_color %}
+
+  <style>
+    p.freeship {margin-bottom: 0;}
+    p.freeship span {
+      color: {{subSubOptimumColor}};
+      font-weight: bold;
+    }
+    #fspb-subtotal meter {
+      margin-bottom: 1em;
+      width: 300px;
+      height: 30px;
+      background: #EEE;
+      box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+      border-radius: 3px;
+    }
+    #fspb-subtotal meter:-moz-meter-optimum::-moz-meter-bar {
+      background: {{optimumColor}};
+      box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+      border-radius: 3px;
+    }
+    #fspb-subtotal meter:-moz-meter-sub-optimum::-moz-meter-bar {
+      background: {{subOptimumColor}};
+      box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+      border-radius: 3px;
+    }
+    #fspb-subtotal meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+      background: {{subSubOptimumColor}};
+      box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+      border-radius: 3px;
+    }
+
+    /* WebKit */
+    #fspb-subtotal meter::-webkit-meter-bar {
+      background: #EEE;
+      box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+      border-radius: 3px;
+      height:30px;
+    }
+    #fspb-subtotal meter::-webkit-meter-optimum-value {
+      background: {{optimumColor}};
+      box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+      border-radius: 3px;
+    }
+    #fspb-subtotal meter::-webkit-meter-suboptimum-value {
+      background: {{subOptimumColor}};
+      box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+      border-radius: 3px;
+    }
+    #fspb-subtotal meter::-webkit-meter-even-less-good-value  {
+      background: {{subSubOptimumColor}};
+      box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+      border-radius: 3px;
+    }
+  </style>
+
+  <div id="fspb-subtotal">
+    {% capture ship_limit %}
+      {{ shopData.free_shipping_limit | plus: 0 }}
+    {% endcapture %}
+    {% assign ship_money = ship_limit | times: 100 %}
+    {% assign amount_left = ship_money | minus: elegible_cart_total | money %}
+    {% capture amountLeftDiv %}
+      <span>{{amount_left}}</span>
+    {% endcapture %}
+    {% assign buyMoreText = shopData.buy_more_text | replace: '$amount$', amountLeftDiv %}
+
+    {% if elegible_cart_total < ship_money %}
+      <p class="freeship">{{buyMoreText}}</p>
+      <meter min="0" max="{{ ship_money }}" optimum="{{ ship_money }}" low="{{ ship_money | divided_by: 2 }}" high="{{ ship_money | minus: 1 }}" value="{{ elegible_cart_total }}"></meter>
+    {% else %}
+      <p class="freeship">{{shopData.free_shipping_text}}</p>
+    {% endif %}
+  </div>
+{% endif %}
+
+

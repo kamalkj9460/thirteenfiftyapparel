@@ -1,0 +1,170 @@
+<div id="parallax-{{section.id}}"
+     class="parallax-wrapper {%- if section.settings.visible_on_mobile == false -%}{{" d-none d-sm-block"}}{%- endif-%}"
+     data-placement_fullwidth="{%- if section.settings.placement_fullwidth -%}1{%- else -%}0{%- endif -%}"
+     data-section-id="{{section.id}}"
+     data-section-type="parallax">
+  <div class="lazyload parallax-image position-relative"
+       {%- if section.settings.image != blank -%}
+       data-bg="{{ section.settings.image | img_url: "master" }}"
+       {%- endif -%} >
+    <div class="container parallax-content position-relative"
+         style="{% if section.settings.height > 0 %}height:{{section.settings.height}}px;{% endif %}"
+         >
+      <div class="parallax-content-wrapper w-50 content-align-{{section.settings.alginment_horizontal}}"
+           style="{% if section.settings.height > 0 %}height:{{section.settings.height}}px;{% endif %}--color-custom:{{section.settings.heading_color}};--fontweight-custom:{{section.settings.heading_fontweight}};--fontsize-custom:{{section.settings.heading_fontsize}}px;"
+           >
+        {% if section.settings.heading != blank %}
+        <div class="heading custom-parallax-color custom-heading-font">{{-section.settings.heading-}}</div>
+        {% endif %}
+        {% if section.settings.caption != blank %}
+        <div class="caption custom-parallax-color custom-caption-font" style="--bg-color-custom:{{section.settings.caption_bg}};--color-custom:{{section.settings.caption_color}};--fontweight-custom:{{section.settings.caption_fontweight}};--fontsize-custom:{{section.settings.caption_fontsize}}px;">{{-section.settings.caption-}}</div>{% endif %}
+        {% if section.settings.button != blank %}
+        <a style="--color-btn-custom:{{section.settings.button_color}};--color-hover-btn-custom:{{section.settings.button_color_hover}};" class="custom-btn parallax-button d-flex align-items-center justify-content-between" href="{{ section.settings.button }}"><span>{{-section.settings.button-}}</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512" ><path  d="M187.8 264.5L41 412.5c-4.7 4.7-12.3 4.7-17 0L4.2 392.7c-4.7-4.7-4.7-12.3 0-17L122.7 256 4.2 136.3c-4.7-4.7-4.7-12.3 0-17L24 99.5c4.7-4.7 12.3-4.7 17 0l146.8 148c4.7 4.7 4.7 12.3 0 17z" ></path></svg></a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Parallax Content",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "placement_fullwidth",
+          "label": "Force Full Width"
+        },
+        {
+          "type": "checkbox",
+          "id": "visible_on_mobile",
+          "label": "Display on Mobile"
+        },
+		{
+			"type": "range",
+			"id": "height",
+			"label": "Height",
+			"min": 0,
+			"max": 1000,
+			"step": 50,
+			"default": 0,
+			"info": "0 is full height on screen"
+		},
+		{
+			"type": "image_picker",
+			"id": "image",
+			"label" : "Image"
+		},
+		{
+			"type": "header",
+			"content" : "Content"
+		},
+		{
+			"type": "text",
+			"id": "heading",
+			"label" : "Heading"
+		},
+		{
+          "type": "range",
+          "label": "FontSize",
+          "id": "heading_fontsize",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "default": 100,
+		  "unit": "px"
+        },
+		{
+          "type": "range",
+          "label": "FontWeight",
+          "id": "heading_fontweight",
+          "min": 100,
+          "max": 700,
+          "step": 100,
+          "default": 500
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Color"
+        },
+		{
+			"type": "text",
+			"id": "caption",
+			"label" : "Caption"
+		},
+		{
+          "type": "range",
+          "label": "FontSize",
+          "id": "caption_fontsize",
+          "min": 10,
+          "max": 60,
+          "step": 1,
+          "default": 60,
+		  "unit": "px"
+        },
+		{
+          "type": "range",
+          "label": "FontWeight",
+          "id": "caption_fontweight",
+          "min": 100,
+          "max": 700,
+          "step": 100,
+          "default": 500
+        },
+		{
+          "type": "color",
+          "id": "caption_bg",
+          "label": "Caption Background"
+        },
+        {
+          "type": "color",
+          "id": "caption_color",
+          "label": "Caption Color"
+        },
+		{
+			"type": "text",
+			"id": "button",
+			"label" : "Button"
+		},
+		{
+			"type": "url",
+			"id": "url",
+			"label" : "URL"
+		},
+        {
+          "type": "color",
+          "id": "button_color",
+          "label": "Button Color"
+        },
+        {
+          "type": "color",
+          "id": "button_color_hover",
+          "label": "Button Hover Color"
+        },
+		{
+			"type" : "header",
+			"content": "Alignment"
+		},
+		{
+			"type": "select",
+			"id": "alginment_horizontal",
+			"label": "Horizontal",
+			"options": [
+				{
+					"label": "Center",
+					"value": "center"
+				},
+				{
+					"label": "Left",
+					"value": "left"
+				},
+				{
+					"label": "Right",
+					"value": "right"
+				}
+			]
+		}
+	]
+  }
+{% endschema %}

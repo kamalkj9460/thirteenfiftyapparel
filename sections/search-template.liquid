@@ -1,0 +1,90 @@
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign pUrl = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last |
+   replace:'\/','/' | 
+   replace:'%20',' ' | 
+   replace:'\u0026','&'
+-%}
+{%- assign per_page = settings.collection_limit -%}
+{%- assign aView =  pUrl | split : "view=" -%}
+{%- if aView.size > 1 and aView[1] != blank-%}
+{%- assign per_page = aView[1] | plus: 0  -%}
+{%- endif -%}
+{%- assign tmp =  shop.url | append: collection.url | append: "/" -%}
+{%- assign tmp_url = canonical_url | replace : tmp, ""  -%}
+{%- assign a_tmp_url = tmp_url | split: "/" -%}
+<input class="collection-canonical_url" type="hidden" data-url="collections/{{- collection.handle -}}" data-parts="{{- a_tmp_url.size -}}" value="{{tmp_url}}">
+
+<div data-section-id="{{ section.id }}" data-section-type="search-template" data-view="{{per_page}}">
+  <div id="col-main" class="center-column content-without-background collection-page col-md-12 col-sm-12{% if settings.shop_pagination != '' %} hide-pagination{% endif %}">
+    <div id="mfilter-content-container" class="{%- if settings.collection_list_grid == '0' -%}list{%- else -%}grid{%- endif -%}">
+      <form action="/search" method="get" class="d-flex flex-column mb-5">
+        <label class="control-label" for="input-search"><strong>{{'search.general.title' | t}}</strong></label>
+        <div class="row w-100" id="content-search">
+          <div class="col-sm-4">
+            <input type="text" name="q" value="{{search.terms | escape}}" placeholder="{{'search.general.placeholder' | t}}" id="input-search" class="form-control" autocomplete="off" />
+          </div>
+        </div>
+        <input type="submit" value="{{'search.general.submit' | t}}" id="button-search" class="mt-2 btn btn--secondary" style="width:150px"/>
+        <input type="hidden" name="type" value="product" />
+      </form>
+      {%- if search.performed and search.results.size > 0 -%}
+      <div class="product-filter clearfix">
+        <div class="options">
+          {%- if settings.wishlist_enable -%}<div class="product-wishlist"><a href="{{pages[settings.wishlist_page].url}}">{{'collections.general.wishlist' | t}}</a></div>{%- endif -%}
+          <div class="button-group display" data-toggle="buttons-radio">
+            <button id="grid" class="btooltip{% if settings.collection_list_grid == '1' %} active{% endif %}" title="{{'collections.general.grid' | t | escape}}"><i class="fa fa-th-large"></i></button>
+            <button id="list" class="btooltip{% if settings.collection_list_grid == '0' %} active{% endif %}" title="{{'collections.general.list' | t | escape}}"><i class="fa fa-th-list"></i></button>
+          </div>
+        </div>
+      </div>
+      {%- paginate search.results by per_page -%}
+      <div id="sandbox">
+        <div class="product-grid products">
+          <div class="row">
+            {%- for product in search.results -%}
+<script type='application/json' class='bold-product-json'>{{ product | json }}</script>
+            {%- if product.metafields.inventory.ShappifyHidden == 'true' -%}{%- continue -%}{%- endif -%}
+            <div class="pb-3 px-2 col col-xs-6 product-item">
+              {%- if product.object_type  != 'article' and product.object_type  != 'page'  -%}
+              {%- include 'product-item' -%}
+              {%- else -%}
+              {%- include 'item-search' -%}
+              {%- endif -%}
+            </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+      {%- case settings.shop_pagination -%}
+      {%- when '1' -%}
+      <div class="fastor_ajax_load_button fastor_ajax_load_more_btn animated fadeIn">
+        <a class="button" href="#" data-processing="0" data-loading-items="{{ 'general.pagination.loading_items' | t | escape }}" data-no-more="{{ 'general.pagination.no_more' | t | escape }}">
+          {{- 'general.pagination.load_more' | t | escape -}}
+        </a>
+      </div>
+      {%- include 'pagination' -%}
+      {%- when '2' -%}
+      <div class="fastor_ajax_load_button fastor_ajax_load_more_hidden animated fadeIn">
+        <a class="button" href="#" data-processing="0" data-loading-items="{{ 'general.pagination.loading_items' | t | escape }}" data-no-more="{{ 'general.pagination.no_more' | t | escape }}">
+          <i class="icon-px-outline-load"></i>
+          &nbsp;&nbsp;{{- 'general.pagination.load_more' | t | escape -}}
+        </a>
+      </div>
+      {%- include 'pagination' -%}
+      {%- else -%}
+      {%- include 'pagination' -%}
+      {%- endcase -%}
+      {%- include 'spinner' -%}
+      {%- endpaginate -%}
+      {%- else -%}
+      <p class="empty">{{'search.general.no_products' | t}}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Search Page",
+    "settings": []
+  }
+{% endschema %}

@@ -1,0 +1,18 @@
+.jm-heading-container {
+  padding-top: 35px !important;
+  padding-bottom: 35px !important;
+  font-family: Druk !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.96px;
+}
+
+@media (max-width: 767px){
+  .jm-heading-text {
+    font-size: 28px !important;
+    line-height: 28px;
+  }
+  
+  .jm-heading-container {
+    padding: 10px;
+  }
+}

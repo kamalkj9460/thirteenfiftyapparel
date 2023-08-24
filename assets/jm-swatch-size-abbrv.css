@@ -1,0 +1,102 @@
+
+[data-value='SMALL'] span, [data-value='Small'] span {
+  display: none;
+}
+
+[data-value='SMALL']:after, [data-value='Small']:after {
+  content: 'S' !important;
+}
+
+[data-value='MEDIUM'] span, [data-value='Medium'] span {
+  display: none;
+}
+
+[data-value='MEDIUM']:after, [data-value='Medium']:after {
+  content: 'M' !important;
+}
+
+[data-value='LARGE'] span, [data-value='Large'] span {
+  display: none;
+}
+
+[data-value='LARGE']:after, [data-value='Large']:after {
+  content: 'L' !important;
+}
+
+[data-value='X-LARGE'] span, [data-value='X-Large'] span {
+  display: none;
+}
+
+[data-value='X-LARGE']:after, [data-value='X-Large']:after {
+  content: 'XL' !important;
+}
+
+[data-value='XX-LARGE'] span, [data-value='XX-Large'] span {
+  display: none;
+}
+
+[data-value='XX-LARGE']:after, [data-value='XX-Large']:after {
+  content: 'XXL' !important;
+}
+
+[data-value='XXX-LARGE'] span, [data-value='XXX-Large'] span {
+  display: none;
+}
+
+[data-value='XXX-LARGE']:after, [data-value='XXX-Large']:after {
+  content: 'XXXL' !important;
+}
+
+[data-value='SMALL/MEDIUM'] span, [data-value='Small/Medium'] span {
+  display: none;
+}
+
+[data-value='SMALL/MEDIUM']:after, [data-value='Small/Medium']:after {
+  content: 'S/M' !important;
+}
+
+
+[data-value='SMALL / MEDIUM'] span, [data-value='Small / Medium'] span {
+  display: none;
+}
+
+[data-value='SMALL / MEDIUM']:after, [data-value='Small / Medium']:after {
+  content: 'S/M' !important;
+}
+
+[data-value='LARGE/XL'] span, [data-value='Large/XL'] span {
+  display: none;
+}
+
+[data-value='LARGE/XL']:after, [data-value='Large/XL']:after {
+  content: 'L/XL' !important;
+}
+
+[data-value='LARGE/X-LARGE'] span, [data-value='Large/X-Large'] span {
+  display: none;
+}
+
+[data-value='LARGE/X-LARGE']:after, [data-value='Large/X-Large']:after {
+  content: 'L/XL' !important;
+}
+
+[data-value='MEDIUM/Large'] span, [data-value='Medium/Large'] span {
+  display: none;
+}
+
+[data-value='MEDIUM/Large']:after, [data-value='Medium/Large']:after {
+  content: 'M/L' !important;
+}
+
+/* size abbrev start */
+[data-value='X-SMALL'] span, [data-value='X-Small'] span {
+  display: none;
+}
+
+[data-value='X-SMALL']:after, [data-value='X-Small']:after {
+  content: 'XS' !important;
+}
+
+.templateProduct .star-set-btn .swatch-button-title-text {
+  display: none !important;
+}

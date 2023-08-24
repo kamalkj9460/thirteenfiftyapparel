@@ -1,0 +1,529 @@
+/* PageFly Element Styles */
+						.lcHmGL { word-break: break-word; }
+.lcHmGL span { font-weight: inherit; text-decoration: inherit; }
+.lcHmGL i { margin-right: 0.3em; }
+.jklmHY { padding: var(--pf-s-lg); }
+@media (max-width: 1199px) and (min-width: 992px) {
+  .jklmHY { padding: var(--pf-s-md); }
+}
+@media (max-width: 991px) and (min-width: 768px) {
+  .jklmHY { padding: var(--pf-s-sm); }
+}
+@media (max-width: 767px) {
+  .jklmHY { padding: var(--pf-s-xs); }
+}
+.fTyjzF { position: relative; }
+.eYzxUD { margin: 0 calc(-1 * var(--pf-s-lg)); }
+@media (max-width: 1199px) and (min-width: 992px) {
+  .eYzxUD { margin: 0 calc(-1 * var(--pf-s-md)); }
+}
+@media (max-width: 991px) and (min-width: 768px) {
+  .eYzxUD { margin: 0 calc(-1 * var(--pf-s-sm)); }
+}
+@media (max-width: 767px) {
+  .eYzxUD { margin: 0 calc(-1 * var(--pf-s-xs)); }
+}
+.gtZHgp { position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; pointer-events: none; overflow: hidden; }
+.bjKdkd__parallax { position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; overflow: hidden; pointer-events: none; }
+.bjKdkd { padding: 15px 0px; position: relative; }
+.cbrLgP > span:last-child { line-height: inherit; display: block; margin-right: 0px !important; }
+#editor-dnd-wrapper .cbrLgP span + span[contenteditable] { display: block; }
+#editor-dnd-wrapper .cbrLgP span + span[contenteditable]:empty::after { display: inline; }
+.cbrLgP ol, .cbrLgP ul { list-style-position: inside; }
+.cbrLgP blockquote { font-size: inherit; }
+.fnmilh { display: inline-block; }
+.fnmilh[contenteditable="true"] { user-select: text; }
+.fnmilh { vertical-align: baseline; word-break: break-word; }
+.fnmilh:focus { outline: none; }
+.fnmilh::after { display: inline; }
+						/* PageFly Styles */
+						
+@media all {
+	.__pf .pf-acb9fd39 {
+		font-size: 66px;
+		 font-family: "Roboto Condensed";
+		 background-color: rgba(255, 255, 255, 0.62);
+		 padding-top: 0px;
+		 padding-bottom: 0px;
+		 margin-bottom: 0px;
+		 margin-top: 0px;
+		 text-transform: uppercase;
+	}
+	.__pf .pf-63c917a8 {
+		font-size: 16px;
+		 font-family: "Roboto Condensed";
+		 text-align: left;
+		 padding-bottom: 0px;
+		 padding-top: 0px;
+		 margin-top: 0px;
+		 font-weight: 400;
+		 margin-bottom: 50px;
+	}
+	.__pf .pf-f3639cb8 {
+		padding: 50px 50px 0px;
+	}
+	.__pf .pf-9618be81 {
+		font-family: "Fjalla One";
+		 font-size: 25px;
+		 color: rgb(255, 255, 255);
+		 background-color: rgba(0, 0, 0, 0);
+		 margin-bottom: 0px;
+		 text-transform: uppercase;
+		 display: flex;
+		 align-items: center;
+		 align-content: center;
+		 margin-top: 0px;
+	}
+	.__pf .pf-9b6c422d {
+		padding: 0px 50px;
+		 background-color: rgb(0, 0, 0);
+		 display: flex;
+		 place-content: center;
+		 margin-left: 0px;
+		 margin-right: 0px;
+	}
+	.__pf .pf-be649618 {
+		margin-top: -40px;
+		 margin-bottom: -50px;
+	}
+	.__pf .pf-be819b6c {
+		margin-left: 0px;
+		 padding: 0px;
+	}
+	.__pf .pf-422d1bee {
+		padding-top: 0px;
+		 padding-bottom: 0px;
+	}
+	.__pf .pf-1beee9fe {
+		z-index: 99;
+	}
+	.__pf .pf-69b3f6e5 {
+		font-family: "Fjalla One";
+		 font-size: 25px;
+		 color: rgb(255, 255, 255);
+		 background-color: rgba(0, 0, 0, 0);
+		 margin-bottom: -8px;
+		 text-transform: uppercase;
+		 display: flex;
+		 align-items: center;
+		 align-content: center;
+		 text-align: center;
+		 padding-left: 50px;
+		 padding-right: 50px;
+	}
+	.__pf .pf-42be7048 {
+		font-size: 66px;
+		 font-family: "Roboto Condensed";
+		 padding: 30px 100px;
+		 margin-top: 50px;
+		 text-transform: uppercase;
+		 text-align: center;
+		 line-height: 1em;
+		 color: rgb(255, 255, 255);
+		 font-weight: 700;
+		 margin-bottom: 0px;
+		 background-color: rgb(0, 0, 0);
+	}
+	.__pf .pf-f28ec0b7 {
+		background-image: url("https://cdn.shopify.com/s/files/1/1489/5902/t/19/assets/pf-8ec0b76f--thirteenfiftyapparelblog22.jpg?v=1605126539");
+		 padding-top: 160px;
+		 background-size: cover;
+		 padding-bottom: 60px;
+		 margin-top: -30px;
+	}
+	.__pf .pf-0e6b28f2 {
+		margin-top: -40px;
+		 margin-bottom: -45px;
+	}
+	.__pf .pf-a5ccebf7 {
+		margin-left: 0px;
+		 padding: 0px;
+	}
+	.__pf .pf-4e43ca84 {
+		font-family: "Fjalla One";
+		 font-size: 25px;
+		 color: rgb(255, 255, 255);
+		 background-color: rgba(0, 0, 0, 0);
+		 margin-bottom: 0px;
+		 text-transform: uppercase;
+		 display: flex;
+		 align-items: center;
+		 align-content: center;
+		 margin-top: 0px;
+	}
+	.__pf .pf-ebf759fd {
+		padding: 0px 50px;
+		 background-color: rgb(0, 0, 0);
+		 display: flex;
+		 place-content: center;
+		 margin-left: 0px;
+		 margin-right: 0px;
+	}
+	.__pf .pf-59fd1984 {
+		padding-top: 0px;
+		 padding-bottom: 0px;
+	}
+	.__pf .pf-9367a5cc {
+		z-index: 99;
+		 margin-top: -30px;
+	}
+	.__pf .pf-68fe3e85 {
+		font-size: 66px;
+		 font-family: "Roboto Condensed";
+		 padding: 30px 100px;
+		 text-transform: uppercase;
+		 text-align: center;
+		 line-height: 1em;
+		 color: rgb(255, 255, 255);
+		 font-weight: 700;
+		 margin-bottom: 0px;
+		 background-color: rgb(0, 0, 0);
+		 margin-top: 0px;
+	}
+	.__pf .pf-fdc376bd {
+		margin-bottom: -15px;
+	}
+	.__pf .pf-76bda2b3 {
+		padding-bottom: 0px;
+	}
+	.__pf .pf-10dd78e6 {
+		font-family: "Fjalla One";
+		 font-size: 25px;
+		 background-color: rgba(0, 0, 0, 0);
+		 text-transform: uppercase;
+		 display: flex;
+		 align-items: center;
+		 align-content: center;
+		 margin-top: 0px;
+		 text-align: center;
+		 margin-bottom: 0px;
+	}
+	.__pf .pf-b0e53062 {
+		padding-bottom: 450px;
+	}
+	.__pf .pf-95792423 {
+		background-image: url("https://cdn.shopify.com/s/files/1/1489/5902/t/19/assets/pf-bda2b373--thirteenfiftyapparelblog24.jpg?v=1605129053");
+		 padding-top: 60px;
+		 padding-bottom: 100px;
+		 background-size: cover;
+		 background-position: 50% 100%;
+	}
+	.__pf .pf-73a91862 {
+		font-family: "Fjalla One";
+		 font-size: 25px;
+		 color: rgb(255, 255, 255);
+		 background-color: rgba(0, 0, 0, 0);
+		 margin-bottom: 0px;
+		 text-transform: uppercase;
+		 display: flex;
+		 align-items: center;
+		 align-content: center;
+		 margin-top: 0px;
+	}
+	.__pf .pf-0663c19f {
+		padding: 0px 50px;
+		 background-color: rgb(0, 0, 0);
+		 display: flex;
+		 place-content: center;
+		 margin-left: 0px;
+		 margin-right: 0px;
+	}
+	.__pf .pf-445873a9 {
+		margin-top: -80px;
+		 margin-bottom: -80px;
+	}
+	.__pf .pf-18620663 {
+		margin-left: 0px;
+		 padding: 0px;
+	}
+	.__pf .pf-c19fcca9 {
+		padding-top: 0px;
+		 padding-bottom: 0px;
+		 margin-top: -30px;
+	}
+	.__pf .pf-cca9fe95 {
+		z-index: 99;
+		 padding-bottom: 0px;
+	}
+	.__pf .pf-326327a5 {
+		font-family: "Fjalla One";
+		 font-size: 25px;
+		 background-color: rgba(0, 0, 0, 0);
+		 text-transform: uppercase;
+		 display: flex;
+		 align-items: center;
+		 align-content: center;
+		 margin-top: 0px;
+		 text-align: center;
+	}
+	.__pf .pf-fe9e184d {
+		padding-top: 400px;
+		 padding-bottom: 60px;
+		 background-image: url("https://cdn.shopify.com/s/files/1/1489/5902/t/19/assets/pf-9e184d91--thirteenfiftyapparelblog26.jpg?v=1605129857");
+		 background-size: cover;
+	}
+	.__pf .pf-dbfeea2a {
+		font-size: 66px;
+		 font-family: "Roboto Condensed";
+		 padding: 30px 100px;
+		 text-transform: uppercase;
+		 text-align: left;
+		 line-height: 1em;
+		 color: rgb(255, 255, 255);
+		 font-weight: 700;
+		 margin-bottom: 0px;
+		 background-color: rgb(0, 0, 0);
+		 margin-top: 0px;
+	}
+	.__pf .pf-28abba82 {
+		margin-top: 0px;
+		 margin-bottom: 0px;
+	}
+	.__pf .pf-ea2ae810 {
+		padding-bottom: 0px;
+		 padding-top: 0px;
+	}
+	.__pf .pf-07ca721b {
+		font-family: "Fjalla One";
+		 font-size: 25px;
+		 background-color: rgba(0, 0, 0, 0);
+		 text-transform: uppercase;
+		 display: flex;
+		 align-items: center;
+		 align-content: center;
+		 margin-top: 0px;
+		 text-align: center;
+		 margin-bottom: 0px;
+	}
+}
+@media only screen and (max-width: 767px) {
+	.__pf .pf-acb9fd39 {
+		font-size: 26px;
+		 padding-top: 0px;
+		 margin-bottom: 5px;
+	}
+	.__pf .pf-63c917a8 {
+		font-size: 10px;
+		 margin-bottom: 0px;
+	}
+	.__pf .pf-9618be81 {
+		font-size: 12px;
+		 padding-top: 20px;
+		 padding-bottom: 20px;
+		 text-align: center;
+	}
+	.__pf .pf-be649618 {
+		margin-top: 0px;
+		 margin-bottom: 0px;
+	}
+	.__pf .pf-1beee9fe {
+		padding-top: 0px;
+		 padding-bottom: 0px;
+	}
+	.__pf .pf-69b3f6e5 {
+		font-size: 12px;
+		 padding-top: 0px;
+		 padding-bottom: 0px;
+		 text-align: center;
+		 margin-top: 0px;
+		 margin-bottom: 0px;
+	}
+	.__pf .pf-6fca7870 {
+		padding-bottom: 30px;
+	}
+	.__pf .pf-42be7048 {
+		font-size: 20px;
+		 padding-top: 30px;
+		 margin-top: 0px;
+		 margin-bottom: 0px;
+		 padding-left: 50px;
+		 padding-right: 50px;
+	}
+	.__pf .pf-f28ec0b7 {
+		padding-top: 30px;
+		 margin-top: 0px;
+	}
+	.__pf .pf-0e6b28f2 {
+		margin-top: 0px;
+		 margin-bottom: 0px;
+	}
+	.__pf .pf-4e43ca84 {
+		font-size: 12px;
+		 padding-top: 30px;
+		 padding-bottom: 30px;
+		 margin-top: 0px;
+		 text-align: center;
+	}
+	.__pf .pf-9367a5cc {
+		padding-top: 0px;
+		 padding-bottom: 0px;
+		 margin-top: 0px;
+	}
+	.__pf .pf-68fe3e85 {
+		font-size: 20px;
+		 padding: 30px 50px;
+	}
+	.__pf .pf-fdc376bd {
+		margin-bottom: 0px;
+	}
+	.__pf .pf-10dd78e6 {
+		font-size: 12px;
+		 padding-top: 0px;
+		 padding-bottom: 0px;
+		 text-align: center;
+	}
+	.__pf .pf-b0e53062 {
+		padding-bottom: 250px;
+	}
+	.__pf .pf-95792423 {
+		padding-top: 30px;
+		 padding-bottom: 0px;
+	}
+	.__pf .pf-73a91862 {
+		font-size: 12px;
+		 padding-top: 0px;
+		 padding-bottom: 0px;
+		 margin-top: 0px;
+		 text-align: center;
+	}
+	.__pf .pf-0663c19f {
+		padding-top: 30px;
+		 padding-bottom: 30px;
+		 background-color: rgb(0, 0, 0);
+	}
+	.__pf .pf-445873a9 {
+		margin-top: 0px;
+		 margin-bottom: 0px;
+	}
+	.__pf .pf-c19fcca9 {
+		margin-top: 0px;
+	}
+	.__pf .pf-cca9fe95 {
+		padding-top: 0px;
+	}
+	.__pf .pf-326327a5 {
+		font-size: 12px;
+		 padding-top: 0px;
+		 padding-bottom: 0px;
+		 text-align: center;
+		 margin-bottom: 0px;
+	}
+	.__pf .pf-fe9e184d {
+		padding-top: 250px;
+		 padding-bottom: 30px;
+	}
+	.__pf .pf-dbfeea2a {
+		font-size: 20px;
+		 padding-top: 30px;
+		 padding-left: 50px;
+		 padding-right: 50px;
+	}
+	.__pf .pf-07ca721b {
+		font-size: 12px;
+		 padding-top: 0px;
+		 padding-bottom: 0px;
+		 text-align: center;
+	}
+	.__pf .pf-ba82c37d {
+		padding-top: 0px;
+		 padding-bottom: 0px;
+	}
+}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+	.__pf .pf-9618be81 {
+		display: flex;
+		 align-content: center;
+		 align-items: center;
+	}
+	.__pf .pf-9b6c422d {
+		display: flex;
+		 align-items: center;
+		 align-content: center;
+	}
+	.__pf .pf-be649618 {
+		margin-top: -50px;
+	}
+	.__pf .pf-fdc376bd {
+		margin-top: -15px;
+	}
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+	.__pf .pf-acb9fd39 {
+		font-size: 46px;
+	}
+	.__pf .pf-63c917a8 {
+		margin-bottom: 30px;
+	}
+	.__pf .pf-9618be81 {
+		font-size: 18px;
+		 text-align: left;
+		 padding-top: 20px;
+		 padding-bottom: 20px;
+	}
+	.__pf .pf-be649618 {
+		margin-top: -30px;
+	}
+	.__pf .pf-69b3f6e5 {
+		font-size: 18px;
+		 margin-top: 2px;
+		 text-align: center;
+	}
+	.__pf .pf-42be7048 {
+		font-size: 36px;
+	}
+	.__pf .pf-0e6b28f2 {
+		margin-top: -22px;
+	}
+	.__pf .pf-4e43ca84 {
+		font-size: 18px;
+		 text-align: right;
+		 padding-top: 20px;
+		 padding-bottom: 20px;
+	}
+	.__pf .pf-68fe3e85 {
+		font-size: 36px;
+	}
+	.__pf .pf-76bda2b3 {
+		padding-top: 0px;
+	}
+	.__pf .pf-10dd78e6 {
+		font-size: 18px;
+		 margin-top: 2px;
+		 text-align: center;
+	}
+	.__pf .pf-b0e53062 {
+		padding-bottom: 270px;
+	}
+	.__pf .pf-95792423 {
+		padding-top: 20px;
+	}
+	.__pf .pf-73a91862 {
+		font-size: 18px;
+		 text-align: center;
+	}
+	.__pf .pf-0663c19f {
+		padding-top: 30px;
+		 padding-bottom: 30px;
+	}
+	.__pf .pf-445873a9 {
+		margin-top: -60px;
+	}
+	.__pf .pf-326327a5 {
+		font-size: 18px;
+		 margin-top: 2px;
+		 text-align: center;
+	}
+	.__pf .pf-fe9e184d {
+		padding-top: 300px;
+		 padding-bottom: 20px;
+	}
+	.__pf .pf-dbfeea2a {
+		font-size: 36px;
+	}
+	.__pf .pf-07ca721b {
+		font-size: 18px;
+		 margin-top: 2px;
+		 text-align: center;
+	}
+}
+						

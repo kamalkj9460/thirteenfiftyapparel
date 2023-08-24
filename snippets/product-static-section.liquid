@@ -1,0 +1,123 @@
+{% assign for_ten7 = false %}
+{% assign for_ten8 = false %}
+{% assign for_hoodie = false %}
+{% assign for_polo = false %}
+{% assign for_leotex = false %}
+{% assign for_snapcap = false %}
+
+{% assign for_longsleeve = false %}
+{% assign for_hoodedlongsleeve = false %}
+
+{% assign for_mens = false %}
+{% assign for_womens = false %}
+
+{% assign why_we_made_this = "" %}
+
+
+{% for t in product.tags %}
+  {% if t == "TEN 7 COLLECTION" %}
+    {% assign for_ten7 = true %}
+  {% elsif t == "TEN 8 COLLECTION" %}
+    {% assign for_ten8 = true %}
+  {% elsif t == "HOODIE" %}
+    {% assign for_hoodie = true %}
+  {% elsif t == "POLO" %}
+    {% assign for_polo = true %}
+    {% assign for_ten8 = false %}
+  {% elsif t == "LEOTEX" %}
+    {% assign for_leotex = true %}
+  {% elsif t == "SNAP CAP" %}
+    {% assign for_snapcap = true %}
+  {% elsif t == "LONG SLEEVE" %}
+    {% assign for_longsleeve = true %}
+  {% elsif t == "HOODED LONG SLEEVE" %}
+    {% assign for_hoodedlongsleeve = true %}
+  {% endif %}
+    
+  {% if t == "MEN'S" %}
+    {% assign for_mens = true %}
+  {% elsif t == "WOMEN'S" %}
+    {% assign for_womens = true %}
+  {% endif %}
+{% endfor %}
+
+{% capture why_we_made_this %}
+  {% if for_hoodie %}
+    A performance hoodie that can keep up with your dynamic lifestyle. An unbeatable combination of comfort, fit, durability, and style. You won't find a better hoodie anywhere else.
+  {% elsif for_polo %}
+    The ultimate blend of style, professionalism and functionality; a performance polo designed with your needs in mind. Crafted with specially formulated moisture-wicking ACT1V3 Threads fabric, this polo offers exceptional breathability, durability, and stretch so that you can withstand the demands of your day.
+  {% elsif for_leotex %}
+    A performance hat that's been designed with a purpose - to withstand the demands of everyday use while providing unparalleled comfort, form, and function. Our proprietary LEOTEX® fabric blend has been engineered to resist moisture, stains, and odors, ensuring that your hat stays looking and smelling fresh no matter what conditions you face.
+  {% elsif for_snapcap %}
+    Made from 100% Polyester, our 6-panel curve brim snap cap features a mesh back that provides ultimate comfort and breathability, making it perfect for all-day wear. An adjustable snap-back closure ensures that you can achieve the perfect fit, no matter your head size and our premium padded moisture-wicking sweatband keeps you dry and comfortable, even during the hottest and most intense indoor or outdoor activities.
+  {% elsif for_ten8 %}
+    For those who demand the best; this performance shirt was made with our proprietary blend of moisture-wicking ACT1V3 Threads fabric, designed to offer unbeatable comfort and functionality. You'll be one of the few who stays dry and comfortable all day and night. We can promise that.
+  {% elsif for_ten7 and for_mens %}
+    When it comes to comfort, we've got you covered. Crafted with a proprietary blend of polyester and cotton, our crew tee features an extended length and tapered bicep fit for a touch of added style; perfect for any occasion.
+  {% endif %}
+{% endcapture %}
+
+{% unless why_we_made_this == blank %}
+  <!-- start: JM heading and caption with two images -->
+  <div class="jm-product-special my-5">
+    <div class="row ">
+      <div class="col-sm-12 col-md-4 col-lg-4 d-flex">
+        <div class="d-flex flex-column justify-content-center">
+          <h1>Why we made this</h1>
+          <p>{{ why_we_made_this }}</p>
+        </div>
+      </div> 
+      {% if for_hoodie %}
+      <div class="col-sm-12 col-md-4 col-lg-4" >
+        <img src="https://cdn.shopify.com/s/files/1/1489/5902/files/E1D_7584.jpg?v=1680701759" class="img-fluid">
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4 desktop-only">
+        <img src="https://cdn.shopify.com/s/files/1/1489/5902/files/E1D_7874.jpg?v=1680701759" class="img-fluid">
+      </div> 
+      {% elsif for_ten8 and for_hoodedlongsleeve %}
+      <div class="col-sm-12 col-md-4 col-lg-4" >
+        <img src="https://cdn.shopify.com/s/files/1/1489/5902/files/E1D_7910.jpg?v=1680703263" class="img-fluid">
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4 desktop-only">
+        <img src="https://cdn.shopify.com/s/files/1/1489/5902/files/E1D_7916.jpg?v=1680703263" class="img-fluid">
+      </div> 
+      {% elsif for_ten8 and for_longsleeve %}
+      <div class="col-sm-12 col-md-4 col-lg-4" >
+        <img src="https://cdn.shopify.com/s/files/1/1489/5902/files/E1D_7495.jpg?v=1680702704" class="img-fluid">
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4 desktop-only">
+        <img src="https://cdn.shopify.com/s/files/1/1489/5902/files/E1D_7544.jpg?v=1680702704" class="img-fluid">
+      </div> 
+      {% elsif for_polo %}
+      <div class="col-sm-12 col-md-4 col-lg-4" >
+        <img src="https://cdn.shopify.com/s/files/1/1489/5902/files/E1D_7987_Police_reflective_2.jpg?v=1680712361" class="img-fluid">
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4 desktop-only">
+        <img src="https://cdn.shopify.com/s/files/1/1489/5902/files/E1D_7998_Police_reflective_1.jpg?v=1680712361" class="img-fluid">
+      </div> 
+      {% elsif for_ten8 %}
+      <div class="col-sm-12 col-md-4 col-lg-4" >
+        <img src="https://cdn.shopify.com/s/files/1/1489/5902/files/E1D_8460_1.jpg?v=1680702382" class="img-fluid">
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4 desktop-only">
+        <img src="https://cdn.shopify.com/s/files/1/1489/5902/files/Untitled_design_3_2.jpg?v=1680702382" class="img-fluid">
+      </div> 
+      {% elsif for_ten7 %}
+      <div class="col-sm-12 col-md-4 col-lg-4" >
+        <img src="https://cdn.shopify.com/s/files/1/1489/5902/files/E1D_8743.jpg?v=1680703506" class="img-fluid">
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4 desktop-only">
+        <img src="https://cdn.shopify.com/s/files/1/1489/5902/files/E1D_8726_1.jpg?v=1680703506" class="img-fluid">
+      </div> 
+      {% else %}
+      <div class="col-sm-12 col-md-4 col-lg-4" >
+        <img src="https://cdn.shopify.com/s/files/1/1489/5902/files/MOBILE_CUSTOM_GEAR.jpg?v=1679086984" class="img-fluid">
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4 desktop-only">
+        <img src="https://cdn.shopify.com/s/files/1/1489/5902/files/MOBILE_60_LONG_SLEEVEV2-mobile.png?v=1679072065" class="img-fluid">
+      </div> 
+      {% endif %}
+    </div>
+  </div>
+  <!-- end: JM heading and caption with two images -->  
+{% endunless %}

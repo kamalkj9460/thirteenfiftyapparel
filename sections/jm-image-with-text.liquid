@@ -1,0 +1,118 @@
+{{ 'jm-image-with-text.css' | asset_url | stylesheet_tag }}
+
+<div id="cb-item-{{section.id}}">
+  <div id="image-with-text-container" style="background-color: {{ section.settings.bg_color }}">
+    <div class="cb-item--image">
+      {%- if section.settings.right_to_left -%}
+      <div class="column-2 d-flex flex-column align-items-center p-1 caption-container" style="width: {{ section.settings.caption_width }}%">
+        <p class="image-with-text-caption" style="text-align: {{ section.settings.text_pos }};font-size:{{ section.settings.text_size }}px;">
+          {{ section.settings.image_caption }}
+        </p>
+      </div>
+      <div class="column-1 d-flex flex-column align-items-center p-1 image-container" style="width: {{ section.settings.image_width }}%">
+        {%- assign img_url = section.settings.image | img_url: 'master' -%}
+        <img src="{{img_url}}" class="image-with-text-img">
+      </div>
+      {%- else -%}
+      <div class="column-1 d-flex flex-column align-items-center p-1 image-container" style="width: {{ section.settings.image_width }}%">
+        {%- assign img_url = section.settings.image | img_url: 'master' -%}
+        <img src="{{img_url}}" class="image-with-text-img">
+      </div>
+      <div class="column-2 d-flex flex-column align-items-center p-1 caption-container" style="width: {{ section.settings.caption_width }}%">
+        <p class="image-with-text-caption" style="text-align:{{ section.settings.text_pos }};font-size:{{ section.settings.text_size }}px;">
+          {{ section.settings.image_caption }}
+        </p>
+      </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image with Text",
+  "settings": [
+		{
+                    "type": "header",
+                    "content": "General"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "right_to_left",
+                    "label": "Enable RTL",
+                    "default": false
+                },
+                {
+                    "type": "color",
+                    "id": "bg_color",
+                    "label": "Background color"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Your image"
+                },
+                {
+                    "type": "range",
+                    "id": "image_width",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "label": "Width",
+                    "default": 35
+                },
+                {
+                    "type": "textarea",
+                    "id": "image_caption",
+                    "label": "Caption",
+                    "default": "Enter your text here.."
+  				},
+                {
+                    "type": "select",
+                    "id": "text_pos",
+                    "label": "Text align",
+                    "options": [
+                        {
+                            "value": "left",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "right",
+                            "label": "Right"
+                        }
+                    ],
+                    "default": "left"
+                },
+                {
+                    "type": "range",
+                    "id": "text_size",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "px",
+                    "label": "Font size",
+                    "default": 21
+                },
+                {
+                    "type": "range",
+                    "id": "caption_width",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "label": "Width",
+                    "default": 65
+                }
+  		],
+  "presets": [
+    {
+      "name": "Image with Text"
+    }
+  ]
+}
+{% endschema %}

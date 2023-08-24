@@ -1,0 +1,123 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign featured_image = current_variant.featured_media.preview_image | default:product.featured_media.preview_image -%}
+{%- assign _dim = '500x' -%}
+{%-assign _onepone = ' lazyload" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-'-%}
+<div class="product-pull-up product product-content-wrapper clearfix product-hover product-item-advanced-wrapper quickshop-type-advanced-wrapper position-relative dots{% if settings.product_countdown_show and product.metafields.info.countdown != blank %} has-countdown{% endif %}" sa-swatch-root="true">
+ {% render 'starapps-product-json', product: product %}
+  <span class="product-item__shadow"></span>
+  <div class="product-item__top">
+    <div class="jm-tag-badges--wrapper">
+    {% for t in product.tags %}
+     {% if t == 'NEW RELEASE' %}
+       <span class="jm-fire-badge jm-new-badge"><img src="https://cdn.shopify.com/s/files/1/1489/5902/files/new-release-flame-icon-orange-2_b66adb43-a54b-4d34-add4-3e210ee0c0a3.png?v=1675282923" height="18"><span class="ml-2">NEW</span></span>
+     {% elsif t == 'BEST SELLER' %}
+       <span class="jm-tag-badges jm-best-badge">BEST SELLER</span>
+     {% elsif t == 'GIFT WORTHY' %}
+<!--        <span class="jm-tag-badges jm-gift-badge">GIFT WORTHY</span> -->
+     {% elsif t == 'FINAL SALE' %}
+       <span class="jm-tag-badges jm-sale-badge">FINAL SALE</span>
+     {% elsif t == 'SALE' %}
+       <span class="jm-tag-badges jm-sale-badge">ON SALE</span>
+    {% elsif t == 'PRE SALE' %}
+       <span class="jm-tag-badges jm-sale-badge">PRE SALE</span>
+     {% endif %}
+    {% endfor %}
+    </div>
+    {% render 'shappify-sales-icon-product', product: product %}
+
+    {%- include 'product-item-images', my_layout: 'grid' -%}
+    {%- if product.images.size > 1 -%}{%- include 'item-images' -%}{%- endif -%}
+    {%- if settings.product_countdown_show -%}{%- include 'limited-offer' -%}{%- endif -%}
+    <div class="product__item-hover d-flex flex-wrap flex-row flex-md-column">
+
+      {%- render 'shappify-bdl-load-bundle' -%}
+
+    </div>
+  </div> 
+  <div class="product-item-content d-flex flex-column align-items-start justify-content-start v_{{ current_variant.id }}">
+    <div class="name">
+      <a href="{{product.url | within: collection}}">
+        {% assign break_first = product.title | replace_first: "] ", "|" %}
+        {% assign product_names = break_first | split: "|" %}
+        {% if product_names.size > 1 %}
+          {% for name in product_names %}
+            <span>{{ name | split: " [" | first }}{% if forloop.index == 1 %}]{% endif %}</span>
+          {% endfor %}
+        {% else  %}
+          {{ product.title | split: " [" | first }}
+        {% endif %}
+        {% assign break_color = break_first | split: " [" %}
+        {% if break_color.size > 1 %}
+          <span class="pname-color">[{{ break_color.last }}</span>
+        {% endif %}
+      </a>
+      
+      {%-render "review-item-stars", product: product-%}
+      
+      {% for t in product.tags %}
+       {% if t contains 'BOGO' %}
+         <span class="jm-bogo-badge">BOGO</span>
+       {% endif %}
+      {% endfor %}
+      {% for t in product.tags %}
+       {% if t contains 'TEN 8 COLLECTION' %}     
+        <img class="activethreads-tag" src="https://cdn.shopify.com/s/files/1/1489/5902/files/activve_threads_logo.png?v=1642618171" width="140">
+       {% endif %}
+      {% endfor %}
+    </div>
+      {% comment %}
+      {% if product.available and product.variants.size > 1 %}
+      {% include 'swatch' with 'Color' %}
+      {% endif %}
+      {% endcomment %}
+      {%- include "product-options-item" -%}
+      
+      
+  </div>
+  
+  {% comment %}<div class="order-receive-by">ORDER BY 3PM EST 12/14 TO RECEIVE BY 12/25</div>{% endcomment %}
+  <div id="jm-collection-button" class="{%- unless product.available -%}jm-button-disable{% endunless %}">
+    <form id="jm-button-block" class="d-flex mt-md-2" action="/cart/add" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="quantity" value="1" />
+      <button type="submit" id="btn-cart-{{ product.id }}" class="btn btn-action addtocart-item-js add-to-cart" data-loading-text="{{'products.product.loading' | t | escape}}" title="{{'products.product.add_to_cart' | t | escape}}" {% unless product.available %}disabled{% endunless %}>
+      {% if product.available %}<!--<i class="d-none d-md-inline-block fa fa-plus"></i>-->{% endif %}
+      {% comment %}<svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#global__symbols--cart-desktop"></use></svg> {% endcomment %}
+      <span>{%- if product.available -%}{{'products.product.add_to_cart' | t | escape}}{%- else -%}{{'products.product.sold_out' | t}}{%- endif -%}</span>
+      </button>
+      <select name="id" class="ProductItemSelect-{{ product.id }} variation-select no-js hide">
+        {%- for variant in product.variants -%}
+        {%- if variant.available -%}
+        <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">
+          {{- variant.title -}}
+        </option>
+        {%- else -%}
+        <option disabled="disabled">{{ variant.title }} - {{ 'products.product.sold_out' | t | escape }}</option>
+        {%- endif -%}
+        {%- endfor -%}
+      </select>
+      
+      {% if current_variant.compare_at_price > current_variant.price %}
+        <span class="price-old money"  style="cursor: pointer;" onclick="document.getElementById('btn-cart-{{ product.id }}').click();">
+          {{current_variant.compare_at_price | money}}
+        </span>
+      {% endif %}
+    </form>
+    <div class="price d-flex flex-row-reverse{% if current_variant.compare_at_price > current_variant.price %} red{% endif %}" 
+      {% if has_badge %} style="display:inline-block !important;" {% endif %} data-price="{{-current_variant.price-}}"
+       style="cursor: pointer;" onclick="document.getElementById('btn-cart-{{ product.id }}').click();">
+      {%- if product.available -%}
+      
+      <span class="price-new money mr-2"><span class="money" data-product-id="{{ product.id }}">{{current_variant.price | money}}</span></span>
+      {%- else -%}
+      <span class="price-new money"><span class="money" data-product-id="{{ product.id }}">{{current_variant.price | money}}</span></span>
+      {%- endif -%}
+    </div>
+  </div>
+  <div class="short-description d-none py-5 pl-5">{{ product.description | strip_html | truncatewords: 50}}</div>
+
+  {%- unless product == empty -%}
+  <script type="application/json" class="ProductItemJson">
+    {% include 'bold-product', output: 'json' %}
+  </script>
+  {%- endunless -%}
+</div>

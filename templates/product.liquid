@@ -1,0 +1,98 @@
+{% capture redirectScript %}{% render 'bsscommerce-redirect-product-page-logic', product: product, collection: collection %}{% endcapture %}{% assign redirectScript = redirectScript | strip %}{% unless redirectScript contains "Liquid error" %}{% if redirectScript != "" %}<script id="bss-redirect" type="text/javascript">window.location.replace("{{ redirectScript }}")</script>{% endif %}{% endunless %}{%- if product.metafields.inventory.ShappifyHidden == 'true' -%}{%- break -%}{%- endif -%}
+{% include 'bold-product' with product, hide_action: 'break' %}{% if bold_hidden_product %}{% break %}{%endif %}
+<div class="container px-2 py-4">
+  {%- section "product-template" -%}
+</div>
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% comment %}
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/", 
+ {{ product.metafields.alireviews.seo_rating_review_key_script }}
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "url": {{ shop.url | append: product.url | json }},
+  {%- if product.featured_media -%}
+    {%- assign media_size = product.featured_media.preview_image.width | append: 'x' -%}
+    "image": [
+      {{ product.featured_media | img_url: media_size | prepend: "https:" | json }}
+    ],
+  {%- endif -%}
+  "description": {{ product.description | strip_html | json }},
+  {%- if current_variant.sku != blank -%}
+    "sku": {{ current_variant.sku | json }},
+  {%- endif -%}
+  "brand": {
+    "@type": "Thing",
+    "name": {{ product.vendor | json }}
+  },
+  "offers": [
+    {%- for variant in product.variants -%}
+      {
+        "@type" : "Offer",
+        {%- if variant.sku != blank -%}
+          "sku": {{ variant.sku | json }},
+        {%- endif -%}
+        "availability" : "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+        "price" : {{ variant.price | divided_by: 100.00 | json }},
+        "priceCurrency" : {{ cart.currency.iso_code | json }},
+        "url" : {{ shop.url | append: variant.url | json }}
+      }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
+</script>
+{% endcomment %}
+
+<div itemscope itemtype="http://schema.org/Product">
+	<meta itemprop="name" content="{{product.title}}" />
+	<meta itemprop="description" content="{{product.description | strip_html | truncatewords: 50}}" />
+	<meta itemprop="sku" content="{{ product.selected_or_first_available_variant.sku }}" />
+	<meta itemprop="url" content="{{ shop.secure_url }}{{ product.url }}">
+	<meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+	<meta itemprop="brand" content="{{ product.vendor }}" />
+	<meta itemprop="mpn" content="{{ product.selected_or_first_available_variant.sku }}" />
+	{% assign gtin_num = product.selected_or_first_available_variant.barcode | size %}
+	{% if gtin_num == 12 or gtin_num == 13 or gtin_num == 14  %}
+		<meta itemprop="gtin{{gtin_num}}" content="{{ product.selected_or_first_available_variant.barcode }}" />
+	{% endif %} 
+
+	<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+		<meta itemprop="priceCurrency" content="{{ shop.currency }}" />
+        <meta itemprop="price" content="{{product.selected_or_first_available_variant.price|money_without_currency | remove: ','}}" />
+		<meta itemprop="priceValidUntil" content="{{ "today" | date: '%s' | plus: 3650000 | date: "%Y-%m-%d" }}">
+    	<meta itemprop="availability" content="http://schema.org/{% if product.selected_or_first_available_variant.available %}InStock{% else %}OutOfStock{% endif %}"/>
+        <meta itemprop="itemCondition" itemtype="http://schema.org/OfferItemCondition" content="http://schema.org/NewCondition"/>
+   		<meta itemprop="seller" content="{{ shop.name | escape }}" />
+        <meta itemprop="url" content="{{ shop.secure_url }}{{ product.selected_or_first_available_variant.url }}">
+	</div> 
+</div>
+
+<div class="yotpo yotpo-main-widget" data-product-id="{{ product.id }}" data-name="{{ product.title | escape }}" data-url="{{ shop.url }}{{ product.url }}" data-image-url="{{ product.featured_image | product_img_url: 'large' |replace: '?', '%3F' | replace: '&amp;','%26'}}" data-description="{{ product.description | escape }}" data-price="{{ variant.price | money_without_currency }}" data-currency="{{ shop.currency }}"></div>
+
+<script type="text/javascript">
+  var _learnq = _learnq || [];
+  var item = {
+    Name: {{ product.title|json }},
+    ProductID: {{ product.id|json }},
+    Categories: {{ product.collections|map:'title'|json }},
+    ImageURL: "https:{{ product.featured_image.src|img_url:'grande' }}",
+    URL: "{{ shop.secure_url }}{{ product.url }}",
+    Brand: {{ product.vendor|json }},
+    Price: {{ product.price|money|json }},
+    CompareAtPrice: {{ product.compare_at_price_max|money|json }}
+  };
+  _learnq.push(['track', 'Viewed Product', item]);
+  _learnq.push(['trackViewedItem', {
+    Title: item.Name,
+    ItemId: item.ProductID,
+    Categories: item.Categories,
+    ImageUrl: item.ImageURL,
+    Url: item.URL,
+    Metadata: {
+      Brand: item.Brand,
+      Price: item.Price,
+      CompareAtPrice: item.CompareAtPrice
+    }
+  }]);
+</script>

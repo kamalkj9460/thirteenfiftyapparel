@@ -1,0 +1,151 @@
+<div class="col-sm-{{product_center_grid}} product-center product clearfix">
+  <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    <link itemprop="url" href="{{ shop.url }}{{ product.url }}" />
+    <meta itemprop="availability" content="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}" />
+    <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
+    <meta itemprop="price" content="{{ product.price | divided_by: 100.00 }}" />
+    {% if settings.product_info_brand %}
+    <div class="vendor">{{product.vendor | link_to_vendor}}</div>
+    {% endif %}
+    <h2 class="name {% if settings.reviews_enable == "" %}no-review{% endif %}">{{product.title}}</h2>
+    <div class="review">
+      {%- if settings.reviews_enable != "" -%}
+      {%-include "review-stars"-%}
+      {%- endif -%}
+    </div>
+    {%- comment -%}  INFO AND STOCK  {%- endcomment -%}
+    {% if settings.product_info_sku or settings.product_info_status %}
+    <div class="description {%- if settings.product_info_status == false and settings.product_info_brand == false and settings.product_info_sku == false -%}{{- " hide" -}}{%- endif -%}">
+      <p id="product_sku" class="d-flex justify-content-start align-items-center flex-wrap variant-sku sku_wrapper{%- if current_variant.sku == blank or settings.product_info_sku == false-%}{{- " hide" -}}{%- endif -%}">
+		<span>{{'products.product.sku' | t}}</span> 
+        <span class="sku" itemprop="sku">{{ current_variant.sku }}</span>
+      </p>
+      <p class="d-flex justify-content-start align-items-center flex-wrap  variation-availability{%- if settings.product_info_status == false -%}{{- " hide" -}}{%- endif -%}">
+        <span>{{- 'products.product.stock' | t}}</span>
+        {%- if current_variant -%}
+        {%- if current_variant.available -%}
+        {%- if current_variant.inventory_management == "shopify" and current_variant.inventory_policy != "continue" -%}
+        {%- if current_variant.inventory_quantity > 0 -%}
+        <span class="stock stock-{{ section.id }} in-stock">{%- if settings.product_inventory == '1' -%}{{- current_variant.inventory_quantity  -}}{{- " " -}}{%- endif -%}{{ 'products.product.in_stock' | t | escape }}</span>
+        {%- else -%}
+        <span class="stock stock-{{ section.id }} out-of-stock">{{ 'products.product.out_of_stock' | t | escape }}</span>
+        {%- endif -%}
+        {%- else -%}
+        <span class="stock stock-{{ section.id }} in-stock">{{ 'products.product.in_stock' | t | escape }}</span>
+        {%- endif -%}
+        {%- else -%}
+        <span class="stock stock-{{ section.id }} out-of-stock">{{ 'products.product.out_of_stock' | t | escape }}</span>
+        {%- endif -%}
+        {%- else -%}
+        <span class="stock stock-{{ section.id }} out-of-stock">{{ 'products.product.unavailable' | t | escape }}</span>
+        {%- endif -%}
+      </p>
+    </div>
+    {% endif %}
+    {%- comment -%} PRICE {%- endcomment -%}
+    <div class="countdown-wrapper clearfix">
+      {%- include 'limited-offer' -%}
+    </div>
+    <div class="product-focus">
+      {% include 'product-detail-price', variant: current_variant, product: product %}
+      {% include "product-stock-countdown" %}
+      {%- comment -%} SHORT DESCRIPTION {%- endcomment -%}
+      {%- if instructions.short_description != blank -%}
+      <div class="short-description">{{- instructions.short_description  -}}</div>
+      {%- endif -%}
+      {%- comment -%} QUANTITY AND ADD TO CART {%- endcomment -%}
+      <div id="product">
+        {%- if product.available -%}
+        {%- form 'product', product, id: "product-form", class: "product-form variations_form cart", data-product-id: product.id -%}
+        <div class="options{% if product.variants.size <= 1 %} none{% endif %}{%- if instructions.external_link != blank and instructions.external_btn != blank -%}{{- " hide" -}}{%- endif -%}">
+            {%- include "product-options" -%}
+        </div>
+        {% include "product-info-links" %}
+        <div class="cart">
+          <div class="add_to_cart clearfix ">
+            <div class="variations_button {%- unless current_variant -%}{{" hide"}}{%- endunless -%}{%- if instructions.external_link != blank and instructions.external_btn != blank -%}{{- " hide" -}}{%- endif -%}">
+              <div class="add-cart-wrapper d-flex justify-content-start align-items-center flex-wrap">
+                <div class="quantity-wrapper">
+                  <div class="quantity quantity d-flex align-items-center justify-content-start">
+                    <input type="text" name="quantity" class="quantity-cart-{{product.id}}" id="quantity_wanted" size="2" value="1" />
+                    <a href="javascript:void(0);" class="q_up" data-product_id="{{product.id}}" id="q_up"><i class="fa fa-plus"></i></a>
+                    <a href="javascript:void(0);" class="q_down" data-product_id="{{product.id}}" id="q_down"><i class="fa fa-minus"></i></a>
+                  </div>
+                </div>
+                <input type="submit" value="{%- unless current_variant.available -%}{{- 'products.product.sold_out' | t | escape -}}{%- else -%}{{- 'products.product.add_to_cart' | t | escape-}}{%- endunless -%}"
+                       id="AddToCart-{{ section.id }}"
+                       class="button button-cart not-empty add-to-cart{%- unless current_variant -%}{{- " hide" -}}{%- endunless -%}" 
+                       {%- unless current_variant.available -%}{{- " " -}}disabled="disabled"{{- " " -}}{%- endunless -%} 
+                       data-loading-text="{{'products.product.loading' | t | escape}}"
+                       data-addtocart="{{'products.product.add_to_cart' | t | escape}}" 
+                       data-unavailable="{{'products.product.unavailable' | t | escape}}"
+                       data-soldout="{{'products.product.sold_out' | t | escape}}" />
+              </div>
+              {%- if settings.product_question -%}
+              <a href="javascript:void(0);" class="button-product-question"><i class="fa fa-envelope"></i>{{'products.product.ask_about_this_product' | t}}</a>
+              {%- endif -%}
+              {%- if settings.dynamic_checkout -%}
+              {%- if settings.cart_terms_enable -%}
+              {%- assign terms_conditions_url = '#' -%}
+
+              {%- if settings.cart_terms_page != blank -%}
+              {%- assign terms_conditions_url = '/pages/' | append: settings.cart_terms_page -%}
+              {%- endif -%}
+              <div class="product-cart__condition pt-3">
+                <label class="custom-checkbox" for="product-cart__agree-{{ section.id }}">
+                  <input type="checkbox" id="product-cart__agree-{{ section.id }}" data-message="{{ 'cart.general.terms_conditions_message' | t | escape }}" />                  
+                  <span class="checkmark"></span>
+                  {{ 'cart.general.terms_conditions_html' | t : terms_conditions_url: "/policies/terms-of-service" ,  privacy_policy_url: "/policies/privacy-policy" }}
+                </label>
+              </div>
+              {%- endif -%}
+              <div class="dynamic-payment-button" id="product-buy__1click-{{ section.id }}">
+                {{- form | payment_button -}}
+              </div>
+              {%- endif -%}
+            </div>
+            {%- if instructions.external_link != blank and instructions.external_btn != blank -%}
+            {%- include 'product-external-btn' -%}
+            {%- endif -%}
+          </div>
+        </div>
+        {%- endform -%}
+        {%- else -%}
+        <div class="cart">
+          <div class="add_to_cart clearfix">
+            {%- if instructions.external_link != blank and instructions.external_btn != blank -%}
+            <div class="hide">
+              {%- endif -%}
+              <div class="add-cart-wrapper">
+                <input type="button" value="{{'products.product.sold_out' | t | escape}}" id="button-cart" data-loading-text="{{'products.product.loading' | t | escape}}" class="button button-cart button-cart-sold-out" disabled/>
+              </div>
+              {%- if instructions.external_link != blank and instructions.external_btn != blank -%}
+            </div>
+            {%- include 'product-external-btn' -%}
+            {%- endif -%}
+            <div class="clearfix"></div>
+            {%- if settings.product_question -%}
+            <a href="javascript:void(0);" class="button-product-question"><i class="fa fa-envelope" style="margin-right: 5px;"></i>{{'products.product.ask_about_this_product' | t}}</a>
+            {%- endif -%}
+          </div>
+        </div>
+        {%- endif -%}
+
+        {%- comment -%} WISHLIT COMPARE QUESTIONS SIZECHART{%- endcomment -%} 
+        {% include "product-actions" %}
+      </div>
+    </div>
+    {%- if instructions.trust_sale_img != blank -%}
+    <div class="trust-sale-img">
+      <img src="{{- instructions.trust_sale_img | file_img_url : "master" -}}">
+    </div>
+    {%- endif -%}
+
+    {%- if settings.product_social_share and settings.product_design != "compact2" -%}
+    <div class="share">
+      {%- include "add-this" -%}
+    </div>
+    {%- endif -%}
+    {%- include 'product-question' -%}
+  </div>
+</div>

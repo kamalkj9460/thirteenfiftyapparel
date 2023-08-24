@@ -1,0 +1,75 @@
+{%- if section.blocks.size > 0 -%}
+    <div id="custom-widget-{{section.id}}" class="custom-widget-wrapper{% if section.settings.visible_on_mobile == false %} d-none d-sm-block{% endif%}{% if section.settings.has_container %} container p-0{% endif %}" data-section-id="{{ section.id }}" data-section-type="custom-widget">
+        {%- for block in section.blocks -%}
+            <div class="custom-widget" {{ block.shopify_attributes }}>
+                {%- if block.type == 'custom_html' -%}
+                    {{block.settings.html_content}}
+                {%- else -%}
+                    {% include 'shortcode' load: pages[block.settings.page_content].content %}
+                {%- endif -%}
+            </div>
+        {%- endfor -%}
+    </div>
+{%- endif -%}
+{% schema %}
+
+{
+    "name": "Custom Widget",
+    "class": "index-section section-wrapper",
+    "max_blocks": 12,
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "has_container",
+            "label": "Within Container",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "visible_on_mobile",
+            "label": "Display on Mobile",
+            "default": true
+        }
+    ],
+    "blocks": [
+        {
+            "type": "custom_html",
+            "name": "Custom HTML",
+            "settings": [
+                {
+                    "type": "textarea",
+                    "id": "html_content",
+                    "label": "HTML Content",
+                    "info": "[How to use?](https:\/\/youtu.be\/s7s8hWXVxGE)"
+                }
+            ]
+        },
+        {
+            "type": "content_page",
+            "name": "Page Content",
+            "settings": [
+                {
+                    "type": "page",
+                    "id": "page_content",
+                    "label": "Choose a Page"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Custom HTML",
+            "category": "5. Others",
+            "blocks": [
+                {
+                    "type": "custom_html",
+                    "settings": {
+                        "html_content": "<div style='text-align: center;'><h1>Put your HTML here</h1></div>"
+                    }
+                }
+            ]
+        }
+    ]
+}
+
+{% endschema %}

@@ -1,0 +1,91 @@
+
+<li class="mobile-nav__item mobile-nav__item_custom">
+  <div class="custom-mobilemenu-wrapper">
+    <div class="custom-mobilemenu-header">
+      {%- for block in section.blocks -%}
+        {% if block.settings.menu_heading_1 != blank and block.settings.linklist != blank %}
+        <a href="javascript:void(0);" class="custom-mobilemenu-heading {% if forloop.index == 1 %}active{% endif %}" data-id="mobile-menu-{{ forloop.index }}">{{ block.settings.menu_heading_1 }}</a>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="custom-mobilemenu-content">
+      {%- for block in section.blocks -%}
+      	<style>
+          .custom-mobilemenu.mobile-menu-{{ forloop.index }} .mobile-menu-block-heading {
+            background-color: {{ block.settings.linklist_color_bg }};
+            border-bottom: 1px solid {{ block.settings.linklist_color_mainborder }} !important;
+          }
+          .custom-mobilemenu.mobile-menu-{{ forloop.index }} .mobile-nav-sub .mobile-nav__item:last-child, 
+          .custom-mobilemenu.mobile-menu-{{ forloop.index }} .mobile-nav-sub li {
+            border-bottom: 1px solid {{ block.settings.linklist_color_subborder }} !important;
+          }
+          .custom-mobilemenu.mobile-menu-{{ forloop.index }} .mobile-menu-block-heading > a,
+          .custom-mobilemenu.mobile-menu-{{ forloop.index }} .mobile-menu-block-heading span {
+            color: {{ block.settings.linklist_color_text }} !important;
+          }
+          .custom-mobilemenu.mobile-menu-{{ forloop.index }} .mobile-nav-sub li a {
+            color: {{ block.settings.linklist_color_subtext }} !important;
+          }
+          .custom-mobilemenu.mobile-menu-{{ forloop.index }} .mobile-nav-sub li .mobile-child-menu:after {
+            border-top: 1px double {{ block.settings.linklist_color_subtext }};
+            border-right: 1px double {{ block.settings.linklist_color_subtext }};
+          }
+          .custom-mobilemenu.mobile-menu-{{ forloop.index }} .custom-mobilemenu-list-bullets {
+            background-color: {{ block.settings.linklist_color_subtext }};
+          }
+      	</style>
+        {% if block.settings.linklist != blank %}
+        <div class="custom-mobilemenu mobile-menu-{{ forloop.index }} {% if forloop.index != 1 %}hide{% endif %}">
+          {% if block.settings.image_banner != blank %}
+          <div class="custom-mobilemenu-banner bgimage-center-no-repeat" style="background-image:url('{{ block.settings.image_banner | img_url: "600x"}}')">
+            <div class="custom-mobilemenu-banner-content">
+              <div class="custom-mobilemenu-banner-caption">{{ block.settings.menu_banner_caption }}</div>
+              <a href="{{ block.settings.menu_banner_url }}" class="custom-mobilemenu-banner-button"><span>{{ block.settings.menu_banner_button }}</span></a>
+            </div>
+            <div class="custom-mobilemenu-overlay"></div>
+          </div>
+          {% endif %}
+          {%- for link in linklists[block.settings.linklist].links -%}
+          <div class="mobile-menu-block-heading mobile-nav__item py-3{% if link.links.size > 0 %} menu-item-has-children{% endif %}{% if block.settings.linklist_no_padding == true %} no-padding{% endif %}">
+            <a href="{{ link.url }}" class="mobile-nav__link">
+              {% assign link_title = link.title | upcase %}
+              <span>{{ link_title }}</span>
+            </a>
+            {% if link.links.size > 0 %}
+            <ul class="mobile-menu-block-content">
+              {% for _link in link.links %} 
+              <li class="mobile-menu-link mobile-nav__item py-3">
+                <a href="{{ _link.url }}" class="mobile-nav__link">
+                  <span class="custom-mobilemenu-list-bullets"></span>
+                  {{ _link.title }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+          {%- endfor -%}
+          {% if block.settings.image_1 != blank or block.settings.image_2 != blank  %}
+          <div class="custom-mobile-images-wrapper">
+            <div class="custom-mobile-images-arrow"><span></span></div>
+            {% if block.settings.image_heading1 != blank  %}<div class="mobile-menu-block-heading">{{ block.settings.image_heading1 }}</div>{% endif %}
+            <div class="custom-mobile-images">
+              {% for i in (1..3) %}
+              {% assign s_image = "image_" | append: i %}
+              {% assign s_image_text = "image_text_" | append: i %}
+              {% assign s_image_url = "image_url_" | append: i %}
+                <a class="custom-mobile-image" href="{{block.settings[s_image_url]}}">
+                  <div class="image-text">{{block.settings[s_image_text]}}</div>
+                  <div class="image-bg" style="background-image:url({{block.settings[s_image] | img_url: "master"}})"></div>
+                  <div class="custom-mobilemenu-overlay"></div>
+                </a>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</li>

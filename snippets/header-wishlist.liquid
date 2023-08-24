@@ -1,0 +1,17 @@
+<a href="{{pages[settings.wishlist_page].url | default: '#'}}" class="block-{{block.id}} my-wishlist header-icon mx-1 d-flex justify-content-center align-items-center {% if block.settings.icon_type == 'rounded_border' %}with-border is-rounded{% else %}h-auto flex-column w-auto{% endif %}">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" ><path fill="currentColor" d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z" class=""></path></svg>
+{%- if block.settings.icon_type == 'with_text' -%}
+<span class="h6 pt-2 text--inactive">{{ 'general.top.wishlist' | t | upcase }}</span>
+{%- endif -%}
+</a>
+{%- capture style_sheet_block -%}
+{%- if block.settings.icon_color != blank and block.settings.icon_color != 'rgba(0,0,0,0)' -%}
+.block-{{block.id}}.my-wishlist{
+  color:{{block.settings.icon_color}};
+}
+.block-{{block.id}}.my-wishlist:hover {
+  color:{{block.settings.icon_color | color_darken: 30 }};
+}
+{%- endif -%}
+{%- endcapture -%}
+{% assign style_sheet = style_sheet| append: style_sheet_block %}

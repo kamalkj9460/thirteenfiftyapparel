@@ -1,0 +1,346 @@
+{%- if section.settings.hn_use -%}
+{%- assign glass_layer = 'has-opacity-layer--dark' -%}
+{%- if section.settings.bright_glass == true -%}
+{%- assign glass_layer = 'has-opacity-layer--bright' -%}
+{%- endif -%}
+<div id="{{section.id}}" data-hn_use="{% if section.settings.hn_use %}1{% endif %}" data-hn_once="" data-section-id="{{ section.id }}" data-section-type="header-notice" style="--height-hn:52px;{%-if section.settings.color != blank and section.settings.color != 'rgba(0,0,0,0)'-%}--color:{{section.settings.color}};{%-endif-%};--font-size:{{section.settings.font_size}}px;--font-weight:{{section.settings.font_weight}}">
+        <div class="header-notice position-relative lazyload {% if section.settings.hn_mobile == true %}d-flex{% else %}d-lg-flex d-none{% endif %} justify-content-between" {% if section.settings.bcolor != blank and section.settings.bcolor != 'rgba(0,0,0,0)' %} style="background-color:{{section.settings.bcolor}}" {% endif %} {% if section.settings.hn_bi != blank %} data-bg="{{section.settings.hn_bi | img_url: 'master'}}" {%-endif-%}>
+            <div class="hn--socials d-lg-flex d-none" style="--border-color:#ffffff33">
+                {%- assign socials = 'instagram,tiktok,facebook,linkedin,youtube,twitter,vimeo' | split: ',' -%}
+                {%- for social_name in socials -%}
+                {%- if section.settings[social_name] == true -%}
+                {%- assign social_url_setting = 'social_icon_' | append: social_name -%}
+                <a class="d-flex justify-content-center {{glass_layer}} custom-border-color border-right" href="{{settings[social_url_setting] | default: '#'}}">
+                  	{% if social_name == "instagram" %}
+                  		<i class="fa fa-instagram"></i>
+                    {% elsif social_name == "tiktok" %}
+                      <svg xmlns="http://www.w3.org/2000/svg" class="custom-color" viewBox="0 0 448 512">
+                        <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
+                      </svg>
+                  	{% else %}
+                    <svg class="custom-color">
+                        <use xlink:href="#global__symbols--social-{{social_name}}" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+                    </svg>
+                  	{% endif %}
+                </a>
+                {%- endif -%}
+                {%- endfor -%}
+            </div>
+            <div class="hn--wrapper d-flex flex-wrap justify-content-center align-items-center {{glass_layer}}">
+                {%- for block in section.blocks -%}
+
+                    {%- if block.settings.hide_mobile -%}
+                    {%- assign master_class = 'd-none d-md-flex' -%}
+                    {%- else -%}
+                    {%- assign master_class = 'd-flex' -%}
+                    {%- endif %}
+                    {%- assign master_css = '' -%}
+                    {%- assign default_y_padding_class = 'p-2' -%}
+                    {%- assign default_align_class = 'align-items-center' -%}
+                    {%- assign prev_block_type = '' -%}
+                    {%- assign prev_block_is_right_aligned = false -%}
+
+                    {%- if block.settings.auto_width == false -%}
+                        {%- assign master_class = master_class | append: ' col-p' -%}
+                        {%- assign master_css = '--pcol:' | append: block.settings.width | append: '%' -%}
+                    {%- endif -%}
+
+                    {%- if block.settings.align_right -%}
+                        {%- if prev_block_is_right_aligned == false -%}
+                            {%- assign prev_block_is_right_aligned = true -%}
+                            {%- assign master_class = master_class | append: ' flex-child-align--right' -%}
+                        {%- else -%}
+                            {%- assign prev_block_is_right_aligned = false -%}
+                        {%- endif -%}
+                    {%- endif -%}
+
+                    {%- assign prev_block_type = block.type -%}
+                    {%- assign prev_block_is_right_aligned = block.settings.align_right -%}
+
+                    {%- case block.type -%}
+                    {%- when 'custom_text' -%}
+                    <div style="{{master_css}}" class="{{master_class}} {{default_y_padding_class}} {{default_align_class}} custom-color no-margin--p custom-font-size custom-font-weight" {{ block.shopify_attributes }}>
+                        {{block.settings.rich_text}}
+                    </div>
+
+                    {%- when 'button' -%}
+                    {%- assign button_class = 'btn-classic' -%}
+                    {%- if block.settings.button_type == 'modern' -%}
+                    {%- assign button_class = 'btn-modern' -%}
+                    {%- endif -%}
+                    <div style="{{master_css}}" class="{{master_class}} {{default_y_padding_class}} {{default_align_class}} custom-color no-margin--p custom-font-size custom-font-weight" {{ block.shopify_attributes }}>
+                      <a class="{{button_class}}" href="{{block.settings.url}}">{{block.settings.text}}</a>
+                    </div>
+                    {%- endcase -%}
+                {%- endfor -%}
+            </div>
+            <div class="d-flex {{glass_layer}} flex-child-align--right">
+                <a class="hn--close d-flex justify-content-center align-items-center" href="#">
+                    <svg class="custom-color">
+                        <use xlink:href="#global__symbols--cancel-button" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+{%- endif -%}
+
+{% schema %}
+
+{
+    "name": "Header Notice",
+    "class": "index-section section-wrapper",
+    "settings": [
+        {
+            "type": "header",
+            "content": "General"
+        },
+        {
+          "type": "checkbox",
+          "id": "hn_use",
+          "label": "Enabled",
+          "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "hn_mobile",
+            "label": "Show on Mobile"
+        },
+        {
+          "type": "header",
+          "content": "Social icons"
+        },
+        {
+          "type": "checkbox",
+          "id": "instagram",
+          "label": "Instagram",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "twitter",
+          "label": "Twitter",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "facebook",
+          "label": "Facebook",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "linkedin",
+          "label": "LinkedIn",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "vimeo",
+          "label": "Vimeo",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "youtube",
+          "label": "Youtube",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "tiktok",
+          "label": "Tiktok",
+          "default": true
+        },
+        {
+            "type": "header",
+            "content": "Styling"
+        },
+        {
+            "type": "range",
+            "id": "font_size",
+            "label": "Font size",
+            "min": 12,
+            "max": 20,
+            "step": 1,
+            "unit": "px",
+            "default": 14
+        },
+        {
+            "type": "select",
+            "id": "font_weight",
+            "label": "Font weight",
+            "options": [
+                {
+                    "value": "inherit",
+                    "label": "Defafult"
+                },
+                {
+                    "value": "100",
+                    "label": "Light"
+                },
+                {
+                    "value": "400",
+                    "label": "Normal"
+                },
+                {
+                    "value": "700",
+                    "label": "Bold"
+                },
+                {
+                    "value": "900",
+                    "label": "Bolder"
+                }
+            ],
+            "default": "inherit"
+        },
+        {
+            "type": "color",
+            "id": "color",
+            "label": "Text color",
+            "default": "#ffffff"
+        },
+        {
+            "type": "color",
+            "id": "bcolor",
+            "label": "Background color",
+            "default": "#000000"
+        },
+        {
+            "type": "image_picker",
+            "id": "hn_bi",
+            "label": "Background image"
+        },
+        {
+          "type": "checkbox",
+          "id": "bright_glass",
+          "label": "Bright glass",
+          "default": false
+        }
+    ],
+    "blocks": [
+        {
+            "type": "custom_text",
+            "name": "Custom text",
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Layout"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "auto_width",
+                    "label": "Auto width",
+                    "default": true
+                },
+                {
+                    "type": "range",
+                    "id": "width",
+                    "label": "Width",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "default": 100
+                },
+                {
+                    "type": "checkbox",
+                    "id": "hide_mobile",
+                    "label": "Hide on mobile",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "align_right",
+                    "label": "Right align",
+                    "default": false
+                },
+                {
+                    "type": "header",
+                    "content": "Content"
+                },
+                {
+                    "type": "richtext",
+                    "id": "rich_text",
+                    "label": "Your text"
+                }
+            ]
+        },
+        {
+          "type": "button",
+          "name": "Button",
+          "settings": [
+              {
+                  "type": "header",
+                  "content": "Layout"
+              },
+              {
+                "type": "checkbox",
+                "id": "auto_width",
+                "label": "Auto width",
+                "default": true
+              },
+              {
+                  "type": "range",
+                  "id": "width",
+                  "label": "Width",
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "unit": "%",
+                  "default": 100
+              },
+              {
+                "type": "checkbox",
+                "id": "hide_mobile",
+                "label": "Hide on mobile",
+                "default": false
+            },
+              {
+                  "type": "checkbox",
+                  "id": "align_right",
+                  "label": "Right align",
+                  "default": false
+              },
+              {
+                  "type": "header",
+                  "content": "Content"
+              },
+              {
+                  "type": "text",
+                  "id": "text",
+                  "label": "Button text",
+                  "default": "SHOP NOW"
+              },
+              {
+                "type": "url",
+                "id": "url",
+                "label": "Button link",
+                "default": "/collections/all"
+              },
+              {
+                "type": "header",
+                "content": "Styling"
+              },
+              {
+                "type": "select",
+                "id": "button_type",
+                "label": "Button type",
+                "options": [
+                  {
+                    "value": "classic",
+                    "label": "Classic"
+                  },
+                  {
+                    "value": "modern",
+                    "label": "Modern"
+                  }
+                ],
+                "default": "modern"
+              }
+          ]
+        }
+    ]
+}
+
+{% endschema %}
